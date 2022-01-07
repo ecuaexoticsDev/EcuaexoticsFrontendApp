@@ -1,0 +1,37 @@
+<div class="">
+    <h2>Registrar Control Calidad</h2>
+    <div class="row justify-content-md-center">
+        <div class="col-md-6">
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1">Observación</label>
+                <textarea class="form-control mt-2" rows="3" [formControl]="txtInputObservacion"></textarea>
+            </div>
+            <div class="form-group mt-2">
+                <label for="exampleFormControlTextarea1">Cargar Imágenes</label>
+                <div class="row p-1" *ngFor="let fileData of listFileImage; index as fi">
+                    <div class="col-9" *ngIf="fileData.state">
+                        <p>
+                            <a>{{ fileData.name }}</a>
+                        </p>
+                    </div>
+                    <div class="col-2" *ngIf="fileData.state">
+                        <fa-icon class="field-icon" [icon]="faMinusCircle" (click)="removeFileFromList(fi)"></fa-icon>
+                    </div>
+                </div>
+                <div class="mt-2">
+                    <div class="upload-btn-wrapper" (change)="onChangefileSeleted($event)">
+                        <button class="btn1">
+              <span>Subir imagen</span> <fa-icon [icon]="faUpload"></fa-icon>
+            </button>
+                        <input type="file" accept="image/*" capture name="myfile" />
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button (click)="saveControl()" nz-button nzType="primary" [disabled]="txtInputObservacion.value.length > 5 ? false : true">
+          Guardar Control
+        </button>
+            </div>
+        </div>
+    </div>
+</div>

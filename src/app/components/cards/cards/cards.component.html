@@ -1,0 +1,75 @@
+<div class="card-columns m-5  animated fadeIn ">
+
+    <div class="card puntero" style="width: 14rem;">
+        <img src="../../../../assets/img/pallet.png" (click)="verItems()" class=" card-img-top " height="150px " alt="... ">
+        <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-success ">
+            {{cajas.length}}
+        </span>
+        <div class="card-body">
+            <h5 class="card-title">
+                Pallet # {{id+1}}
+            </h5>
+        </div>
+        <div class="card-footer bg-transparent ">
+            <p class="card-text text-center">
+                <a class="btn btn-primary" (click)="showModal()">Agregar Item</a>
+            </p>
+        </div>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]=null (nzOnCancel)="handleCancel()">
+    <ng-container *nzModalContent>
+        <h1>Agregar Item al Pallet # {{id+1}}</h1>
+        <form nz-form [formGroup]="palletForm" (ngSubmit)="submitForm()">
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Productor </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor seleccione el Productor">
+
+                    <nz-select nzPlaceHolder="Productores" formControlName="productor" (ngModelChange)="cargarTipoCajas($event)">
+                        <nz-option *ngFor="let item of productores" [nzValue]="item" [nzLabel]="item.nombre + ' ' + item.apellido"></nz-option>
+                    </nz-select>
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Tipo de Caja </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor seleccione el tipo de caja">
+
+                    <nz-select nzPlaceHolder="Tipo de Cajas" formControlName="tipo_caja" (ngModelChange)="cargarCalibres($event)">
+                        <nz-option *ngFor="let item of tiposCaja" [nzValue]="item" [nzLabel]="item"></nz-option>
+                    </nz-select>
+
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Calibre </nz-form-label>
+
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingresa el calibre">
+
+                    <nz-select nzPlaceHolder="Calibres Disponibles" formControlName="calibre" (ngModelChange)="cargarInventario($event)">
+                        <nz-option *ngFor="let item of calibres" [nzValue]="item" [nzLabel]="item"></nz-option>
+                    </nz-select>
+
+                </nz-form-control>
+
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Número de Cajas </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingresa el número (No exceder el limite)">
+                    <input placeholder="Maximo Disponible {{inventario}}" type="number" min="0" max="{{inventario}}" width="50px" nz-input formControlName="num_cajas" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item nz-row>
+                <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
+                    <button [disabled]="palletForm.invalid || palletForm.controls['num_cajas'].value >inventario" nz-button nzType="primary">Agregar</button>
+                </nz-form-control>
+            </nz-form-item>
+
+        </form>
+    </ng-container>
+</nz-modal>

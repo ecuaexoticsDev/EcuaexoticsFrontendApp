@@ -1,0 +1,50 @@
+<div class="row justify-content-md-center mt-2">
+    <h2 class="text-center">Bitácora - Ingreso de Gavetas</h2>
+    <div class="col text-center">
+        <br />
+        <form [formGroup]="bitacoraForm" class="text-center">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <h5 class="tex-center">Productor</h5>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                        <nz-select nzPlaceHolder="Productores" formControlName="productor">
+                            <nz-option *ngFor="let item of productores" [nzValue]="item" [nzLabel]="item.nombre + ' ' + item.apellido"></nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <h5 class="tex-center">Tipo de Pitahaya</h5>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                        <nz-select nzPlaceHolder="Pitahaya" formControlName="pitajaya">
+                            <nz-option *ngFor="let item of tiposPitajaya" [nzValue]="item" [nzLabel]="item"></nz-option>
+                        </nz-select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-md-6 d-flex justify-content-end">
+                        <h5 class="tex-center">Nº de gavetas</h5>
+                    </div>
+                    <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="gavetas" style="width: 200px" class="tex-center form-control" nz-input placeholder="Total Gavetas" type="tel" />
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    &nbsp; &nbsp;
+    <div class="col-md-10 text-center" id="div-button-bodega">
+        <button id="btn-bodega" [disabled]="bitacoraForm.invalid" nz-button nzShape="round" nzType="primary" (click)="guardar()">
+      Guardar
+    </button>
+    </div>
+</div>

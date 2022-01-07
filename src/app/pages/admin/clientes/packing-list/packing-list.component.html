@@ -1,0 +1,155 @@
+<div class="row mt-2  text-center">
+    <div class="col-md-12">
+        <h2>Packing List</h2>
+    </div>
+</div>
+
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+
+<div class="row text-center" *ngIf="!cargando">
+    <div class="col-4">
+        <div class="card" style="width: 18rem;">
+            <img src="../../../../../assets/img/user.png" class="card-img-top ">
+            <div class="card-body ">
+                <h5 class="card-title ">Datos del Cliente</h5>
+                <hr>
+                <h5 class="card-text ">Consignee: <small class="text-muted ">{{cliente.nombre}}</small></h5>
+                <h5 class="card-text ">Adress:<small class="text-muted ">{{cliente.direccion}}</small></h5>
+                <h5 class="card-text ">Email: <small class="text-muted ">{{cliente.email}}</small></h5>
+                <h5 class="card-text ">Phone: <small class="text-muted ">{{cliente.telefono}}</small></h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 ">
+        <div class="card" style="width: 20rem;">
+            <img src="../../../../../assets/img/envio.webp" class="card-img-top ">
+            <div class="card-body ">
+                <h5 class="card-title ">Datos de Envio</h5>
+                <hr>
+                <h5 class="card-text ">Destination: <small class="text-muted ">{{cliente.direccion}}</small></h5>
+                <h5 class="card-text ">Sent From:<small class="text-muted "> SBD Cia Ltda</small></h5>
+                <h5 class="card-text ">FDA: <small class="text-muted ">12758155112</small></h5>
+                <h5 class="card-text ">Packed: <small class="text-muted "> Ecuaexotics Km. 61 Via a la Costa </small></h5>
+                <h5 class="card-text ">Notify: <small class="text-muted ">{{cliente.telefono}}</small></h5>
+                <h5 class="card-text ">Notify Address: <small class="text-muted ">{{cliente.notify_address}}</small></h5>
+            </div>
+        </div>
+    </div>
+    <div class="col-4 ">
+        <div class="card" style="width: 30rem;">
+            <div class="card-body">
+                <h5 class="card-title">Datos Requeridos</h5>
+                <form nz-form [formGroup]="packForm" nzLayout='horizontal' (ngSubmit)="submitForm()">
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired>Shipping Date</nz-form-label>
+                        <nz-form-control [nzSpan]="14" nzErrorTip="Por favor complete el campo">
+                            <nz-date-picker formControlName="shippingDate"></nz-date-picker>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired>Fact </nz-form-label>
+                        <nz-form-control [nzSpan]="14" nzErrorTip="Por favor complete el campo">
+                            <input placeholder="{{packing.factura_num}}" type="number" width="50px" nz-input formControlName="fact">
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired>Packing List No</nz-form-label>
+                        <nz-form-control [nzSpan]="22" nzErrorTip="Por favor complete el campo">
+                            <input placeholder="{{packing.packing_num}}" type="number" width="50px" nz-input formControlName="packingNo">
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired>Carrier </nz-form-label>
+                        <nz-form-control [nzSpan]="14" nzErrorTip="Por favor complete el campo">
+                            <input placeholder="{{packing.linea_area}}" type="text" width="50px" nz-input formControlName="airline">
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired>AWB/BL </nz-form-label>
+                        <nz-form-control [nzSpan]="14" nzErrorTip="Por favor complete el campo">
+                            <input placeholder="{{packing.awb}}" type="text" width="50px" nz-input formControlName="awb">
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item>
+                        <nz-form-label [nzSpan]="12" nzRequired>Special Information </nz-form-label>
+                        <nz-form-control [nzSpan]="14" nzErrorTip="Por favor complete el campo">
+                            <textarea placeholder="{{packing.informacion_extra}}" type="text" width="200px" nz-input formControlName="info"></textarea>
+                        </nz-form-control>
+                    </nz-form-item>
+                    <nz-form-item nz-row>
+                        <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
+                            <button [disabled]="packForm.invalid" nzShape="round" nzSize="default" nz-button nzType="primary">
+                             Asignar Datos
+                            </button>
+                        </nz-form-control>
+                    </nz-form-item>
+
+                </form>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+<br>
+<br>
+<div class="row justify-content-md-center" *ngIf="!cargando">
+    <div class="col-md-12">
+        <h2>Items Asignados</h2>
+    </div>
+    <div class="col-lg-8 col-xlg-9 col-md-7 ">
+        <div class="card-container">
+            <nz-tabset>
+                <nz-tab nzTitle="Cajas 2.5Kg" style="border-color: rgb(223, 220, 220);">
+                    <nz-table #basicTable [nzData]="cajasPeq">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Tipo</th>
+                                <th class="text-center">Calibre</th>
+                                <th class="text-center">Cajas Totales</th>
+                                <th class="text-center">Peso Neto KG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of basicTable.data">
+                                <td> {{data.tipo_pitahaya}} </td>
+                                <td> {{data.calibre}} </td>
+                                <td> {{data.num_cajas}}</td>
+                                <td> {{data.num_cajas * 2.5}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+                <nz-tab nzTitle="Cajas 4.5Kg">
+                    <nz-table #cajasGrand [nzData]="cajasGrandes">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Tipo</th>
+                                <th class="text-center">Calibre</th>
+                                <th class="text-center">Cajas Totales</th>
+                                <th class="text-center">Peso Neto KG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of cajasGrand.data">
+                                <td> {{data.tipo_pitahaya}} </td>
+                                <td> {{data.calibre}} </td>
+                                <td> {{data.num_cajas}}</td>
+                                <td> {{data.num_cajas * 4.5}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+            </nz-tabset>
+        </div>
+    </div>
+</div>

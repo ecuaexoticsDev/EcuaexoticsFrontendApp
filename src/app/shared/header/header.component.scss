@@ -1,0 +1,50 @@
+.logo {
+    width: 120px;
+    height: 45px;
+    // background: white;
+    margin: 8px 24px 8px 0;
+    float: left;
+    text-align: center;
+}
+
+.user {
+    width: 120px;
+    height: 45px;
+    // background: white;
+    margin: 8px 24px 8px 0;
+    float: right;
+    text-align: center;
+}
+
+.logout {
+    width: 120px;
+    height: 45px;
+    // background: white;
+    //margin: 8px 24px 8px 0;
+    float: right;
+    text-align: center;
+}
+
+#img-logo {
+    height: 45px;
+    margin-top: -25px;
+}
+
+[nz-menu] {
+    line-height: 64px;
+}
+
+[nz-button] {
+    margin-top: 4px;
+    vertical-align: center;
+}
+
+nz-button-group [nz-button] {
+    margin-right: 0;
+}
+
+.avatar {
+    margin-top: 4px;
+    vertical-align: center;
+    background-color: goldenrod;
+}

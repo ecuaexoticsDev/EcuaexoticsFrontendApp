@@ -1,0 +1,116 @@
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 style="color: darkorange">Perfil Productor</h3>
+    </div>
+</div>
+
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!cargando">
+
+    <div class="col-lg-3 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body text-center justify-content-md-center">
+                <div class="m-t-30">
+                    <img src="../../../../../assets/img/user.png" class="rounded-circle" width="150" />
+                    <h4 class="card-title m-t-10">
+                        {{ productor.nombre + " " + productor.apellido }}
+                    </h4>
+                    <div class="row text-center justify-content-md-center">
+                        <br />
+                        <div class="col-4">
+                            <i nz-icon [nzType]="'setting'" [nzTheme]="'fill'"></i> Activo
+                        </div>
+                        <div class="col-4">
+                            {{ productor.activo == true ? "Sí" : "No" }}
+                            <i nz-icon [nzType]="tipoIcon" [nzTheme]="'twotone'" [nzTwotoneColor]="color"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr />
+            </div>
+            <div class="card-body">
+                <small class="fs-5"> Email <i class="fas fa-envelope"></i></small>
+                <h6 class="text-muted">{{ productor.email }}</h6>
+                <small class="p-t-30 db fs-5">
+          Teléfono <i class="fas fa-phone-alt"></i
+        ></small>
+                <h6 class="text-muted">{{ productor.telefono }}</h6>
+                <small class="p-t-30 db fs-5">
+          Dirección <i class="fas fa-map-marker-alt"></i
+        ></small>
+                <h6 class="text-muted">{{ productor.direccion }}</h6>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-xlg-9 col-md-7" *ngIf="!cargando">
+        <div class="card-container">
+            <nz-tabset>
+                <nz-tab nzTitle="Liquidaciones">
+                    <nz-table #liquidacion [nzData]="liquidaciones">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Estado</th>
+                                <th class="text-center">Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of liquidacion.data">
+                                <td>{{ data.calibrado.fecha | date: "shortDate" }}</td>
+                                <td>{{ data.calibrado.total }}</td>
+                                <td>
+                                    {{ data.calibrado.estado ? "Finalizado" : "Pendiente" }}
+                                </td>
+                                <td>
+                                    <a (click)="verLiquidacion(data)" class="edit">
+                                        <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                    </a>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <a *ngIf="data.calibrado.estado" (click)="generarDoc(data)" class="delete">
+                                        <i nz-icon nzType="download" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+                <nz-tab nzTitle="Gavetas">
+                    <nz-table #Gavetas nzBordered [nzData]="gavetas" [nzPageSize]="5" nzTableLayout="fixed">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Total</th>
+                                <th class="text-center">Reporte de Calidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of Gavetas.data">
+                                <td>{{ data.fecha | date: "shortDate" }}</td>
+                                <td>{{ data.num_gavetas }}</td>
+                                <td>
+                                    <a>
+                                        <i nz-icon nzType="audit" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="verReporte(data.id_bodega)">
+                    </i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+            </nz-tabset>
+        </div>
+    </div>
+</div>

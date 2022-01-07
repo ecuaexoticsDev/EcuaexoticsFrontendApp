@@ -1,0 +1,52 @@
+<div class="row mt-2">
+    <div class="col-md-10">
+        <h2>Calibrado por Productor</h2>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-md-10">
+        <nz-table #basicTable [nzData]="listOfData" nzBordered [nzData]="listOfData" [nzPageSize]="5" nzTableLayout="fixed">
+            <thead>
+                <tr>
+
+                    <th class="text-center">Productor</th>
+                    <th class="text-center">Gavetas</th>
+                    <th class="text-center">Fecha</th>
+                    <th class="text-center">Hora</th>
+                    <th class="text-center">Estado</th>
+                    <th class="text-center">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let data of basicTable.data">
+
+                    <td>
+                        {{ data.id_productor.nombre + " " + data.id_productor.apellido }}
+                    </td>
+                    <td>{{ data.num_gavetas }}</td>
+                    <td>{{ data.fecha | date: "shortDate" }}</td>
+                    <td>{{ data.fecha | date: "shortTime" }}</td>
+                    <td>{{ data.estado }}</td>
+                    <td class="text-center">
+                        <a *ngIf="data.estado == 'Bodega'"><i
+                nz-icon
+                nzType="container"
+                nzTheme="outline"
+                style="font-size: 20px; color: #08c"
+                (click)="goCalibre(data.id_bodega, 'crear')"
+              >
+              </i>
+            </a>
+                        <a *ngIf="data.estado == 'Calibrado'">
+                            <i nz-icon nzType="edit" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="goCalibre(data.id_bodega, 'editar')"></i>
+                        </a>
+                        <nz-divider *ngIf="data.estado == 'Calibrado'" nzType="vertical"></nz-divider>
+                        <a *ngIf="data.estado == 'Calibrado'">
+                            <i nz-icon nzType="control" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="goControl(data.id_bodega)"></i>
+                        </a>
+                    </td>
+                </tr>
+            </tbody>
+        </nz-table>
+    </div>
+</div>

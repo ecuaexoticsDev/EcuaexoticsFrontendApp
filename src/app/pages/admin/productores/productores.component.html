@@ -1,0 +1,156 @@
+<div class="row mt-2">
+    <div class="col-md-10">
+        <h2>Listado de Productores</h2>
+    </div>
+    <div class="col-md-2">
+        <button (click)="showModal()" nz-button nzShape="round" nzShape="round" nzType="primary" nzSize="large">  
+        Agregar Productor
+        <i nz-icon nzType="plus" nzTheme="outline"></i>
+    </button>
+    </div>
+</div>
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row justify-content-md-center" *ngIf="!cargando">
+    <div class="col-md-10">
+        <nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="5" nzTableLayout="fixed">
+            <thead>
+                <tr>
+                    <th class="text-center" nzWidth="10%">
+                        <nz-filter-trigger [(nzVisible)]="verBuscar" [nzActive]="searchValue.length > 0" [nzDropdownMenu]="menu">
+                            <i nz-icon nzType="search"></i>
+                        </nz-filter-trigger>
+                        Nombre</th>
+                    <th class="text-center" nzWidth="10%">Email</th>
+                    <th class="text-center" nzWidth="10%">Telefono</th>
+                    <th class="text-center" nzWidth="10%">Dirección</th>
+                    <th class="text-center" nzWidth="10%" [nzFilters]="filterprod" [nzFilterFn]="prodFilterFn">Activo</th>
+                    <th class="text-center" nzWidth="10%">Acción</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr class="text-center" *ngFor="let data of editRowTable.data">
+                    <ng-container *ngIf="!editCache[data.id_productor].edit; else editTemplate">
+                        <td>
+                            {{ data.nombre + " " + data.apellido }}
+                        </td>
+                        <td>{{ data.email }}</td>
+                        <td>{{ data.telefono }}</td>
+                        <td>{{ data.direccion }}</td>
+                        <td>{{ data.activo == true ? "Sí" : "No" }}</td>
+                        <td class="text-center">
+                            <a (click)="startEdit(data.id_productor)" class="edit">
+                                <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                            </a>
+                            <nz-divider nzType="vertical"></nz-divider>
+                            <a (click)="verUsuario(data.id_productor)" class=delete>
+                                <i nz-icon nzType="idcard" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                            </a>
+                        </td>
+                    </ng-container>
+
+                    <ng-template #editTemplate>
+                        <td>{{ data.nombre + " " + data.apellido }}</td>
+                        <td>
+                            <input #email type="text" nz-input [(ngModel)]="editCache[data.id_productor].data.email" />
+                        </td>
+                        <td>
+                            <input #telefono type="number" nz-input [(ngModel)]="editCache[data.id_productor].data.telefono" />
+                        </td>
+                        <td>
+                            <textarea #direccion type="text" nz-input [(ngModel)]="editCache[data.id_productor].data.direccion"></textarea>
+
+                        </td>
+                        <td>
+                            <nz-select [(ngModel)]="editCache[data.id_productor].data.activo">
+                                <nz-option [nzValue]=true nzType nzLabel="Sí"></nz-option>
+                                <nz-option [nzValue]=false type='boolean' nzLabel="No"></nz-option>
+                            </nz-select>
+                        </td>
+                        <td class="text-center">
+                            <a *ngIf="email.value.length!==0 && direccion.value.length!== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_productor)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?"><i
+                  nz-icon
+                  nzType="save"
+                  nzTheme="outline"
+                  style="font-size: 20px; color: #08c"
+                ></i>
+                            </a>
+
+                        </td>
+                    </ng-template>
+                </tr>
+            </tbody>
+        </nz-table>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+            <div class="ant-table-filter-dropdown">
+                <div class="search-box">
+                    <input type="text" nz-input placeholder="Search name" [(ngModel)]="searchValue" />
+                    <button nz-button nzSize="small" nzType="primary" (click)="search()" class="search-button">Search</button>
+                    <button nz-button nzSize="small" (click)="reset()">Reset</button>
+                </div>
+            </div>
+        </nz-dropdown-menu>
+    </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]=null (nzOnCancel)="handleCancel()">
+    <ng-container *nzModalContent>
+        <h1>Nuevo Productor</h1>
+        <form nz-form [formGroup]="prodForm" (ngSubmit)="submitForm()">
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Nombre </nz-form-label>
+
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un nombre">
+                    <input type="text" width="50px" nz-input formControlName="nombre" />
+                </nz-form-control>
+
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Apellido </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un apellido">
+                    <input type="text" width="50px" nz-input formControlName="apellido" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Email </nz-form-label>
+
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un email">
+                    <input type="text" width="50px" nz-input formControlName="email" />
+                </nz-form-control>
+
+            </nz-form-item>
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Dirección </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un direccion">
+                    <textarea type="text" width="50px" nz-input formControlName="direccion"></textarea>
+
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Teléfono</nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un teléfono">
+                    <input type="tel" width="50px" nz-input formControlName="telefono" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item nz-row>
+                <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
+                    <button [disabled]="prodForm.invalid" nz-button nzType="primary">Agregar</button>
+                </nz-form-control>
+            </nz-form-item>
+
+        </form>
+    </ng-container>
+</nz-modal>

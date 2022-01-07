@@ -1,0 +1,21 @@
+<nz-header>
+    <div class="logo">
+        <a [routerLink]="['/']">
+            <img src="assets/img/logo.png" alt="homepage" id="img-logo" class="img-fluid" />
+        </a>
+    </div>
+    <div class="logout">
+        <button nz-button nzType="primary" nzShape="round" (click)="logout()" [routerLink]="['/login']" routerLinkActive="router-link-active">
+      <i nz-icon></i>Cerrar Sesión
+    </button>
+    </div>
+    <div class="user d-flex justify-content-end">
+        <nz-avatar class="avatar" nzSize="large" nzText="{{ usuario.nombre }}"></nz-avatar>
+    </div>
+
+    <ul nz-menu nzTheme="dark" nzMode="horizontal">
+        <li nz-menu-item class="nav-item" *ngFor="let item of menuItems" [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <span class="active" aria-current="page"> {{ item.title }}</span>
+        </li>
+    </ul>
+</nz-header>

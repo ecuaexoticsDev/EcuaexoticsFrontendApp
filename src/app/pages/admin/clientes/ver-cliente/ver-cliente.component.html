@@ -1,0 +1,173 @@
+<div class="row page-titles">
+    <div class="col-md-5 align-self-center">
+        <h3 style="color: darkorange">Perfil Cliente</h3>
+    </div>
+</div>
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+
+<div class="row" *ngIf="!cargando">
+    <!-- Column -->
+    <div class="col-lg-3 col-xlg-3 col-md-5">
+        <div class="card">
+            <div class="card-body text-center justify-content-md-center">
+                <div class="m-t-30">
+                    <img src="../../../../../assets/img/user.png" class="rounded-circle" width="150" />
+                    <h4 class="card-title m-t-10">{{ cliente.nombre }}</h4>
+                    <div class="row text-center justify-content-md-center">
+                        <br />
+                        <div class="col-4">
+                            <i nz-icon [nzType]="'setting'" [nzTheme]="'fill'"></i> Activo
+                        </div>
+                        <div class="col-4">
+                            {{ cliente.activo == true ? "Sí" : "No" }}
+                            <i nz-icon [nzType]="tipoIcon" [nzTheme]="'twotone'" [nzTwotoneColor]="color"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <hr />
+            </div>
+            <div class="card-body">
+                <small class="fs-5">
+                  Email <i class="fas fa-envelope"></i> </small>
+                <h6 class="text-muted"> {{ cliente.email }}</h6>
+                <small class="p-t-30 db fs-5">
+                  Teléfono <i class="fas fa-phone-alt"></i></small>
+                <h6 class="text-muted"> {{ cliente.telefono }}</h6>
+                <small class="p-t-30 db fs-5">
+                  País <i class="fas fa-globe-americas"></i></small>
+                <h6 class="text-muted"> {{ cliente.pais }}</h6>
+                <small class=" p-t-30 db fs-5">
+                  Dirección <i class="fas fa-map-marker-alt"></i>
+                </small>
+                <h6 class="text-muted"> {{ cliente.direccion }}</h6>
+                <br />
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-9 col-xlg-9 col-md-7">
+        <div class="card-container">
+            <nz-tabset>
+                <nz-tab nzTitle="Packing List" style="border-color: rgb(223, 220, 220)">
+                    <nz-table #basicTable [nzData]="packingList">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Fecha de Envio</th>
+                                <th class="text-center">Destino</th>
+                                <th class="text-center">Peso Neto</th>
+                                <th class="text-center">Reporte Packing List</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of basicTable.data">
+                                <td>
+                                    {{ !data.fecha ? "Pendiente" : (data.fecha | date: "shortDate") }}
+                                </td>
+                                <td>{{ cliente.pais }}</td>
+                                <td>{{ data.total_peso }}</td>
+                                <td>
+                                    <a (click)="irPackingList(data)" class="edit">
+                                        <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                    </a>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <a *ngIf="data.estado" (click)="generarDocPacking(data.id_packing)" class="delete">
+                                        <i nz-icon nzType="download" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+                <nz-tab nzTitle="Invoice">
+                    <nz-table #invocetable [nzData]="invoice">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Fecha</th>
+                                <th class="text-center">Sub Total</th>
+                                <th class="text-center">Reporte Invoice</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of invocetable.data">
+                                <td>
+                                    {{ !data.fecha ? "Pendiente" : (data.fecha | date: "shortDate") }}
+                                </td>
+                                <td>{{ data.subtotal }}</td>
+                                <td>
+                                    <a (click)="irInvoce(data)" class="edit">
+                                        <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                    </a>
+                                    <nz-divider nzType="vertical"></nz-divider>
+                                    <a *ngIf="data.estado" (click)="generarDocInvoice(data.id_factura)" class="delete">
+                                        <i nz-icon nzType="download" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+                <nz-tab nzTitle="Direcciones">
+                    <h1>Actualizar Datos del Cliente</h1>
+                    <div>
+                        <form nz-form [formGroup]="clientForm" (ngSubmit)="submitForm()">
+                            <nz-form-item>
+                                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>País
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un país">
+                                    <input placeholder="{{ cliente.pais }}" type="text" nz-input formControlName="pais" />
+                                </nz-form-control>
+                            </nz-form-item>
+
+                            <nz-form-item>
+                                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Dirección
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un dirección">
+                                    <textarea placeholder="{{ cliente.direccion }}" type="text" width="50px" nz-input formControlName="direccion"></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+
+                            <nz-form-item>
+                                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Destino de la Orden
+                                </nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un destino">
+                                    <textarea placeholder="{{ cliente.destino_orden }}" type="text" width="50px" nz-input formControlName="destino_orden"></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+
+                            <nz-form-item>
+                                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Notify Address</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un direccion">
+                                    <textarea placeholder="{{ cliente.notify_address }}" type="text" width="50px" nz-input formControlName="notify_address"></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+                            <nz-form-item>
+                                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Notify</nz-form-label>
+                                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor complete el campo Notify">
+                                    <textarea placeholder="{{ cliente.notify }}" type="text" width="50px" nz-input formControlName="notify"></textarea>
+                                </nz-form-control>
+                            </nz-form-item>
+
+                            <nz-form-item nz-row>
+                                <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
+                                    <button [disabled]="clientForm.invalid" nzShape="round" nzSize="default" nz-button nzType="primary">
+                                    Actualizar Datos
+                                    </button>
+                                </nz-form-control>
+                            </nz-form-item>
+                        </form>
+                    </div>
+
+                </nz-tab>
+            </nz-tabset>
+        </div>
+    </div>
+</div>

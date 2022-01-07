@@ -1,0 +1,47 @@
+[nz-button] {
+  margin-right: 8px;
+  margin-bottom: 12px;
+}
+
+#btn_save_calibre {
+  background-color: #87d068;
+  color: white;
+  border-color: #87d068;
+}
+
+.div_cantidad {
+  min-width: 40px;
+  span {
+    font-weight: bold;
+    font-size: 1.4em;
+  }
+}
+
+#itCalibre {
+  font-size: 1.45em;
+}
+.btn_create_item {
+  background-color: #f50;
+  color: white;
+  border-color: #f50;
+}
+
+button {
+  width: 150px;
+  height: 38px;
+}
+
+.btn_resta {
+  width: 55px;
+  height: 55px;
+  margin-right: 2px;
+}
+.btn_suma {
+  width: 55px;
+  height: 55px;
+  margin-left: 2px;
+}
+
+fa-icon {
+  margin-left: 6px;
+}
