@@ -22,7 +22,7 @@ interface FileObject {
 })
 export class ControlCalidadComponent implements OnInit {
   listFileImage: FileObject[] = [];
-  urlBackend: string = 'https://ecuaexotics.pythonanywhere.com';
+ // urlBackend: string = 'https://ecuaexotics.pythonanywhere.com';
   faMinusCircle = faMinusCircle;
   faUpload = faUpload;
 
