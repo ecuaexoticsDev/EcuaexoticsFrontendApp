@@ -2,27 +2,32 @@
     <h2>Registro Calibre</h2>
     <div class="row justify-content-md-center">
         <div class="col-md-8">
-            <nz-tabset nzCentered>
+            <nz-tabset nzCentered nzSize='large' nzType='card'>
                 <div *ngFor="let caja of cajas; index as i">
-                    <nz-tab nzTitle="{{ caja.tipo_caja }}">
+                    <nz-tab [nzTitle]="titleTemplate">
+
+                        <ng-template #titleTemplate>
+                            <i nz-icon nzType="code-sandbox" nzTheme="outline" style="font-size: 42px;"></i> <b>{{ caja.tipo_caja }} kg</b>
+
+
+                        </ng-template>
+
                         <div class="row col-md-12">
                             <div *ngFor="let itemCalibre of caja.calibres" class="col-md-6">
                                 <div class="text-center mt-3">
                                     <h5>
-                                        <b id="itCalibre">{{ itemCalibre.calibre }}</b>
+                                        <b id="itCalibre">{{ itemCalibre.calibre  }} </b>
                                     </h5>
                                     <div class="d-flex flex-row justify-content-center">
-                                        <button type="button" class="btn btn-primary btn_resta" (click)="
-                        restarCalibre(caja.tipo_caja, itemCalibre.calibre)
-                      ">
+                                        <button type="button" class="btn btn-primary btn_resta" (click)="restarCalibre(caja.tipo_caja, itemCalibre.calibre)">
                       <i nz-icon nzType="minus-circle" nzTheme="outline"></i>
                     </button>
                                         <div class="
-                        div_cantidad
-                        d-flex
-                        justify-content-center
-                        align-items-center
-                      ">
+                                      div_cantidad
+                                      d-flex
+                                      justify-content-center
+                                      align-items-center
+                                       ">
                                             <span>{{ itemCalibre.cantidad }}</span>
                                         </div>
                                         <button type="button" class="btn btn-primary btn_suma" (click)="

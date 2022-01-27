@@ -4,10 +4,10 @@
 
 export const environment = {
   production: false,
-  base_url: 'https://ecuaexotics.pythonanywhere.com/api/',
-  // base_url: 'http://127.0.0.1:8000/api/',
-  backend_url: 'https://ecuaexotics.pythonanywhere.com/',
-  // backend_url: 'http://127.0.0.1:8000/',
+  base_url:  'http://127.0.0.1:8000/api/',
+  // base_url: 'https://ecuaexotics.pythonanywhere.com/api/',
+  backend_url: 'http://127.0.0.1:8000/',
+  // backend_url: 'https://ecuaexotics.pythonanywhere.com/',
 };
 
 /*

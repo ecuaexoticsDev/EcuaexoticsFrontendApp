@@ -16,6 +16,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
 import { NzLayoutModule } from 'ng-zorro-antd/layout';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzModalModule } from 'ng-zorro-antd/modal';
+import { NzTagModule } from 'ng-zorro-antd/tag';
 
 //modulos propietarios
 import { CalibradoRoutingModule } from './calibrado.routing';
@@ -47,6 +48,7 @@ import { ControlCalidadComponent } from './control-calidad/control-calidad.compo
     NzTabsModule,
     NzModalModule,
     FontAwesomeModule,
+    NzTagModule
   ],
 })
 export class CalibradoModule {}
