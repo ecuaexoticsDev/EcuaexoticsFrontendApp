@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Location } from '@angular/common';
 import { ActivatedRoute, Router } from '@angular/router';
 import { faMinusCircle, faUpload } from '@fortawesome/free-solid-svg-icons';
@@ -22,7 +22,6 @@ interface FileObject {
 })
 export class ControlCalidadComponent implements OnInit {
   listFileImage: FileObject[] = [];
-  urlBackend: string = 'https://ecuaexotics.pythonanywhere.com';
   faMinusCircle = faMinusCircle;
   faUpload = faUpload;
 
@@ -30,11 +29,23 @@ export class ControlCalidadComponent implements OnInit {
 
   txtInputObservacion: FormControl = this.getFormControl();
 
+  public reporteCalidadForm = this.fb.group({
+    rechazo: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
+    peso: [null, [Validators.required]],
+    lote: [null, [Validators.required, Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
+  })
+
+  // lista para mostar los motivos al usuario
+  public checkOptionsOne:any  = [];
+  // lista para argar los motivos de la base
+  public motivos: any = [];
+
   constructor(
     private servicioControlCalidad: ControlCalidadService,
     private router: Router,
     private route: ActivatedRoute,
-    private location: Location
+    private location: Location,
+    private fb: FormBuilder
   ) {}
 
   ngOnInit(): void {
@@ -43,6 +54,19 @@ export class ControlCalidadComponent implements OnInit {
         this.id_bodega = params['id_bodega'];
       }
     });
+    this.servicioControlCalidad.getmotivos().subscribe(
+      (resp:any) => {
+       
+        resp.forEach((element:any) => {
+          let motivo = {
+            label: `${element.detalle}`,
+            value: `${element.detalle}`,
+          }
+          this.checkOptionsOne.push(motivo);
+          this.motivos.push(element);
+        });
+      }
+    )
   }
 
   /**
@@ -72,10 +96,13 @@ export class ControlCalidadComponent implements OnInit {
     this.listFileImage[idx].state = false;
   }
 
+ 
   /**
    * guarda la info del control de calidad en la base
    */
   async saveControl() {
+    if (this.reporteCalidadForm.valid) {
+
     const confirmacion = await SolicitarConfirmacion(
       '¿Desea continuar con el registro de control de calidad?'
     );
@@ -87,9 +114,26 @@ export class ControlCalidadComponent implements OnInit {
         },
       });
 
+      //formamos la lista de motivos
+      let idMotivos: number[] = []
+      this.checkOptionsOne.forEach((element:any) => {
+        if(element.checked == true){
+         this.motivos.forEach( (motivo:any) => {
+             if( `${element.label}` === `${motivo.detalle}` ){
+              idMotivos.push(motivo.id_motivo)
+             }
+         });
+        }
+      });
       let dataControl = new FormData();
       dataControl.append('observacion', this.txtInputObservacion.value);
       dataControl.append('id_bodega', String(this.id_bodega));
+      // agregar peso , lote , gavetas agregar motivos.
+      dataControl.append('num_lote', this.reporteCalidadForm.get('lote')?.value);
+      dataControl.append('num_gav_rechazo', this.reporteCalidadForm.get('rechazo')?.value);
+      dataControl.append('peso_total', this.reporteCalidadForm.get('peso')?.value);
+      dataControl.append('motivos', String(idMotivos));
+
       let cant = 0;
       for (const item of this.listFileImage) {
         if (item.state) {
@@ -99,8 +143,12 @@ export class ControlCalidadComponent implements OnInit {
         }
       }
       dataControl.append('cantidad', String(cant));
-      this.servicioControlCalidad.guardarControl(dataControl).subscribe(
+      
+      
+        this.servicioControlCalidad.guardarControl(dataControl).subscribe(
+         
         (resp: any) => {
+         
           Swal.fire(resp.message, '', 'success');
           this.location.back();
         },
@@ -111,7 +159,10 @@ export class ControlCalidadComponent implements OnInit {
             text: JSON.stringify(error),
           });
         }
-      );
+      ); 
+      
     }
+
+  }
   }
 }

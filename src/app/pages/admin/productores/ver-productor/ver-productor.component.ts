@@ -146,6 +146,7 @@ export class VerProductorComponent implements OnInit {
    * @param id id del reporte para descargarlo
    */
   async verReporte(id: number) {
+    console.log(id);
     const productor = this.productor.nombre + ' ' + this.productor.apellido;
     Swal.fire({
       title: 'Generando reporte de Control de calidad...',
@@ -165,8 +166,10 @@ export class VerProductorComponent implements OnInit {
               stack: [
                 reportControl.HeaderControl(),
                 reportControl.DetailControl(control, productor),
+                reportControl.causasRechazo(control),
                 reportControl.infoObservacion(control),
                 reportControl.LoadImages(control),
+               
               ],
               margin: [0, 0, 0, 0],
             },
