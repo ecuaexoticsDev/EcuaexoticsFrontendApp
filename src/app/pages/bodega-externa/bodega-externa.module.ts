@@ -18,6 +18,8 @@ import { NzLayoutModule } from 'ng-zorro-antd/layout';
 
 import { CrearBitacoraComponent } from './crear-bitacora/crear-bitacora.component';
 import { VerBitacorasComponent } from './ver-bitacoras/ver-bitacoras.component';
+// Icon FontAwesome
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 @NgModule({
   declarations: [CrearBitacoraComponent, VerBitacorasComponent],
@@ -37,6 +39,7 @@ import { VerBitacorasComponent } from './ver-bitacoras/ver-bitacoras.component';
     NzIconModule,
     NzSelectModule,
     NzLayoutModule,
+    FontAwesomeModule
   ],
 })
 export class BodegaExternaModule {}
