@@ -143,7 +143,7 @@
                             
                                 <span>Subir factura</span> <fa-icon [icon]="faUpload"></fa-icon>
                          </button>
-                        <input type="file" (change)="getImagen($event)">
+                        <input type="file" accept="image/*" capture name="myfile" (change)="getImagen($event)">
                     </div>
                 </div>
             </div>
