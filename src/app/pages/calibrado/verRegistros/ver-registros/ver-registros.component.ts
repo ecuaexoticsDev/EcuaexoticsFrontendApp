@@ -24,7 +24,13 @@ export class VerRegistrosComponent implements OnInit {
  */
   cargarRegistros() {
     this.calibradoService.cargarCalibrado().subscribe((resp: any) => {
-      this.listOfData = resp;
+      resp.forEach( (calibrado:any) => {
+        
+        if (calibrado.estado ==="Bodega") { 
+          this.listOfData.push(calibrado);
+        }
+      });
+      
     });
   }
 /**

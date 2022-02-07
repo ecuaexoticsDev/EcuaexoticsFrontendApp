@@ -55,6 +55,7 @@ export class CrearBitacoraComponent implements OnInit {
           Validators.pattern(/^-?(0|[1-9]\d*)?$/),
         ]
       ],
+      personal:[null,[ Validators.required,Validators.minLength(1)]],
       kgReportados : [ null, [
         Validators.required,
         Validators.minLength(1),
@@ -124,6 +125,7 @@ export class CrearBitacoraComponent implements OnInit {
       dataControl.append('tipo_pitahaya', this.bitacoraForm.get('pitajaya')?.value);
       dataControl.append('placa_camion', this.bitacoraForm.get('placas')?.value);
       dataControl.append('nombre_chofer', this.bitacoraForm.get('nombreChofer')?.value);
+      dataControl.append('personal_descarga', this.bitacoraForm.get('personal')?.value);
       dataControl.append('guia_remision', this.bitacoraForm.get('numGuia')?.value);
       dataControl.append('kg_recibidos', this.bitacoraForm.get('kgRecibidos')?.value);
       dataControl.append('kg_reportados', this.bitacoraForm.get('kgReportados')?.value);

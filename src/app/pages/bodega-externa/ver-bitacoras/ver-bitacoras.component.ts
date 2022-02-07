@@ -29,6 +29,7 @@ export class VerBitacorasComponent implements OnInit {
    */
   cargarRegistros() {
     this.bodegaExterna.cargarBodega().subscribe((resp: any) => {
+      console.log(resp);
       this.listOfData = resp;
       this.updateEditCache();
     });
@@ -51,7 +52,9 @@ export class VerBitacorasComponent implements OnInit {
     const index = this.listOfData.findIndex((item) => item.id_bodega === data.id_bodega);
     const idBodega = this.listOfData[index].id_bodega
     const gavetas = this.editCache[data.id_bodega].data.num_gavetas
-    this.bodegaExterna.actualizarGavetas(idBodega,gavetas ).subscribe(
+    const kg_reportados = this.editCache[data.id_bodega].data.kg_reportados
+    const kg_recibidos = this.editCache[data.id_bodega].data.kg_recibidos
+    this.bodegaExterna.actualizarGavetas(idBodega,gavetas,kg_reportados,kg_recibidos).subscribe(
         (resp:any)=>{
           Swal.fire('Actualización Exitosa', 'Número de Gavetas Actualizado', 'success');
           const index = this.listOfData.findIndex((item) => item.id_bodega === data.id_bodega);

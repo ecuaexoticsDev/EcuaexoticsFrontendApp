@@ -22,10 +22,12 @@ export class BodegaExternaService {
     return this.http.post(url, data);
   }
 
-  actualizarGavetas(id_bodega: number, num_gavetas: number){
+  actualizarGavetas(id_bodega: number, num_gavetas: number, kg_reportados: number, kg_recibidos: number){
     const url = `${base_url}bodega/actualizar_bitacora/${id_bodega}/`;
     const data = {
-      'num_gavetas': num_gavetas
+      'num_gavetas': num_gavetas,
+      'kg_reportados': kg_reportados,
+      'kg_recibidos': kg_recibidos
     }
     return this.http.put(url,data);
   }

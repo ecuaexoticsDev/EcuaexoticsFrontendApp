@@ -30,8 +30,9 @@ export class ControlCalidadComponent implements OnInit {
   txtInputObservacion: FormControl = this.getFormControl();
 
   public reporteCalidadForm = this.fb.group({
-    rechazo: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
-    peso: [null, [Validators.required]],
+    rechazo: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    vacias: [0, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    peso: [null, [Validators.required,Validators.minLength(1),Validators.pattern(/^(\d*\.)?\d+$/)]],
     lote: [null, [Validators.required, Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
   })
 
@@ -131,6 +132,7 @@ export class ControlCalidadComponent implements OnInit {
       // agregar peso , lote , gavetas agregar motivos.
       dataControl.append('num_lote', this.reporteCalidadForm.get('lote')?.value);
       dataControl.append('num_gav_rechazo', this.reporteCalidadForm.get('rechazo')?.value);
+      dataControl.append('gav_vacias', this.reporteCalidadForm.get('vacias')?.value);
       dataControl.append('peso_total', this.reporteCalidadForm.get('peso')?.value);
       dataControl.append('motivos', String(idMotivos));
 
