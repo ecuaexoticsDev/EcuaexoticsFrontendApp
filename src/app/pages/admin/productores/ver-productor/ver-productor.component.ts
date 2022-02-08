@@ -12,6 +12,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 import * as reportStrcuture from 'src/app/reports/estructuraLiquidacion';
 import * as reportControl from 'src/app/reports/estructuraControlCalidad';
+import * as reportBitacora from 'src/app/reports/estructuraBitacora';
 import { ControlCalidadService } from 'src/app/services/controlCalidad/control-calidad.service';
 
 @Component({
@@ -156,6 +157,7 @@ export class VerProductorComponent implements OnInit {
     });
 
     this.controlService.getControl(id).subscribe(
+     
       async (control: any) => {
         console.log(control);
         await this.delay(1000);
@@ -203,11 +205,41 @@ export class VerProductorComponent implements OnInit {
         bitacora = element
       }
     });
+    Swal.fire({
+      title: 'Generando Bitacora...',
+      didOpen: () => {
+        Swal.showLoading();
+      },
+    });
 
     this.controlService.getControl(id).subscribe(
-      (resp:any)=>{
+      async(controlCalidad:any)=>{
         console.log(bitacora);
-        console.log(resp);
+        console.log(controlCalidad);
+        await this.delay(1000);
+        let docDefinition: any = await {
+          pageSize: 'A4',
+          pageOrientation: 'portrait',
+          content: [
+            {
+              stack: [
+                reportBitacora.HeaderControl(),
+                reportBitacora.DetailControl(bitacora, productor,controlCalidad.gav_vacias,controlCalidad.num_gav_rechazo ),
+                reportBitacora.loadImage(bitacora)
+              ],
+              margin: [0, 0, 0, 0],
+            },
+          ],
+        };
+        Swal.close();
+        pdfMake.createPdf(docDefinition).download('Bitacora.pdf');
+      },(error) => {
+        Swal.close();
+        Swal.fire(
+          'Error',
+          'No ha sido posible genenerar el reporte solicitado',
+          'error'
+        );
       }
     )
   }
