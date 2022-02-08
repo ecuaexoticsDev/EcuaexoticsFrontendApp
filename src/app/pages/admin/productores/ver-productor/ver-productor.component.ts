@@ -148,6 +148,7 @@ export class VerProductorComponent implements OnInit {
    * @param id id del reporte para descargarlo
    */
   async verReporte(id: number) {
+  
     const productor = this.productor.nombre + ' ' + this.productor.apellido;
     Swal.fire({
       title: 'Generando reporte de Control de calidad...',
@@ -155,11 +156,9 @@ export class VerProductorComponent implements OnInit {
         Swal.showLoading();
       },
     });
-
+  
     this.controlService.getControl(id).subscribe(
-     
-      async (control: any) => {
-        console.log(control);
+      async (control: any) => {  
         await this.delay(1000);
         let docDefinition: any = await {
           pageSize: 'A4',
@@ -214,8 +213,6 @@ export class VerProductorComponent implements OnInit {
 
     this.controlService.getControl(id).subscribe(
       async(controlCalidad:any)=>{
-        console.log(bitacora);
-        console.log(controlCalidad);
         await this.delay(1000);
         let docDefinition: any = await {
           pageSize: 'A4',

@@ -60,7 +60,7 @@ const ImgLogo = () => {
         {
           text: [
             { text: 'Fecha: ', bold: true },
-            { text: controlObject.fecha+ '\n\n' },
+            { text: controlObject.fecha.split('T')[0] +' '+ controlObject.fecha.split('T')[1].split('.')[0] + '\n\n' },
           ],
         },
         {
@@ -142,6 +142,12 @@ const ImgLogo = () => {
         },
         {
           text: [
+            { text: 'Nº Guía de Remisión: ', bold: true },
+            { text: controlObject.guia_remision + '\n\n'},
+          ],
+        },
+        {
+          text: [
             { text: 'Nº Sello de Ingreso: ', bold: true },
             { text: controlObject.num_sello_ingreso + '\n\n'},
           ],
@@ -160,11 +166,17 @@ const ImgLogo = () => {
   };
 
   export const loadImage = (controlObject: any) => {
+      if (controlObject.img_factura== null) {
+          return;
+      }
       return {
         stack:[
             {
-        
+              image: controlObject.img_factura,
+              width: 250,
+              alignment: 'center',
             }
-        ]
+        ],
+        width: '80%',
       }
   };
