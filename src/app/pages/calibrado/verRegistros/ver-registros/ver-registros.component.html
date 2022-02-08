@@ -3,7 +3,17 @@
         <h2>Calibrado por Productor</h2>
     </div>
 </div>
-<div class="row justify-content-md-center">
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+<br>
+<div class="row justify-content-md-center" *ngIf="!cargando">
     <div class="col-md-10">
         <nz-table #basicTable [nzData]="listOfData" nzBordered [nzData]="listOfData" [nzPageSize]="5" nzTableLayout="fixed">
             <thead>

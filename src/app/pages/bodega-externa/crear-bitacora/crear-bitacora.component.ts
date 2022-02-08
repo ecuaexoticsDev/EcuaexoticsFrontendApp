@@ -63,9 +63,6 @@ export class CrearBitacoraComponent implements OnInit {
       kgRecibidos: [ null, [Validators.required,
         Validators.minLength(1),
         Validators.pattern(/^(\d*\.)?\d+$/)]],
-      numSeSa: [ null, [Validators.required,
-      Validators.minLength(1),
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
       numSeIn: [ null,  [Validators.required,
       Validators.minLength(1),
       Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
@@ -130,7 +127,7 @@ export class CrearBitacoraComponent implements OnInit {
       dataControl.append('kg_recibidos', this.bitacoraForm.get('kgRecibidos')?.value);
       dataControl.append('kg_reportados', this.bitacoraForm.get('kgReportados')?.value);
       dataControl.append('num_sello_ingreso', this.bitacoraForm.get('numSeIn')?.value);
-      dataControl.append('num_sello_salida', this.bitacoraForm.get('numSeSa')?.value);
+      dataControl.append('num_sello_salida', '000');
       dataControl.append('num_factura_chofer', this.bitacoraForm.get('numGuia')?.value);
       //enviar id productor y usuario
       dataControl.append('id_productor', this.bitacoraForm.get('productor')?.value.id_productor);

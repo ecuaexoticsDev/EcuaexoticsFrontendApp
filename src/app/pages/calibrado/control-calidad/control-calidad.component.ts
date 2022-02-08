@@ -7,6 +7,7 @@ import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
 import { ControlCalidadService } from 'src/app/services/controlCalidad/control-calidad.service';
 
 import Swal from 'sweetalert2';
+import { BodegaExternaService } from '../../../services/bodegaExterna/bodega-externa.service';
 
 interface FileObject {
   idFile: any;
@@ -34,6 +35,7 @@ export class ControlCalidadComponent implements OnInit {
     vacias: [0, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     peso: [null, [Validators.required,Validators.minLength(1),Validators.pattern(/^(\d*\.)?\d+$/)]],
     lote: [null, [Validators.required, Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
+    numSeSa: [ null, [Validators.required,Validators.minLength(1), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
   })
 
   // lista para mostar los motivos al usuario
@@ -46,7 +48,8 @@ export class ControlCalidadComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private location: Location,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private bodegaService: BodegaExternaService
   ) {}
 
   ngOnInit(): void {
@@ -100,6 +103,9 @@ export class ControlCalidadComponent implements OnInit {
  
   /**
    * guarda la info del control de calidad en la base
+   *  numSeSa: [ '000', [
+      Validators.minLength(1),
+      Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
    */
   async saveControl() {
     if (this.reporteCalidadForm.valid) {
@@ -145,23 +151,35 @@ export class ControlCalidadComponent implements OnInit {
         }
       }
       dataControl.append('cantidad', String(cant));
-      
-      
-        this.servicioControlCalidad.guardarControl(dataControl).subscribe(
+        this.bodegaService.actualizarSellos(this.id_bodega,this.reporteCalidadForm.get('numSeSa')?.value).subscribe(
+          (resp:any)=>{
+            this.servicioControlCalidad.guardarControl(dataControl).subscribe(
          
-        (resp: any) => {
-         
-          Swal.fire(resp.message, '', 'success');
-          this.location.back();
-        },
-        (error: any) => {
-          Swal.fire({
-            icon: 'error',
-            title: 'Error...',
-            text: JSON.stringify(error),
-          });
-        }
-      ); 
+              (resp: any) => {
+               
+                Swal.fire(resp.message, '', 'success');
+                this.location.back();
+              },
+              (error: any) => {
+                Swal.fire({
+                  icon: 'error',
+                  title: 'Error...',
+                  text: JSON.stringify(error),
+                });
+              }
+            ); 
+          },
+          (error:any)=>{
+            Swal.fire({
+              icon: 'error',
+              title: 'Error...',
+              text: JSON.stringify(error),
+            });
+          }
+          
+        )
+      
+       
       
     }
 

@@ -27,7 +27,7 @@ export class VerProductorComponent implements OnInit {
   public tipoIcon: string = '';
   public color: string = '';
   public liquidaciones: any[] = [];
-  public gavetas: any[] = [];
+  public bitacoras: any[] = [];
   public editCache: { [key: number]: { edit: boolean; data: any } } = {};
 
   constructor(
@@ -62,7 +62,7 @@ export class VerProductorComponent implements OnInit {
           this.color = 'red';
           this.tipoIcon = 'close-circle';
         }
-        this.cargarGavetas(this.productor.id_productor);
+        this.cargarBitacoras(this.productor.id_productor);
         this.cargarLiquidaciones(this.productor.id_productor);
       });
   }
@@ -71,11 +71,12 @@ export class VerProductorComponent implements OnInit {
    * carga las gavetas por productor
    * @param id_productor id del productor en la base
    */
-  cargarGavetas(id_productor: number) {
+   cargarBitacoras(id_productor: number) {
     this.bodegaExternaService
       .obtenerGavetasProductor(id_productor)
       .subscribe((resp: any) => {
-        this.gavetas = resp;
+        console.log(resp);
+        this.bitacoras = resp;
       });
   }
 
@@ -146,7 +147,6 @@ export class VerProductorComponent implements OnInit {
    * @param id id del reporte para descargarlo
    */
   async verReporte(id: number) {
-    console.log(id);
     const productor = this.productor.nombre + ' ' + this.productor.apellido;
     Swal.fire({
       title: 'Generando reporte de Control de calidad...',
@@ -157,6 +157,7 @@ export class VerProductorComponent implements OnInit {
 
     this.controlService.getControl(id).subscribe(
       async (control: any) => {
+        console.log(control);
         await this.delay(1000);
         let docDefinition: any = await {
           pageSize: 'A4',
@@ -188,4 +189,28 @@ export class VerProductorComponent implements OnInit {
       }
     );
   }
+
+  /**
+   * Descarga el Bitacora Digital
+   * @param id id de la bitacora para descargarla
+   */
+  
+  verBitacora(id: number){
+    const productor = this.productor.nombre + ' ' + this.productor.apellido;
+    let bitacora:any ;
+    this.bitacoras.forEach(element => {
+      if (element.id_bodega == id) {
+        bitacora = element
+      }
+    });
+
+    this.controlService.getControl(id).subscribe(
+      (resp:any)=>{
+        console.log(bitacora);
+        console.log(resp);
+      }
+    )
+  }
+
+
 }

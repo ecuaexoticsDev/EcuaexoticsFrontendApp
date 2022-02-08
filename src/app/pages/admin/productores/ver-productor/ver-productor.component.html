@@ -87,23 +87,34 @@
                         </tbody>
                     </nz-table>
                 </nz-tab>
-                <nz-tab nzTitle="Gavetas">
-                    <nz-table #Gavetas nzBordered [nzData]="gavetas" [nzPageSize]="5" nzTableLayout="fixed">
+                <nz-tab nzTitle="Bitacoras">
+                    <nz-table #Bitacoras nzBordered [nzData]="bitacoras" [nzPageSize]="5" nzTableLayout="fixed">
                         <thead>
                             <tr>
                                 <th class="text-center">Fecha</th>
-                                <th class="text-center">Total</th>
+                                <th class="text-center">Gavetas</th>
+                                <th class="text-center">Kg Reportados</th>
+                                <th class="text-center">Kg Recibidos</th>
                                 <th class="text-center">Reporte de Calidad</th>
+                                <th class="text-center">Bitacora de Recepción</th>
                             </tr>
                         </thead>
                         <tbody>
-                            <tr class="text-center" *ngFor="let data of Gavetas.data">
+                            <tr class="text-center" *ngFor="let data of Bitacoras.data">
                                 <td>{{ data.fecha | date: "shortDate" }}</td>
                                 <td>{{ data.num_gavetas }}</td>
+                                <td>{{ data.kg_reportados }}</td>
+                                <td>{{ data.kg_recibidos }}</td>
                                 <td>
                                     <a>
                                         <i nz-icon nzType="audit" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="verReporte(data.id_bodega)">
-                    </i>
+                                       </i>
+                                    </a>
+                                </td>
+                                <td>
+                                    <a>
+                                        <i nz-icon nzType="file-done" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="verBitacora(data.id_bodega)">
+                                       </i>
                                     </a>
                                 </td>
                             </tr>

@@ -32,10 +32,17 @@ export class BodegaExternaService {
     return this.http.put(url,data);
   }
 
+  actualizarSellos(id_bodega: number, num_sello_salida: string){
+    const url = `${base_url}bodega/actualizar_bitacora_sellos/${id_bodega}/`;
+    const data = {
+      'num_sello_salida': num_sello_salida,
+    }
+    return this.http.put(url,data);
+  }
+
  obtenerGavetasProductor(id_productor: number){
    const url = ApiBodega.obtener_bitacoras_by_productor+`${id_productor}/`
    return this.http.get(url);
-
  }
   
 }

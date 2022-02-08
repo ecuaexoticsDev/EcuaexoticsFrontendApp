@@ -3,7 +3,7 @@
     <br>
     <form [formGroup]="reporteCalidadForm" class="text-center">
         <div class="row">
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-6 d-flex justify-content-end">
                         <label>Nº de Gavetas Rechazo</label>
@@ -13,7 +13,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-6 d-flex justify-content-end">
                         <label>Nº de Gavetas Vacias</label>
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+            <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-6 d-flex justify-content-end">
                         <label class="tex-center">Peso Total</label>
@@ -33,7 +33,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-3">
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
                 <div class="row">
                     <div class="col-sm-6 d-flex justify-content-end">
                         <label class="tex-center">Nº Lote</label>
@@ -43,6 +47,17 @@
                     </div>
                 </div>
             </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <label class="tex-center">Nº Sello de Salida </label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="numSeSa" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Sello" type="tel" />
+                    </div>
+                </div>
+            </div>
+
         </div>
     </form>
     <br>

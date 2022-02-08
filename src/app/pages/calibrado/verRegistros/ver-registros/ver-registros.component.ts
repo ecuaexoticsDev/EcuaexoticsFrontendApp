@@ -10,7 +10,7 @@ import { CalibradoService } from '../../../../services/calibrado/calibrado.servi
 })
 export class VerRegistrosComponent implements OnInit {
   public listOfData: bodegaExterna[] = [];
-
+  public cargando = true;
   constructor(
     private calibradoService: CalibradoService,
     private router: Router
@@ -25,11 +25,11 @@ export class VerRegistrosComponent implements OnInit {
   cargarRegistros() {
     this.calibradoService.cargarCalibrado().subscribe((resp: any) => {
       resp.forEach( (calibrado:any) => {
-        
-        if (calibrado.estado ==="Bodega") { 
+        if (calibrado.estado ==="Bodega" || calibrado.estado ==="Calibrado" ) { 
           this.listOfData.push(calibrado);
         }
       });
+      this.cargando = false
       
     });
   }
