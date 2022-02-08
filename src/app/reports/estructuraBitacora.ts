@@ -13,7 +13,7 @@ const ImgLogo = () => {
       stack: [
         ImgLogo(),
         {
-          text: 'Control de Calidad',
+          text: 'Bitacora del Proceso',
           bold: true,
           fontSize: 16,
           margin: [0, 5, 0, 0],
