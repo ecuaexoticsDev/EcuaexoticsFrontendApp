@@ -25,10 +25,11 @@ import { CardsComponent } from './components/cards/cards/cards.component';
 
 // Reducers
 import { appReducers } from './store/app.reducers';
+
 registerLocaleData(es);
 
 @NgModule({
-  declarations: [AppComponent, NopagefoundComponent ],
+  declarations: [AppComponent, NopagefoundComponent,  ],
   imports: [
     BrowserModule,
     AppRoutingModule,

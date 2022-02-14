@@ -20,6 +20,11 @@ export class MenuService {
           icon: 'mdi mdi-gauge',
           path: 'bodega/ver-bitacoras',
         },
+        {
+          title: 'Recepcion Transporte',
+          icon: 'mdi mdi-gauge',
+          path: 'bodega/ver-transporte',
+        },
       ];
       this.menu = menuBodega;
     } else if (this.usuario?.rol === 'Operador_calibrado') {
@@ -56,6 +61,11 @@ export class MenuService {
           title: 'Productores',
           icon: 'mdi mdi-folder-lock-open',
           path: 'dashboard/productores',
+        },
+        {
+          title: 'Transporte',
+          icon: 'mdi mdi-folder-lock-open',
+          path: 'dashboard/transporte',
         },
       ];
       this.menu = menuAdmin;

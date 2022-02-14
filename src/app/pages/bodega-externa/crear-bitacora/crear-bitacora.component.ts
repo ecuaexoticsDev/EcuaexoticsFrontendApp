@@ -6,17 +6,10 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BodegaExternaService } from '../../../services/bodegaExterna/bodega-externa.service';
 import { Router } from '@angular/router';
 import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
-import { faMinusCircle, faUpload } from '@fortawesome/free-solid-svg-icons';
 import { LocalStorageService } from '../../../services/LocalStorage/local-storage.service';
 import { Usuario } from '../../../models/usuarios';
 
 
-interface FileObject {
-  idFile: any;
-  name: string;
-  file: File;
-  state: boolean;
-}
 @Component({
   selector: 'app-crear-bitacora',
   templateUrl: './crear-bitacora.component.html',
@@ -24,13 +17,10 @@ interface FileObject {
 })
 export class CrearBitacoraComponent implements OnInit {
 
-  faMinusCircle = faMinusCircle;
-  faUpload = faUpload;
   public productores: Productor[] = [];
   public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit'];
 
   public bitacoraForm!: FormGroup;
-  public listFileImage: FileObject[] = [];
   public factImg!: File;
   public id_usuario: number = 0
 
@@ -63,14 +53,6 @@ export class CrearBitacoraComponent implements OnInit {
       kgRecibidos: [ null, [Validators.required,
         Validators.minLength(1),
         Validators.pattern(/^(\d*\.)?\d+$/)]],
-      numSeIn: [ null,  [Validators.required,
-      Validators.minLength(1),
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-      nombreChofer: [null, [Validators.minLength(1),Validators.required] ],
-      placas: [null, Validators.required],
-      numGuia: [ null,  [Validators.required,
-      Validators.minLength(1),
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     });
 
     this.cargarIdUsuario();
@@ -120,20 +102,12 @@ export class CrearBitacoraComponent implements OnInit {
       dataControl.append('num_gavetas', this.bitacoraForm.get('gavetas')?.value);
       dataControl.append('estado','Bodega');
       dataControl.append('tipo_pitahaya', this.bitacoraForm.get('pitajaya')?.value);
-      dataControl.append('placa_camion', this.bitacoraForm.get('placas')?.value);
-      dataControl.append('nombre_chofer', this.bitacoraForm.get('nombreChofer')?.value);
       dataControl.append('personal_descarga', this.bitacoraForm.get('personal')?.value);
-      dataControl.append('guia_remision', this.bitacoraForm.get('numGuia')?.value);
       dataControl.append('kg_recibidos', this.bitacoraForm.get('kgRecibidos')?.value);
       dataControl.append('kg_reportados', this.bitacoraForm.get('kgReportados')?.value);
-      dataControl.append('num_sello_ingreso', this.bitacoraForm.get('numSeIn')?.value);
-      dataControl.append('num_sello_salida', '000');
-      dataControl.append('num_factura_chofer', this.bitacoraForm.get('numGuia')?.value);
       //enviar id productor y usuario
       dataControl.append('id_productor', this.bitacoraForm.get('productor')?.value.id_productor);
       dataControl.append('id_usuario', String(this.id_usuario));
-         //cargar las imagen
-      dataControl.append("img_factura", this.factImg);
     
       const confirmacion = await SolicitarConfirmacion(
         '¿Desea continuar con el registro de la bitácora?'

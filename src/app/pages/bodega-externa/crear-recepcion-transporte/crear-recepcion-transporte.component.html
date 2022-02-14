@@ -1,0 +1,119 @@
+<div class="row justify-content-md-center mt-2">
+    <h2 class="text-center">Bitacora - Transporte</h2>
+    <div class="col text-center">
+        <form [formGroup]="transporteForm" class="text-center">
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Chofer</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="nombreChofer" style="width: 200px" class="tex-center form-control" nz-input placeholder="Nombre" type="text" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Placa del Camion</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <nz-select nzPlaceHolder="Placas" formControlName="placas">
+                                <nz-option *ngFor="let item of listTransportes" [nzValue]="item" [nzLabel]="item.placa"></nz-option>
+                            </nz-select>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Nº Guia de Remisión</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="numGuia" style="width: 200px" class="tex-center form-control" nz-input placeholder="Guia" type="tel" />
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Nº de gavetas</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="gavetas" style="width: 200px" class="tex-center form-control" nz-input placeholder="Total Gavetas" type="tel" />
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Kg Totales</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="kgTotales" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Kg Totales" type="tel" />
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-4">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Nº Sello de Ingreso </h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="numSeIn" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Sello" type="tel" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <br>
+        </form>
+        <br>
+        <div class="row justify-content-md-center">
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label for="exampleFormControlTextarea1"><b> Productores Diponibles</b></label>
+                    <br>
+                    <br>
+                    <nz-checkbox-group [(ngModel)]="checkOptionsOne"></nz-checkbox-group>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div class="form-group mt-2">
+            <label for="exampleFormControlTextarea1"><b>Cargar Imágenes</b> </label>
+            <div class="row p-1" *ngFor="let fileData of listFileImage; index as fi">
+                <div class="col-9" *ngIf="fileData.state">
+                    <p>
+                        <a>{{ fileData.name }}</a>
+                    </p>
+                </div>
+                <div class="col-2" *ngIf="fileData.state">
+                    <fa-icon class="field-icon" [icon]="faMinusCircle" (click)="removeFileFromList(fi)"></fa-icon>
+                </div>
+            </div>
+            <div class="mt-2">
+                <div class="upload-btn-wrapper" (change)="onChangefileSeleted($event)">
+                    <button class="btn1">
+          <span>Subir imagen</span> <fa-icon [icon]="faUpload"></fa-icon>
+        </button>
+                    <input type="file" accept="image/*" capture name="myfile" />
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-3">
+            <button (click)="saveRecepcion()" nz-button nzType="primary" [disabled]="transporteForm.invalid">
+      Guardar Control
+    </button>
+        </div>
+
+    </div>
+
+</div>
