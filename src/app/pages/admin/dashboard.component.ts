@@ -24,7 +24,6 @@ export class DashboardComponent implements OnInit {
   cargarPalletizado(){
     this.palletizadoService.getPalletizado().subscribe(
       (resp:any)=>{
-        console.log(resp);
         this.palletizado = resp;
         this.cargando = false;
       }

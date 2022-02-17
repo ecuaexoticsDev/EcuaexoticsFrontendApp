@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { recepcionTransporte } from 'src/app/interfaces/recepcionTransporte';
+import Swal from 'sweetalert2';
+import { RecepcionTransService } from '../../../services/recepcion/recepcion-trans.service';
 
 @Component({
   selector: 'app-ver-recepcion-transporte',
@@ -10,7 +12,7 @@ export class VerRecepcionTransporteComponent implements OnInit {
 
   public listOfData: recepcionTransporte[] = [];
   public editCache: { [key: number]: { edit: boolean; data: recepcionTransporte } } = {};
-  constructor() {
+  constructor(private recepcionTransService: RecepcionTransService) {
     // agregar el servicio que me permita obtener las recepciones de los transportistas
    }
 
@@ -24,20 +26,15 @@ export class VerRecepcionTransporteComponent implements OnInit {
    * carga los registros de la base de datos
    */
    cargarRegistros() {
-    let data = {
-      id_recepcionTransporte: 1,
-      id_usuario: 1,
-      id_transportista: 1,
-      chofer: "Jorge Mendez",
-      fecha: new Date(),
-      num_gavetas: 200,
-      kg_totales: 100,
-      num_gavetas_enviadas: "323",
-      num_sello_ingreso: "3313",
-      num_sello_salida: "043",
-    }
-  this.listOfData.push(data);
-  this.updateEditCache();
+     this.recepcionTransService.ObtenerRecepciones().subscribe(
+      
+       (resp:any)=>{
+        console.log(resp);
+         this.listOfData = resp
+         this.updateEditCache();
+       }
+     )
+  
   }
 
    /**
@@ -54,10 +51,23 @@ export class VerRecepcionTransporteComponent implements OnInit {
      * actualizar sus datos
      */
     saveEdit(data: recepcionTransporte): void {
-      const index = this.listOfData.findIndex((item) => item.id_recepcionTransporte === data.id_recepcionTransporte);
-      const id_recepcionTransporte = this.listOfData[index].id_recepcionTransporte
-      const gavetas = this.editCache[data.id_recepcionTransporte].data.num_gavetas
-      const kg_totales = this.editCache[data.id_recepcionTransporte].data.kg_totales
+      const index = this.listOfData.findIndex((item) => item.id_recepcion_transporte === data.id_recepcion_transporte);
+      const id_recepcionTransporte = this.listOfData[index].id_recepcion_transporte
+      const gavetas = this.editCache[data.id_recepcion_transporte].data.num_gavetas
+      const kg_totales = this.editCache[data.id_recepcion_transporte].data.kg_totales
+     
+      this.recepcionTransService.actualizarRecepcion(id_recepcionTransporte ,gavetas  ,kg_totales).subscribe(
+        (resp:any)=>{
+          Swal.fire('Actualización Exitosa', '', 'success');
+          const index = this.listOfData.findIndex((item) => item.id_recepcion_transporte === data.id_recepcion_transporte);
+          Object.assign(this.listOfData[index], this.editCache[data.id_recepcion_transporte].data);
+          this.editCache[data.id_recepcion_transporte].edit = false;
+        }, (err)=>{
+          Swal.fire('Error', 'Sucedio un error, no se pudo actualizar el elemento', 'error');
+          this.editCache[data.id_recepcion_transporte].edit = false;
+         
+        },
+    );
 
     }
   
@@ -66,7 +76,7 @@ export class VerRecepcionTransporteComponent implements OnInit {
      */
     updateEditCache(): void {
       this.listOfData.forEach((item) => {
-        this.editCache[item.id_recepcionTransporte] = {
+        this.editCache[item.id_recepcion_transporte] = {
           edit: false,
           data: { ...item },
         };
@@ -78,7 +88,7 @@ export class VerRecepcionTransporteComponent implements OnInit {
      * @param id id del objeto para cancelar la edicion
      */
     cancelEdit(id: number): void {
-      const index = this.listOfData.findIndex(item => item.id_recepcionTransporte === id);
+      const index = this.listOfData.findIndex(item => item.id_recepcion_transporte === id);
       this.editCache[id] = {
         data: { ...this.listOfData[index] },
         edit: false

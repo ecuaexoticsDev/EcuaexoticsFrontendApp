@@ -3,9 +3,9 @@ import { Transporte } from "../models/transporte";
 import { Usuario } from "../models/usuarios";
 
 export interface recepcionTransporte {
-    id_recepcionTransporte: number;
+    id_recepcion_transporte: number;
     id_usuario: number;
-    id_transportista: number;
+    id_transporte: Transporte;
     chofer: string;
     fecha: Date;
     num_gavetas: number;

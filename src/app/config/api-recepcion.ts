@@ -5,5 +5,8 @@ const LINKROOT = environment.base_url;
 
 export const  ApiRecepcion = {
   crear_recepcion: LINKROOT + APIRECEPCION + 'recepcion_transporte/',
+  obtener_recepciones: LINKROOT + APIRECEPCION + 'range_date/',
+  update_recepcion: LINKROOT + APIRECEPCION + 'update_recepcion/',
+  obtener_recepciones_by_transporte: LINKROOT + APIRECEPCION + 'by_transporte/',
   
 };

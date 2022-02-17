@@ -71,9 +71,9 @@ export class TransporteComponent implements OnInit {
             (resp:any)=>{
               Object.assign(this.listOfTransporte[index], this.editCache[data.id_transporte].data);
               this.editCache[data.id_transporte].edit = false;
-              Swal.fire('Actualización Exitosa', 'Datos del Productor Actualizados', 'success');
+              Swal.fire('Actualización Exitosa', 'Datos del Transportista Actualizados', 'success');
             },(err)=>{
-              Swal.fire('Error', 'Sucedio un error, no se pudo actualizar el Productor', 'error');
+              Swal.fire('Error', 'Sucedio un error, no se pudo actualizar el Transportista', 'error');
               this.editCache[data.id_transporte].edit = false;
             },
           )
@@ -101,7 +101,7 @@ export class TransporteComponent implements OnInit {
    * @param id_usuario id del productor para mostrar su perfil
    */
   verUsuario(id_usuario: number){
-    //this.router.navigate(['/dashboard/productores/ver-productor/',id_usuario]);
+    this.router.navigate(['/dashboard/transporte/ver-transporte/',id_usuario]);
   }
 
   /**
@@ -109,22 +109,15 @@ export class TransporteComponent implements OnInit {
    * @param data datos del productor extraidos del formulario
    */
   crearProductor(data: Transporte){
-    this.listOfTransporte.forEach(element => {
-
-      if (element.cedula !== data.cedula) {
-        this.transporteService.crearTransporte(data).subscribe(
-          (resp:any)=>{
-            this.cargarProductores();
-            Swal.fire('Exito','Productor creado exitosamente','success');
-          },(error)=>{
-            Swal.fire('Error','Sucedio un error inesperado','error');
-          }
-        )
-      }else{
-        Swal.fire('Error', 'Sucedio un error, no se pudo actualizar el Productor, Revise los datos.', 'error');
+     this.transporteService.crearTransporte(data).subscribe(
+      (resp:any)=>{
+        this.cargarProductores();
+        Swal.fire('Exito','Transporte creado exitosamente','success');
+      },(error)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo crear el Transporte, Revise los datos.', 'error');
         return;
       }
-     });
+    )
   }
   
   cancelEdit(id: number): void {

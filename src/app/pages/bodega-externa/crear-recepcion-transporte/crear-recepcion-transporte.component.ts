@@ -60,8 +60,7 @@ export class CrearRecepcionTransporteComponent implements OnInit {
         Validators.minLength(1),
         Validators.pattern(/^(\d*\.)?\d+$/)]],
       numSeIn: [ null,  [Validators.required,
-      Validators.minLength(1),
-      Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+      Validators.minLength(1)]],
       nombreChofer: [null, [Validators.minLength(1),Validators.required] ],
       placas: ['', Validators.required],
       numGuia: [ null,  [Validators.required,
@@ -144,7 +143,6 @@ export class CrearRecepcionTransporteComponent implements OnInit {
     }
 
     if (this.transporteForm.valid) {
-
       const confirmacion = await SolicitarConfirmacion(
         '¿Desea continuar con el registro de control de calidad?'
       );
@@ -156,35 +154,40 @@ export class CrearRecepcionTransporteComponent implements OnInit {
           },
         });
   
-        //formamos la lista de motivos
-        let idProductores: number[] = []
+        //formamos la lista de productores
+        let productores: string = ""
         this.checkOptionsOne.forEach((element:any) => {
           if(element.checked == true){
-            idProductores.push(element.value)
+            if (productores.length == 0) {
+              productores += element.value
+            }else{
+              productores += `,${element.value}` 
+            }
           }
         });
+        console.log(productores);
         let dataControl = new FormData();
-        dataControl.append('id_usuario', String(this.id_usuario));
-        dataControl.append('id_transporte', this.transporteForm.get('placas')?.value.id_transporte);
-        // agregar peso , lote , gavetas agregar motivos.
-        dataControl.append('num_gavetas', this.transporteForm.get('gavetas')?.value);
         dataControl.append('chofer', this.transporteForm.get('nombreChofer')?.value);
+        dataControl.append('num_gavetas', this.transporteForm.get('gavetas')?.value);
         dataControl.append('kg_totales', this.transporteForm.get('kgTotales')?.value);
         dataControl.append('num_gavetas_enviadas', String(0));
         dataControl.append('num_sello_ingreso', this.transporteForm.get('numSeIn')?.value);
         dataControl.append('num_sello_salida', String(0));
         dataControl.append('num_guia_remision', this.transporteForm.get('numGuia')?.value);
-        dataControl.append('productores', String(idProductores));
+        dataControl.append('id_usuario', String(this.id_usuario));
+        dataControl.append('id_transporte', this.transporteForm.get('placas')?.value.id_transporte);
+        dataControl.append('productores', productores);
   
         let cant = 0;
         for (const item of this.listFileImage) {
           if (item.state) {
             cant++;
-            let nameImage = 'imagen_' + String(cant);
+            let nameImage = 'img_' + String(cant);
             dataControl.append(nameImage, item.file);
           }
         }
-        dataControl.append('cantidad', String(cant));
+        console.log(dataControl);
+        dataControl.append('cant_img', String(cant));
               this.recepcionTransService.guardarRecepcion(dataControl).subscribe(
                 (resp: any) => {
                   Swal.fire("Recepción de Transporte creada con  exito ", '', 'success');

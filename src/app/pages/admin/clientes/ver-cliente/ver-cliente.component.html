@@ -14,7 +14,6 @@
 </div>
 
 <div class="row" *ngIf="!cargando">
-    <!-- Column -->
     <div class="col-lg-3 col-xlg-3 col-md-5">
         <div class="card">
             <div class="card-body text-center justify-content-md-center">
@@ -58,6 +57,15 @@
         <div class="card-container">
             <nz-tabset>
                 <nz-tab nzTitle="Packing List" style="border-color: rgb(223, 220, 220)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="color: darkorange">Filtro por Fechas</label>
+                        </div>
+                        <div class="col-md-10 justify-content-md-start">
+                            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="fechasPacking" (ngModelChange)="onChange($event)"></nz-range-picker>
+                        </div>
+                    </div>
+                    <br>
                     <nz-table #basicTable [nzData]="packingList">
                         <thead>
                             <tr>
@@ -88,6 +96,15 @@
                     </nz-table>
                 </nz-tab>
                 <nz-tab nzTitle="Invoice">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="color: darkorange">Filtro por Fechas</label>
+                        </div>
+                        <div class="col-md-10 justify-content-md-start">
+                            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="fechasInvoice" (ngModelChange)="onChangeInvoice($event)"></nz-range-picker>
+                        </div>
+                    </div>
+                    <br>
                     <nz-table #invocetable [nzData]="invoice">
                         <thead>
                             <tr>

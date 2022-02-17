@@ -31,6 +31,11 @@ export class VerProductorComponent implements OnInit {
   public bitacoras: any[] = [];
   public editCache: { [key: number]: { edit: boolean; data: any } } = {};
 
+  public dateFormat = 'MM/dd/yyyy';
+  public rangofechas:Date[]  = [] ;
+  public rangofechasBit:Date[]  = [] ;
+ 
+
   constructor(
     private rutaActiva: ActivatedRoute,
     private productoresService: ProductoresService,
@@ -43,6 +48,7 @@ export class VerProductorComponent implements OnInit {
   ngOnInit(): void {
     this.rutaActiva.params.subscribe(({ id }) => {
       this.getProductor(id);
+      this.id_productor = id
     });
   }
 
@@ -76,7 +82,6 @@ export class VerProductorComponent implements OnInit {
     this.bodegaExternaService
       .obtenerGavetasProductor(id_productor)
       .subscribe((resp: any) => {
-        console.log(resp);
         this.bitacoras = resp;
       });
   }
@@ -93,6 +98,44 @@ export class VerProductorComponent implements OnInit {
         this.cargando = false;
       });
   }
+
+  /**
+   * filtra por fechas las liquidaciones del productor
+   * 
+   */
+  onChange(result: Date[]){
+  let liquiFiltradas:any[] = [];
+    if (result.length !== 0){
+      this.liquidaciones.forEach(element => {
+        let fechaLiq : Date = new Date(element.calibrado.fecha)
+            if (fechaLiq.getTime() >= this.rangofechas[0].getTime() && fechaLiq.getTime() <= this.rangofechas[1].getTime() ) {
+              liquiFiltradas.push(element)
+            }
+        });
+        this.liquidaciones = liquiFiltradas
+    }else{
+      this.cargarLiquidaciones(this.id_productor);
+    }
+  }
+
+  /**
+   * filtra por fechas las liquidaciones del productor
+   * 
+   */
+   onChangeBit(result: Date[]){
+    let bitacorasFiltradas:any[] = [];
+      if (result.length !== 0){
+        this.bitacoras.forEach(element => {
+          let fechabit : Date = new Date(element.fecha)
+              if (fechabit.getTime() >= this.rangofechasBit[0].getTime() && fechabit.getTime() <= this.rangofechasBit[1].getTime() ) {
+                bitacorasFiltradas.push(element)
+              }
+          });
+          this.bitacoras = bitacorasFiltradas
+      }else{
+        this.cargarBitacoras(this.id_productor);
+      }
+    }
 
   /**
    * redirigue a la vista de la liquidacion
@@ -223,6 +266,7 @@ export class VerProductorComponent implements OnInit {
                 reportBitacora.HeaderControl(),
                 reportBitacora.DetailControl(bitacora, productor,controlCalidad.gav_vacias,controlCalidad.num_gav_rechazo ),
                 reportBitacora.loadImage(bitacora)
+                
               ],
               margin: [0, 0, 0, 0],
             },

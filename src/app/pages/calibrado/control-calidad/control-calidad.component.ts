@@ -8,6 +8,7 @@ import { ControlCalidadService } from 'src/app/services/controlCalidad/control-c
 
 import Swal from 'sweetalert2';
 import { BodegaExternaService } from '../../../services/bodegaExterna/bodega-externa.service';
+import { RecepcionTransService } from '../../../services/recepcion/recepcion-trans.service';
 
 interface FileObject {
   idFile: any;
@@ -27,15 +28,16 @@ export class ControlCalidadComponent implements OnInit {
   faUpload = faUpload;
 
   id_bodega: number = 0;
+  id_recepcion: number = 0;
 
   txtInputObservacion: FormControl = this.getFormControl();
 
   public reporteCalidadForm = this.fb.group({
     rechazo: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
-    vacias: [0, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    vacias: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     peso: [null, [Validators.required,Validators.minLength(1),Validators.pattern(/^(\d*\.)?\d+$/)]],
     lote: [null, [Validators.required, Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
-    numSeSa: [ null, [Validators.required,Validators.minLength(1), Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
+    numSeSa: [ "0", [Validators.required,Validators.minLength(1)]],
   })
 
   // lista para mostar los motivos al usuario
@@ -49,13 +51,14 @@ export class ControlCalidadComponent implements OnInit {
     private route: ActivatedRoute,
     private location: Location,
     private fb: FormBuilder,
-    private bodegaService: BodegaExternaService
+    private  recepcionTransService: RecepcionTransService
   ) {}
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       if (params.hasOwnProperty('id_bodega')) {
         this.id_bodega = params['id_bodega'];
+        this.id_recepcion = params['id_recepcion'];
       }
     });
     this.servicioControlCalidad.getmotivos().subscribe(
@@ -133,6 +136,7 @@ export class ControlCalidadComponent implements OnInit {
         }
       });
       let dataControl = new FormData();
+      
       dataControl.append('observacion', this.txtInputObservacion.value);
       dataControl.append('id_bodega', String(this.id_bodega));
       // agregar peso , lote , gavetas agregar motivos.
@@ -151,7 +155,10 @@ export class ControlCalidadComponent implements OnInit {
         }
       }
       dataControl.append('cantidad', String(cant));
-        this.bodegaService.actualizarSellos(this.id_bodega,this.reporteCalidadForm.get('numSeSa')?.value).subscribe(
+      //se suman el total de gavetas que se envian en el camion 
+      let num_gavetas_enviadas =  Number(this.reporteCalidadForm.get('rechazo')?.value) +  Number(this.reporteCalidadForm.get('vacias')?.value)
+
+        this.recepcionTransService.actualizarRecepcionSello(this.id_recepcion,num_gavetas_enviadas,this.reporteCalidadForm.get('numSeSa')?.value).subscribe(
           (resp:any)=>{
             this.servicioControlCalidad.guardarControl(dataControl).subscribe(
          

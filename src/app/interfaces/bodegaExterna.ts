@@ -11,4 +11,5 @@ export interface bodegaExterna {
     kg_recibidos: number;
     estado: string;
     tipo_pitahaya: string;
+    id_recepcion: number;
 }

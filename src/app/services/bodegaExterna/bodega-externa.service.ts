@@ -16,6 +16,7 @@ export class BodegaExternaService {
     const url =  `${base_url}bodega/obtener_bitacoras/`;
     return this.http.get(url);
   }
+ 
 
   crearBitacora(data: any ){
     const url = `${base_url}bodega/crear_bitacora/`;

@@ -58,6 +58,14 @@
         <div class="card-container">
             <nz-tabset>
                 <nz-tab nzTitle="Liquidaciones">
+                    <div class="row">
+                        <div class="col-md-2 justify-content-md-end">
+                            <label style="color: darkorange">Filtro por Fechas</label>
+                        </div>
+                        <div class="col-md-10 justify-content-md-start">
+                            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="rangofechas" (ngModelChange)="onChange($event)"></nz-range-picker>
+                        </div>
+                    </div>
                     <nz-table #liquidacion [nzData]="liquidaciones">
                         <thead>
                             <tr>
@@ -88,6 +96,14 @@
                     </nz-table>
                 </nz-tab>
                 <nz-tab nzTitle="Bitacoras">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <label style="color: darkorange">Filtro por Fechas</label>
+                        </div>
+                        <div class="col-md-10 justify-content-md-start">
+                            <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="rangofechasBit" (ngModelChange)="onChangeBit($event)"></nz-range-picker>
+                        </div>
+                    </div>
                     <nz-table #Bitacoras nzBordered [nzData]="bitacoras" [nzPageSize]="5" nzTableLayout="fixed">
                         <thead>
                             <tr>

@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { ApiTrasnporte } from 'src/app/config/api-transporte';
+import { ApiTransporte } from 'src/app/config/api-transporte';
 import { Transporte } from 'src/app/models/transporte';
+import { ApiRecepcion } from '../../config/api-recepcion';
 
 @Injectable({
   providedIn: 'root'
@@ -11,12 +12,17 @@ export class TransportesService {
   constructor(private http: HttpClient) { }
 
   getTransportes(){
-    const url = ApiTrasnporte.obtener_transportes;
+    const url = ApiTransporte.obtener_transportes;
+     return  this.http.get(url);
+  }
+
+  getTransportesbyId(id_transporte: number){
+    const url = ApiTransporte.obetner_transporte_id+`${id_transporte}/`;
      return  this.http.get(url);
   }
 
   crearTransporte(transporte: Transporte){
-    const url = ApiTrasnporte.crear_transportes;
+    const url = ApiTransporte.crear_transportes;
     const body = {
       nombre: transporte.nombre,
       apellido: transporte.apellido,
@@ -29,7 +35,7 @@ export class TransportesService {
   }
   actualizarTransporte(transporte: Transporte){
     
-    const url = ApiTrasnporte.actualizar_transportes+`${transporte.id_transporte}/`
+    const url = ApiTransporte.actualizar_transportes+`${transporte.id_transporte}/`
     console.log(url);
     const body = {
       nombre: transporte.nombre,
@@ -41,5 +47,10 @@ export class TransportesService {
     }
     return this.http.put(url,body);
 
+  }
+
+  ObtenerRecepciones(id_transporte: number){
+       const url =  ApiRecepcion.obtener_recepciones_by_transporte+ `${id_transporte}/`
+       return this.http.get(url);
   }
 }

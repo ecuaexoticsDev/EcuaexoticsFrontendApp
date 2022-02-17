@@ -54,9 +54,9 @@ export class VerRegistrosComponent implements OnInit {
    * redireccion hacia la pestaña de creacion de control de calidad
    * @param data  id del calibrado
    */
-  goControl(data: number) {
+  goControl(bodega: number, recepcion:number) {
     this.router.navigate(['calibrado/control-calidad/'], {
-      queryParams: { id_bodega: data },
+      queryParams: { id_bodega: bodega, id_recepcion: recepcion },
     });
   }
 }

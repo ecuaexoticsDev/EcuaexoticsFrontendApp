@@ -5,5 +5,6 @@ const LINKROOT = environment.base_url;
 
 export const ApiBodega = {
   obtener_todas_bitacoras: LINKROOT + APIBODEGA + 'obtener_todas_bitacoras/',
+  obtener_bitacoras_reciente : LINKROOT + APIBODEGA +'obtener_bitacoras/',
   obtener_bitacoras_by_productor: LINKROOT + APIBODEGA + 'obtener_bitacoras_by_productor/',
 };

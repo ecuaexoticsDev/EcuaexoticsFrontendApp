@@ -8,6 +8,8 @@ import { Router } from '@angular/router';
 import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
 import { LocalStorageService } from '../../../services/LocalStorage/local-storage.service';
 import { Usuario } from '../../../models/usuarios';
+import { RecepcionTransService } from '../../../services/recepcion/recepcion-trans.service';
+import { recepcionTransporte } from '../../../interfaces/recepcionTransporte';
 
 
 @Component({
@@ -18,6 +20,8 @@ import { Usuario } from '../../../models/usuarios';
 export class CrearBitacoraComponent implements OnInit {
 
   public productores: Productor[] = [];
+  public placas: any[] = [];
+  public recepciones: recepcionTransporte[] = [];
   public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit'];
 
   public bitacoraForm!: FormGroup;
@@ -29,14 +33,16 @@ export class CrearBitacoraComponent implements OnInit {
     private productoresService: ProductoresService,
     private bodegaExternaService: BodegaExternaService,
     private router: Router,
-    private localStorageService: LocalStorageService
+    private localStorageService: LocalStorageService,
+    private recepcionTransService: RecepcionTransService
   ) {}
 
   ngOnInit(): void {
     this.cargarProductores();
     this.bitacoraForm = this.fb.group({
-      productor: [' ', Validators.required],
-      pitajaya: [' ', Validators.required],
+      productor: [null, Validators.required],
+      transporte: [null, Validators.required],
+      pitajaya: [null, Validators.required],
       gavetas: [
         null,
         [
@@ -56,6 +62,7 @@ export class CrearBitacoraComponent implements OnInit {
     });
 
     this.cargarIdUsuario();
+    this.cargarTransporte();
   }
 /**
  * carga los productores activos 
@@ -63,6 +70,7 @@ export class CrearBitacoraComponent implements OnInit {
   cargarProductores() {
     this.productoresService.cargarProductores().subscribe((resp: any) => {
       this.productores = resp;
+     
     });
   }
 /**
@@ -73,6 +81,21 @@ export class CrearBitacoraComponent implements OnInit {
      this.id_usuario = usuario.id
   }
 
+  cargarTransporte(){
+    
+    this.recepcionTransService.ObtenerRecepciones().subscribe(
+      (resp:any)=>{
+        this.recepciones = resp
+        console.log(resp);
+          resp.forEach( (element:recepcionTransporte) => {
+            if (element.num_sello_salida  ==="0") {
+              this.placas.push(element.id_transporte.placa)
+            }
+              
+          });
+      }
+    )
+  }
 
   /**
    * controla la seleccion de archivos al control 
@@ -105,6 +128,11 @@ export class CrearBitacoraComponent implements OnInit {
       dataControl.append('personal_descarga', this.bitacoraForm.get('personal')?.value);
       dataControl.append('kg_recibidos', this.bitacoraForm.get('kgRecibidos')?.value);
       dataControl.append('kg_reportados', this.bitacoraForm.get('kgReportados')?.value);
+      this.recepciones.forEach(element => {
+        if (element.id_transporte.placa === this.bitacoraForm.get('transporte')?.value) {
+          dataControl.append("id_recepcion",String(element.id_recepcion_transporte));
+        }
+      });
       //enviar id productor y usuario
       dataControl.append('id_productor', this.bitacoraForm.get('productor')?.value.id_productor);
       dataControl.append('id_usuario', String(this.id_usuario));

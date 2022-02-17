@@ -52,7 +52,7 @@
                         </a>
                         <nz-divider *ngIf="data.estado == 'Calibrado'" nzType="vertical"></nz-divider>
                         <a *ngIf="data.estado == 'Calibrado'">
-                            <i nz-icon nzType="control" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="goControl(data.id_bodega)"></i>
+                            <i nz-icon nzType="control" style="font-size: 20px; color: #08c" nzTheme="outline" (click)="goControl(data.id_bodega,data.id_recepcion)"></i>
                         </a>
                     </td>
                 </tr>
