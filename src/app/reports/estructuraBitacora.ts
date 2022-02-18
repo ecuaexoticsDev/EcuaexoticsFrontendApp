@@ -127,35 +127,30 @@ const ImgLogo = () => {
         {
           text: [
             { text: 'Nombre de Chofer: ', bold: true },
-            { text: controlObject.nombre_chofer + '\n\n' },
+            { text: controlObject.id_recepcion.chofer + '\n\n' },
           ],
         },
         {
           text: [
           { text: 'Placa: ', bold: true }, 
-          { text: controlObject.placa_camion + '\n\n' }],
-        },
-        {
-          text: [
-          { text: 'Nº factura chofer: ', bold: true }, 
-          { text: controlObject.num_factura_chofer + '\n\n' }],
+          { text: controlObject.id_recepcion.placa + '\n\n' }],
         },
         {
           text: [
             { text: 'Nº Guía de Remisión: ', bold: true },
-            { text: controlObject.guia_remision + '\n\n'},
+            { text: controlObject.id_recepcion.num_guia_remision + '\n\n'},
           ],
         },
         {
           text: [
             { text: 'Nº Sello de Ingreso: ', bold: true },
-            { text: controlObject.num_sello_ingreso + '\n\n'},
+            { text: controlObject.id_recepcion.num_sello_ingreso + '\n\n'},
           ],
         },
         {
           text: [
             { text: 'Nº Sello de Salida: ', bold: true },
-            { text: controlObject.num_sello_salida + '\n\n'},
+            { text: controlObject.id_recepcion.num_sello_salida + '\n\n'},
           ],
         },
       ],
@@ -165,18 +160,35 @@ const ImgLogo = () => {
     };
   };
 
-  export const loadImage = (controlObject: any) => {
-      if (controlObject.img_factura== null) {
-          return;
-      }
-      return {
-        stack:[
+  export const LoadImages = (controlObject: any) => {
+    let stackList = [];
+    if (controlObject.images.length > 0) {
+      let column: any = [];
+      for (const img of controlObject.images) {
+        const dataOb = {
+          stack: [
             {
-              image: controlObject.img_factura,
-              width: 250,
-              alignment: 'center',
-            }
-        ],
-        width: '80%',
+              image: img.imagen,
+              width: 150,
+            },
+          ],
+          width: '33%',
+        };
+        column.push(dataOb);
       }
+  
+      let newArray: any = [];
+      for (let i = 0; i < column.length; i += 3) {
+        let pedazo = column.slice(i, i + 3);
+        newArray.push(pedazo);
+      }
+      for (const nArray of newArray) {
+        stackList.push({
+          columns: nArray,
+          columnGap: 10,
+          margin: [0, 20, 0, 0],
+        });
+      }
+    }
+    return { stack: stackList, margin: [0, 15, 0, 0] };
   };

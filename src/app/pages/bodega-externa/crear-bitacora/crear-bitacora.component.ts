@@ -10,6 +10,8 @@ import { LocalStorageService } from '../../../services/LocalStorage/local-storag
 import { Usuario } from '../../../models/usuarios';
 import { RecepcionTransService } from '../../../services/recepcion/recepcion-trans.service';
 import { recepcionTransporte } from '../../../interfaces/recepcionTransporte';
+import { Transporte } from '../../../models/transporte';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 
 @Component({
@@ -20,9 +22,11 @@ import { recepcionTransporte } from '../../../interfaces/recepcionTransporte';
 export class CrearBitacoraComponent implements OnInit {
 
   public productores: Productor[] = [];
-  public placas: any[] = [];
+  public productoresDrop: Productor[] = []
+  public transportes: Transporte[] = [];
   public recepciones: recepcionTransporte[] = [];
   public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit'];
+  public placa : any;
 
   public bitacoraForm!: FormGroup;
   public factImg!: File;
@@ -38,7 +42,7 @@ export class CrearBitacoraComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.cargarProductores();
+   this.cargarProductores();
     this.bitacoraForm = this.fb.group({
       productor: [null, Validators.required],
       transporte: [null, Validators.required],
@@ -85,16 +89,30 @@ export class CrearBitacoraComponent implements OnInit {
     
     this.recepcionTransService.ObtenerRecepciones().subscribe(
       (resp:any)=>{
-        this.recepciones = resp
-        console.log(resp);
           resp.forEach( (element:recepcionTransporte) => {
             if (element.num_sello_salida  ==="0") {
-              this.placas.push(element.id_transporte.placa)
-            }
-              
+              this.recepciones.push(element)
+              this.transportes.push(element.id_transporte);
+            }  
           });
       }
     )
+  }
+
+  placaChange(value: any){
+     //aqui se cargan los productores del DropDown de productores
+    this.productoresDrop = []
+    if (value) {
+      value.productores.forEach((id:any) => {
+        this.productores.forEach((element:Productor) => {
+          if (element.id_productor === id) {
+            this.productoresDrop.push(element)
+          }
+        });
+      });
+      
+    }
+  
   }
 
   /**
@@ -128,8 +146,9 @@ export class CrearBitacoraComponent implements OnInit {
       dataControl.append('personal_descarga', this.bitacoraForm.get('personal')?.value);
       dataControl.append('kg_recibidos', this.bitacoraForm.get('kgRecibidos')?.value);
       dataControl.append('kg_reportados', this.bitacoraForm.get('kgReportados')?.value);
+      //verificar esto AQUI SE LE ASIGNA EL ID DE LA RECEPCION SELECCIONADA EN EL DROPDOWN
       this.recepciones.forEach(element => {
-        if (element.id_transporte.placa === this.bitacoraForm.get('transporte')?.value) {
+        if (element.id_recepcion_transporte === this.bitacoraForm.get('transporte')?.value.id_recepcion_transporte) {
           dataControl.append("id_recepcion",String(element.id_recepcion_transporte));
         }
       });

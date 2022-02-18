@@ -29,7 +29,6 @@ export class VerBitacorasComponent implements OnInit {
    */
   cargarRegistros() {
     this.bodegaExterna.cargarBodega().subscribe((resp: any) => {
-      console.log(resp);
       this.listOfData = resp;
       this.updateEditCache();
     });

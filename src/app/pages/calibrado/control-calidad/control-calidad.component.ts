@@ -161,7 +161,6 @@ export class ControlCalidadComponent implements OnInit {
         this.recepcionTransService.actualizarRecepcionSello(this.id_recepcion,num_gavetas_enviadas,this.reporteCalidadForm.get('numSeSa')?.value).subscribe(
           (resp:any)=>{
             this.servicioControlCalidad.guardarControl(dataControl).subscribe(
-         
               (resp: any) => {
                
                 Swal.fire(resp.message, '', 'success');

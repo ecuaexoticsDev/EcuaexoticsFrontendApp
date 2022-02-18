@@ -18,6 +18,11 @@ export class RecepcionTransService {
     const url = ApiRecepcion.obtener_recepciones;
     return this.http.get(url);
   }
+
+  ObtenerRecepcioById(id_recepcion : number){
+    const url = ApiRecepcion.obtener_recepcion_by_id + `${id_recepcion}/`;
+    return this.http.get(url);
+  }
   
 
   actualizarRecepcion(id_recepcion: number,num_gavetas: number, kg_totales: number, 

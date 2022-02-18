@@ -14,6 +14,8 @@ import * as reportStrcuture from 'src/app/reports/estructuraLiquidacion';
 import * as reportControl from 'src/app/reports/estructuraControlCalidad';
 import * as reportBitacora from 'src/app/reports/estructuraBitacora';
 import { ControlCalidadService } from 'src/app/services/controlCalidad/control-calidad.service';
+import { recepcionTransporte } from 'src/app/interfaces/recepcionTransporte';
+import { RecepcionTransService } from '../../../../services/recepcion/recepcion-trans.service';
 
 @Component({
   selector: 'app-ver-productor',
@@ -21,6 +23,7 @@ import { ControlCalidadService } from 'src/app/services/controlCalidad/control-c
   styleUrls: ['./ver-productor.component.scss'],
 })
 export class VerProductorComponent implements OnInit {
+
   public id_productor: number = 0;
   public productor!: Productor;
   public cargando: boolean = true;
@@ -42,7 +45,8 @@ export class VerProductorComponent implements OnInit {
     private bodegaExternaService: BodegaExternaService,
     private cdref: ChangeDetectorRef,
     private router: Router,
-    private controlService: ControlCalidadService
+    private controlService: ControlCalidadService,
+    private recepcionTransService:RecepcionTransService
   ) {}
 
   ngOnInit(): void {
@@ -98,6 +102,8 @@ export class VerProductorComponent implements OnInit {
         this.cargando = false;
       });
   }
+
+ 
 
   /**
    * filtra por fechas las liquidaciones del productor
@@ -245,6 +251,7 @@ export class VerProductorComponent implements OnInit {
     this.bitacoras.forEach(element => {
       if (element.id_bodega == id) {
         bitacora = element
+       // console.log(bitacora);
       }
     });
     Swal.fire({
@@ -255,7 +262,9 @@ export class VerProductorComponent implements OnInit {
     });
 
     this.controlService.getControl(id).subscribe(
+     
       async(controlCalidad:any)=>{
+       
         await this.delay(1000);
         let docDefinition: any = await {
           pageSize: 'A4',
@@ -265,8 +274,6 @@ export class VerProductorComponent implements OnInit {
               stack: [
                 reportBitacora.HeaderControl(),
                 reportBitacora.DetailControl(bitacora, productor,controlCalidad.gav_vacias,controlCalidad.num_gav_rechazo ),
-                reportBitacora.loadImage(bitacora)
-                
               ],
               margin: [0, 0, 0, 0],
             },
