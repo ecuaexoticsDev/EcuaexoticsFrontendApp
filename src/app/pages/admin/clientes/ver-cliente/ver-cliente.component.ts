@@ -30,6 +30,11 @@ export class VerClienteComponent implements OnInit {
   public packingListTotal: any = [];
   public invoiceTotal: any = [];
 
+  //filtro de fechas
+  public dateFormat = 'MM/dd/yyyy';
+  public fechasPacking:Date[]  = [] ;
+  public fechasInvoice:Date[]  = [] ;
+
   public clientForm: FormGroup = this.fb.group({
     direccion: [null, [Validators.required, Validators.minLength(3)]],
     pais: [null, [Validators.required, Validators.minLength(3)]],
@@ -126,8 +131,8 @@ export class VerClienteComponent implements OnInit {
    * @param id_cliente 
    */
   obtenerPackingList(id_cliente: number) {
-    this.clientesService
-      .getPackinglist(id_cliente)
+
+    this.clientesService.getPackinglist(id_cliente)
       .pipe(delay(200))
       .subscribe((resp: any) => {
         this.packingListTotal = resp;
@@ -136,6 +141,30 @@ export class VerClienteComponent implements OnInit {
         });
       });
   }
+
+   /**
+   * filtra por fechas el packing del cliente
+   * 
+   */
+    onChange(result: Date[]){
+      let packingFiltrados:any[] = [];
+        if (result.length !== 0){
+          this.packingList.forEach(element => {
+            if (element.fecha) {
+              let fechaPack : Date = new Date(element.fecha)
+              if (fechaPack.getTime() >= this.fechasPacking[0].getTime() && fechaPack.getTime() <= this.fechasPacking[1].getTime() ) {
+                packingFiltrados.push(element)
+              }
+              }
+            });
+            this.packingList = packingFiltrados
+        }else{
+          this.packingList = []
+          this.packingListTotal .forEach((element: any) => {
+            this.packingList.push(element.packing);
+          });
+        }
+      }
 
   /**
    * descarga el invoice
@@ -154,6 +183,30 @@ export class VerClienteComponent implements OnInit {
       });
   }
 
+   /**
+   * filtra por fechas el packing del cliente
+   * 
+   */
+    onChangeInvoice(result: Date[]){
+      let invoiceFiltrados:any[] = [];
+        if (result.length !== 0){
+          this.invoice.forEach(element => {
+            if (element.fecha) {
+              let fechaInv : Date = new Date(element.fecha)
+              if (fechaInv.getTime() >= this.fechasInvoice[0].getTime() && fechaInv.getTime() <= this.fechasInvoice[1].getTime() ) {
+                invoiceFiltrados.push(element)
+              }
+              }
+            });
+            this.invoice = invoiceFiltrados
+        }else{
+          this.invoice = []
+          this.invoiceTotal.forEach((element: any) => {
+            this.invoice.push(element.factura);
+          });
+        }
+      }
+
   /**
    * redirije al usuario a la vista del packing list
    * @param data id del cliente
@@ -164,6 +217,7 @@ export class VerClienteComponent implements OnInit {
       relativeTo: this.rutaActiva,
     });
   }
+
 
   delay(ms: number) {
     return new Promise((resolve) => setTimeout(resolve, ms));

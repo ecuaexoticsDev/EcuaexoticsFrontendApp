@@ -17,4 +17,9 @@ export class ControlCalidadService {
     const url = ApiControl.get_info_control_calidad + id + '/';
     return this.http.get(url);
   }
+  
+  getmotivos(){
+    const url = ApiControl.get_motivos;
+    return this.http.get(url);
+  }
 }

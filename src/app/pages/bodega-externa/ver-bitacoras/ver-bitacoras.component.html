@@ -10,11 +10,13 @@
 </div>
 <div class="row justify-content-md-center">
     <div class="col-md-10">
-        <nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="5" nzTableLayout="fixed">
+        <nz-table #editRowTable nzBordered [nzData]="listOfData" [nzPageSize]="10" nzTableLayout="fixed">
             <thead>
                 <tr>
                     <th nzWidth="10%">Productor</th>
                     <th nzWidth="10%">Num Gavetas</th>
+                    <th nzWidth="10%">Kg Reportados</th>
+                    <th nzWidth="10%">kg Recibidos</th>
                     <th nzWidth="10%">Pitahaya</th>
                     <th nzWidth="10%">Fecha</th>
                     <th nzWidth="10%">Hora</th>
@@ -28,6 +30,8 @@
                             {{ data.id_productor.nombre + " " + data.id_productor.apellido }}
                         </td>
                         <td>{{ data.num_gavetas }}</td>
+                        <td>{{ data.kg_reportados }}</td>
+                        <td>{{ data.kg_recibidos }}</td>
                         <td>{{ data.tipo_pitahaya }}</td>
                         <td>{{ data.fecha | date: "shortDate" }}</td>
                         <td>{{ data.fecha | date: "shortTime" }}</td>
@@ -46,11 +50,17 @@
                         <td>
                             <input #gavetas type="number" nz-input [(ngModel)]="editCache[data.id_bodega].data.num_gavetas" />
                         </td>
+                        <td>
+                            <input #reportados type="number" nz-input [(ngModel)]="editCache[data.id_bodega].data.kg_reportados" />
+                        </td>
+                        <td>
+                            <input #recibidos type="number" nz-input [(ngModel)]="editCache[data.id_bodega].data.kg_recibidos" />
+                        </td>
                         <td>{{ data.tipo_pitahaya }}</td>
                         <td>{{ data.fecha | date: "shortDate" }}</td>
                         <td>{{ data.fecha | date: "shortTime" }}</td>
                         <td class="text-center">
-                            <a *ngIf="gavetas.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_bodega)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
+                            <a *ngIf="gavetas.value.length !== 0 || reportados.value.length !== 0 || recibidos.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_bodega)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
                                 <i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c">
                                 </i>
                             </a>

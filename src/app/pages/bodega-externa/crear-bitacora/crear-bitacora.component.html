@@ -3,43 +3,109 @@
     <div class="col text-center">
         <br />
         <form [formGroup]="bitacoraForm" class="text-center">
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <h5 class="tex-center">Productor</h5>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Camiones Disponibles</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <nz-select nzPlaceHolder="Placas" formControlName="transporte" [(ngModel)]="placa" (ngModelChange)="placaChange($event)">
+                                <nz-option *ngFor="let item of recepciones" [nzValue]="item" [nzLabel]="item.id_transporte.placa"></nz-option>
+                            </nz-select>
+                        </div>
+
                     </div>
-                    <div class="col-md-6 d-flex justify-content-start box-item-bodega">
-                        <nz-select nzPlaceHolder="Productores" formControlName="productor">
-                            <nz-option *ngFor="let item of productores" [nzValue]="item" [nzLabel]="item.nombre + ' ' + item.apellido"></nz-option>
-                        </nz-select>
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Kg Reportados</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="kgReportados" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Kg Totales" type="tel" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <h5 class="tex-center">Tipo de Pitahaya</h5>
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Productor</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <nz-select nzPlaceHolder="Productores" formControlName="productor">
+                                <nz-option *ngFor="let item of productoresDrop" [nzValue]="item" [nzLabel]="item.nombre + ' ' + item.apellido"></nz-option>
+                            </nz-select>
+                        </div>
+
                     </div>
-                    <div class="col-md-6 d-flex justify-content-start box-item-bodega">
-                        <nz-select nzPlaceHolder="Pitahaya" formControlName="pitajaya">
-                            <nz-option *ngFor="let item of tiposPitajaya" [nzValue]="item" [nzLabel]="item"></nz-option>
-                        </nz-select>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Kg Recibidos</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="kgRecibidos" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Kg Totales" type="tel" />
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="col-md-12">
-                <div class="row">
-                    <div class="col-md-6 d-flex justify-content-end">
-                        <h5 class="tex-center">Nº de gavetas</h5>
+
+            <br>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Tipo de Pitahaya</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <nz-select nzPlaceHolder="Pitahaya" formControlName="pitajaya">
+                                <nz-option *ngFor="let item of tiposPitajaya" [nzValue]="item" [nzLabel]="item"></nz-option>
+                            </nz-select>
+                        </div>
+
+
+
                     </div>
-                    <div class="col-md-6 d-flex justify-content-start box-item-bodega">
-                        <input formControlName="gavetas" style="width: 200px" class="tex-center form-control" nz-input placeholder="Total Gavetas" type="tel" />
+                </div>
+                <div class="col-md-6">
+                    <div class="row">
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Personal de Descarga</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <textarea formControlName="personal" style="width: 250px;  height:80px" class="tex-center form-control" nz-input placeholder="Personal ..." type="text"></textarea>
+                        </div>
                     </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="row">
+
+                        <div class="col-md-6 d-flex justify-content-end">
+                            <h5 class="tex-center">Nº de gavetas</h5>
+                        </div>
+                        <div class="col-md-6 d-flex justify-content-start box-item-bodega">
+                            <input formControlName="gavetas" style="width: 200px" class="tex-center form-control" nz-input placeholder="Total Gavetas" type="tel" />
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
         </form>
     </div>
+
 </div>
+
+
 <div class="row justify-content-md-center">
     &nbsp; &nbsp;
     <div class="col-md-10 text-center" id="div-button-bodega">

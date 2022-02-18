@@ -1,13 +1,82 @@
 <div class="">
     <h2>Registrar Control Calidad</h2>
+    <br>
+    <form [formGroup]="reporteCalidadForm" class="text-center">
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <label>Nº de Gavetas Rechazo</label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="rechazo" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Total Gavetas" type="tel" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <label>Nº de Gavetas Vacias</label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="vacias" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Total Gavetas" type="tel" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <label class="tex-center">Peso Total</label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="peso" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Kg" type="tel" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <br>
+        <div class="row">
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <label class="tex-center">Nº Lote</label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="lote" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Lote" type="tel" />
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="row">
+                    <div class="col-sm-6 d-flex justify-content-end">
+                        <label class="tex-center">Nº Sello de Salida </label>
+                    </div>
+                    <div class="col-sm-6 d-flex justify-content-start box-item-bodega">
+                        <input formControlName="numSeSa" style="width: 120px ; height: 40px;" class="tex-center form-control" nz-input placeholder="Sello" type="tel" />
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </form>
+    <br>
     <div class="row justify-content-md-center">
         <div class="col-md-6">
             <div class="form-group">
-                <label for="exampleFormControlTextarea1">Observación</label>
-                <textarea class="form-control mt-2" rows="3" [formControl]="txtInputObservacion"></textarea>
+                <label for="exampleFormControlTextarea1"><b> Causas de Rechazo</b></label>
+                <br>
+                <nz-checkbox-group [(ngModel)]="checkOptionsOne">detalle</nz-checkbox-group>
+                <br />
+                <br />
+            </div>
+
+            <div class="form-group">
+                <label for="exampleFormControlTextarea1"><b>Observación</b> </label>
+                <textarea class="form-control mt-2" rows="3" [formControl]="txtInputObservacion" placeholder="Opcional ..."></textarea>
             </div>
             <div class="form-group mt-2">
-                <label for="exampleFormControlTextarea1">Cargar Imágenes</label>
+                <label for="exampleFormControlTextarea1"><b>Cargar Imágenes</b> </label>
                 <div class="row p-1" *ngFor="let fileData of listFileImage; index as fi">
                     <div class="col-9" *ngIf="fileData.state">
                         <p>
@@ -28,10 +97,12 @@
                 </div>
             </div>
             <div class="text-center mt-3">
-                <button (click)="saveControl()" nz-button nzType="primary" [disabled]="txtInputObservacion.value.length > 5 ? false : true">
+                <button (click)="saveControl()" nz-button nzType="primary" [disabled]="!reporteCalidadForm.valid">
           Guardar Control
         </button>
             </div>
         </div>
     </div>
+
+
 </div>

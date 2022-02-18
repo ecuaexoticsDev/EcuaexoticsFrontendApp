@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { CrearBitacoraComponent } from './crear-bitacora/crear-bitacora.component';
 import { VerBitacorasComponent } from './ver-bitacoras/ver-bitacoras.component';
+import { VerRecepcionTransporteComponent } from './ver-recepcion-transporte/ver-recepcion-transporte.component';
+import { CrearRecepcionTransporteComponent } from './crear-recepcion-transporte/crear-recepcion-transporte.component';
 
 const routes: Routes = [
   {
@@ -13,6 +15,16 @@ const routes: Routes = [
     path: 'ver-bitacoras',
     component: VerBitacorasComponent,
     data: { title: 'BitacoraBodegaExterna' },
+  },
+  {
+    path: 'ver-transporte',
+    component: VerRecepcionTransporteComponent,
+    data: { title: 'Ver-RecepcionTransporte' },
+  },
+  {
+    path: 'crear-recepcion-transporte',
+    component: CrearRecepcionTransporteComponent,
+    data: { title: 'Crear-RecepcionTransporte' },
   },
 ];
 

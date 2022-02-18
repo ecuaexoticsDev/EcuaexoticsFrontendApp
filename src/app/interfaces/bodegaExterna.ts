@@ -7,6 +7,9 @@ export interface bodegaExterna {
     id_usuario: Usuario;
     fecha: Date;
     num_gavetas: number;
+    kg_reportados: number;
+    kg_recibidos: number;
     estado: string;
     tipo_pitahaya: string;
+    id_recepcion: number;
 }

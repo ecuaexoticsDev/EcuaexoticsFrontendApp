@@ -9,6 +9,8 @@ import { VerClienteComponent } from './clientes/ver-cliente/ver-cliente.componen
 import { InvoceComponent } from './clientes/invoce/invoce.component';
 import { PackingListComponent } from './clientes/packing-list/packing-list.component';
 import { LiquidacionComponent } from './productores/liquidacion/liquidacion.component';
+import { TransporteComponent } from './transporte/transporte.component';
+import { VerTransporteComponent } from './transporte/ver-transporte/ver-transporte.component';
 
 
 const routes: Routes = [
@@ -57,6 +59,16 @@ const routes: Routes = [
     path: 'usuarios',
     component: UsuariosComponent,
     data: { title: 'Usuarios' },
+  },
+  {
+    path: 'transporte',
+    component: TransporteComponent,
+    data: { title: 'Transporte' },
+  },
+  {
+    path: 'transporte/ver-transporte/:id',
+    component: VerTransporteComponent,
+    data: { title: 'ver-transporte' },
   },
 ];
 

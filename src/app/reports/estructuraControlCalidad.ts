@@ -56,7 +56,13 @@ const Column1 = (controlObject: any, productor: any) => {
       {
         text: [
           { text: 'Fecha: ', bold: true },
-          { text: controlObject.fecha.split('T')[0] },
+          { text: controlObject.fecha.split('T')[0]+' '+ controlObject.fecha.split('T')[1].split('.')[0] },
+        ],
+      },
+      {
+        text: [
+          { text: 'Nº Lote: ', bold: true },
+          { text: controlObject.num_lote },
         ],
       },
     ],
@@ -71,7 +77,7 @@ const Column2 = (controlObject: any) => {
     stack: [
       {
         text: [
-          { text: 'Nº de gavetas: ', bold: true },
+          { text: 'Nº Gavetas de Ingreso : ', bold: true },
           { text: controlObject.num_gavetas },
         ],
       },
@@ -79,6 +85,18 @@ const Column2 = (controlObject: any) => {
         text: [
           { text: 'Tipo de pitahaya: ', bold: true },
           { text: controlObject.tipo_pitahaya },
+        ],
+      },
+      {
+        text: [
+          { text: 'Nº Gavetas de Rechazo : ', bold: true },
+          { text: controlObject.num_gav_rechazo },
+        ],
+      },
+      {
+        text: [
+          { text: 'Peso Total (KG) : ', bold: true },
+          { text: controlObject.peso_total },
         ],
       },
     ],
@@ -133,6 +151,30 @@ export const LoadImages = (controlObject: any) => {
 //           reader.readAsDataURL(blob);
 //         })
 //     );
+export const causasRechazo = (controlObject: any) => {
+  let lineaMotivos: string = ''
+  let cont = 1
+  controlObject.motivos.forEach((motivo: string) => {
+    if (cont < controlObject.motivos.length){
+      lineaMotivos += motivo +', '
+    }else{
+      lineaMotivos += motivo +'.'
+    }
+    cont++;
+  });
+  return {
+    stack: [
+      { text: 'Motivos de Rechazo: ', bold: true },
+      {
+        text: lineaMotivos,
+        alignment: '‘justify',
+        margin: [0, 8, 0, 0],
+      },
+    ],
+    fontSize: 10,
+    margin: [0, 25, 0, 0],
+  };
+};
 
 export const infoObservacion = (controlObject: any) => {
   return {

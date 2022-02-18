@@ -27,6 +27,7 @@ import { ComponentsModule } from '../components/components.module';
 import { PalletizadoModule } from './palletizado/palletizado.module';
 import { AdminModule } from './admin/admin.module';
 
+
 @NgModule({
   declarations: [PagesComponent, DashboardComponent  ],
   imports: [
