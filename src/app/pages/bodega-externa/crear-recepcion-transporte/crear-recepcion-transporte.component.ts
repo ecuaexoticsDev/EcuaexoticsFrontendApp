@@ -12,6 +12,7 @@ import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
 import { Usuario } from '../../../models/usuarios';
 import { RecepcionTransService } from '../../../services/recepcion/recepcion-trans.service';
 import { Location } from '@angular/common';
+import { Camion } from '../../../models/camion';
 
 interface FileObject {
   idFile: any;
@@ -31,7 +32,7 @@ export class CrearRecepcionTransporteComponent implements OnInit {
   faUpload = faUpload;
   public valido = false;
   public transporteForm!: FormGroup;
-  public listTransportes : Transporte[] = [];
+  public listTransportes : Camion[] = [];
    // lista para mostar los productores al usuario
   public checkOptionsOne:any  = [];
   public id_usuario: number = 0
@@ -88,9 +89,14 @@ export class CrearRecepcionTransporteComponent implements OnInit {
   }
 
   cargarTransportes(){
-    this.transportesService.getTransportes().subscribe(
+    this.transportesService.getCamiones().subscribe(
      (resp:any)=>{
-          this.listTransportes = resp
+          resp.forEach((element:Camion) => {
+            if (element.activo) {
+              this.listTransportes = resp
+            }
+          });
+          
      }
     )
   }
@@ -175,7 +181,7 @@ export class CrearRecepcionTransporteComponent implements OnInit {
         dataControl.append('num_sello_salida', String(0));
         dataControl.append('num_guia_remision', this.transporteForm.get('numGuia')?.value);
         dataControl.append('id_usuario', String(this.id_usuario));
-        dataControl.append('id_transporte', this.transporteForm.get('placas')?.value.id_transporte);
+        dataControl.append('id_unidad', this.transporteForm.get('placas')?.value.id_unidad);
         dataControl.append('productores', productores);
   
         let cant = 0;

@@ -30,9 +30,8 @@ export class TransporteComponent implements OnInit {
   public transForm:FormGroup = this.fb.group({
     nombre:[null, Validators.required],
     apellido:[null, Validators.required],
-    cedula: [null,[Validators.required,Validators.minLength(6), Validators.maxLength(10) ]],
-    placa: [null,[Validators.required, Validators.minLength(3)]],
-    telefono: [null,[Validators.required,Validators.minLength(6), Validators.maxLength(10)]],
+    cedula: [null,[Validators.required,Validators.minLength(6), Validators.maxLength(10),Validators.pattern(/^-?(0|[0-9]\d*)?$/) ]],
+    telefono: [null,[Validators.required,Validators.minLength(6), Validators.maxLength(10),Validators.pattern(/^-?(0|[0-9]\d*)?$/)]],
   })
 
   constructor(private router: Router,
@@ -58,8 +57,8 @@ export class TransporteComponent implements OnInit {
   }
 
    /**
-   * guarda los datos actualizados de la tabla de productores
-   * @param data datos del productore para actualizar
+   * guarda los datos actualizados de la tabla de transportes
+   * @param data datos del transporte para actualizar
    * @returns 
    */
   saveEdit(data: Transporte): void {
@@ -84,7 +83,7 @@ export class TransporteComponent implements OnInit {
   }
 
   /**
-   * actualiza los id's de los datos en la tabla de productor
+   * actualiza los id's de los datos en la tabla de transporte
    */
   updateEditCache(): void {
     this.listOfTransporte.forEach((item) => {
@@ -147,6 +146,8 @@ export class TransporteComponent implements OnInit {
       (item: Transporte) => (item.nombre + item.apellido).toLowerCase()
       .indexOf(this.searchValue.toLowerCase()) !== -1);
   }
+
+
   showModal(): void {
     this.isVisible = true;
   }

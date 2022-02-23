@@ -30,7 +30,7 @@
                         </nz-filter-trigger>
                         Nombre</th>
                     <th class="text-center" nzWidth="10%">Cédula</th>
-                    <th class="text-center" nzWidth="10%">Placa</th>
+
                     <th class="text-center" nzWidth="10%">Teléfono</th>
                     <th class="text-center" nzWidth="10%" [nzFilters]="filterprod" [nzFilterFn]="transFilterFn">Activo</th>
                     <th class="text-center" nzWidth="10%">Acción</th>
@@ -43,7 +43,6 @@
                             {{ data.nombre + " " + data.apellido }}
                         </td>
                         <td>{{ data.cedula }}</td>
-                        <td>{{ data.placa }}</td>
                         <td>{{ data.telefono }}</td>
                         <td>{{ data.activo == true ? "Sí" : "No" }}</td>
                         <td class="text-center">
@@ -63,9 +62,6 @@
                             <input #cedula type="number" nz-input [(ngModel)]="editCache[data.id_transporte].data.cedula" />
                         </td>
                         <td>
-                            <input #placa type="text" nz-input [(ngModel)]="editCache[data.id_transporte].data.placa" />
-                        </td>
-                        <td>
                             <input #telefono type="number" nz-input [(ngModel)]="editCache[data.id_transporte].data.telefono">
 
                         </td>
@@ -76,7 +72,7 @@
                             </nz-select>
                         </td>
                         <td class="text-center">
-                            <a *ngIf="cedula.value.length!==0 && placa.value.length!==0 && telefono.value.length!==0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_transporte)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?"><i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                            <a *ngIf="cedula.value.length!==0 && telefono.value.length!==0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_transporte)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?"><i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
                             </a>
 
                         </td>
@@ -124,13 +120,6 @@
                     <input type="text" width="50px" nz-input formControlName="cedula" />
                 </nz-form-control>
 
-            </nz-form-item>
-            <nz-form-item>
-                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Placa </nz-form-label>
-                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese un placa">
-                    <textarea type="text" width="50px" nz-input formControlName="placa"></textarea>
-
-                </nz-form-control>
             </nz-form-item>
 
             <nz-form-item>

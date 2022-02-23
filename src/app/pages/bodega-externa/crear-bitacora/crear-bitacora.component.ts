@@ -12,6 +12,7 @@ import { RecepcionTransService } from '../../../services/recepcion/recepcion-tra
 import { recepcionTransporte } from '../../../interfaces/recepcionTransporte';
 import { Transporte } from '../../../models/transporte';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { Camion } from 'src/app/models/camion';
 
 
 @Component({
@@ -23,7 +24,7 @@ export class CrearBitacoraComponent implements OnInit {
 
   public productores: Productor[] = [];
   public productoresDrop: Productor[] = []
-  public transportes: Transporte[] = [];
+  public transportes: Camion[] = [];
   public recepciones: recepcionTransporte[] = [];
   public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit'];
   public placa : any;
@@ -92,7 +93,7 @@ export class CrearBitacoraComponent implements OnInit {
           resp.forEach( (element:recepcionTransporte) => {
             if (element.num_sello_salida  ==="0") {
               this.recepciones.push(element)
-              this.transportes.push(element.id_transporte);
+              this.transportes.push(element.id_unidad);
             }  
           });
       }

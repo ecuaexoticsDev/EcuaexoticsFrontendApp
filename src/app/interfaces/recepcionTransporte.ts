@@ -1,11 +1,12 @@
 import { Productor } from "../models/productor";
 import { Transporte } from "../models/transporte";
 import { Usuario } from "../models/usuarios";
+import { Camion } from '../models/camion';
 
 export interface recepcionTransporte {
     id_recepcion_transporte: number;
     id_usuario: number;
-    id_transporte: Transporte;
+    id_unidad: Camion;
     chofer: string;
     fecha: Date;
     num_gavetas: number;

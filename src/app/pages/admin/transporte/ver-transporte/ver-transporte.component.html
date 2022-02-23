@@ -40,8 +40,6 @@
                 <hr />
             </div>
             <div class="card-body">
-                <small class="fs-5"> Placa <i class="fas fa-solid fa-car"></i> </small>
-                <h6 class="text-muted">{{ transporte.placa }}</h6>
                 <small class="p-t-30 db fs-5">
                    Cédula  <i class="fas fa-solid fa-id-card"></i>   </small>
                 <h6 class="text-muted">{{ transporte.cedula }}</h6>
@@ -92,7 +90,106 @@
                         </tbody>
                     </nz-table>
                 </nz-tab>
+                <nz-tab nzTitle="Camiones">
+                    <div class="row">
+                        <div class="col-md-10 justify-content-md-end">
+                            <button (click)="showModal()" nz-button nzShape="round" nzShape="round" nzType="primary" nzSize="large">  
+                                Asignar Camión
+                                <i nz-icon nzType="plus" nzTheme="outline"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <br>
+                    <nz-table #Camiones nzBordered [nzData]="camiones" [nzPageSize]="5" nzTableLayout="fixed">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Placa</th>
+                                <th class="text-center">Marca</th>
+                                <th class="text-center">Capacidad (T)</th>
+                                <th class="text-center">Activo</th>
+                                <th class="text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of Camiones.data">
+                                <ng-container *ngIf="!editCache[data.id_unidad].edit; else editTemplate">
+                                    <td>{{ data.placa }}</td>
+                                    <td>{{ data.marca }}</td>
+                                    <td>{{ data.capacidad }}</td>
+                                    <td>{{ data.activo == true ? "Sí" : "No" }}</td>
+                                    <td class="text-center">
+                                        <a (click)="startEdit(data.id_unidad)" class="edit">
+                                            <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+                                <ng-template #editTemplate>
+                                    <td>
+                                        <input #placa type="text" nz-input [(ngModel)]="editCache[data.id_unidad].data.placa" />
+                                    </td>
+                                    <td>
+                                        <input #marca type="text" nz-input [(ngModel)]="editCache[data.id_unidad].data.marca" />
+                                    </td>
+                                    <td>
+                                        <input #capacidad type="number" nz-input [(ngModel)]="editCache[data.id_unidad].data.capacidad">
+                                    </td>
+                                    <td>
+                                        <nz-select [(ngModel)]="editCache[data.id_unidad].data.activo">
+                                            <nz-option [nzValue]=true nzType nzLabel="Sí"></nz-option>
+                                            <nz-option [nzValue]=false type='boolean' nzLabel="No"></nz-option>
+                                        </nz-select>
+                                    </td>
+                                    <td class="text-center">
+                                        <a *ngIf="placa.value.length!==0 && capacidad.value.length!==0 &&  marca.value.length!==0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_unidad)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?"><i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                        </a>
+
+                                    </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+
             </nz-tabset>
         </div>
     </div>
 </div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzFooter]=null (nzOnCancel)="handleCancel()">
+    <ng-container *nzModalContent>
+        <h1>Nuevo Camión</h1>
+        <form nz-form [formGroup]="camionForm" (ngSubmit)="submitForm()">
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Placa </nz-form-label>
+
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese una placa">
+                    <input type="text" width="50px" nz-input formControlName="placa" />
+                </nz-form-control>
+
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Marca </nz-form-label>
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese una marca">
+                    <input type="text" width="50px" nz-input formControlName="marca" />
+                </nz-form-control>
+            </nz-form-item>
+
+            <nz-form-item>
+                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Capacidad </nz-form-label>
+
+                <nz-form-control [nzSm]="14" [nzXs]="24" nzErrorTip="Por favor ingrese la capacidad">
+                    <input type="text" width="50px" nz-input formControlName="capacidad" />
+                </nz-form-control>
+
+            </nz-form-item>
+
+            <nz-form-item nz-row>
+                <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
+                    <button [disabled]="camionForm.invalid" nz-button nzType="primary">Asignar</button>
+                </nz-form-control>
+            </nz-form-item>
+        </form>
+    </ng-container>
+</nz-modal>

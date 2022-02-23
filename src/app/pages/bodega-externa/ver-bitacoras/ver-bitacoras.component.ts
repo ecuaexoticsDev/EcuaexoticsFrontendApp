@@ -55,7 +55,7 @@ export class VerBitacorasComponent implements OnInit {
     const kg_recibidos = this.editCache[data.id_bodega].data.kg_recibidos
     this.bodegaExterna.actualizarGavetas(idBodega,gavetas,kg_reportados,kg_recibidos).subscribe(
         (resp:any)=>{
-          Swal.fire('Actualización Exitosa', 'Número de Gavetas Actualizado', 'success');
+          Swal.fire('Actualización Exitosa', 'Recepción de Gavetas Actualizada', 'success');
           const index = this.listOfData.findIndex((item) => item.id_bodega === data.id_bodega);
           Object.assign(this.listOfData[index], this.editCache[data.id_bodega].data);
           this.editCache[data.id_bodega].edit = false;

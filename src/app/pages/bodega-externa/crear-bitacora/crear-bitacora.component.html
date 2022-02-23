@@ -11,7 +11,7 @@
                         </div>
                         <div class="col-md-6 d-flex justify-content-start box-item-bodega">
                             <nz-select nzPlaceHolder="Placas" formControlName="transporte" [(ngModel)]="placa" (ngModelChange)="placaChange($event)">
-                                <nz-option *ngFor="let item of recepciones" [nzValue]="item" [nzLabel]="item.id_transporte.placa"></nz-option>
+                                <nz-option *ngFor="let item of recepciones" [nzValue]="item" [nzLabel]="item.id_unidad.placa"></nz-option>
                             </nz-select>
                         </div>
 

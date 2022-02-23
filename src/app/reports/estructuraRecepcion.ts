@@ -66,7 +66,7 @@ const ImgLogo = () => {
         {
           text: [
             { text: 'Placa: ', bold: true },
-            { text: controlObject.id_transporte.placa + '\n\n'},
+            { text: controlObject.unidad.placa + '\n\n'},
           ],
         },
         {
