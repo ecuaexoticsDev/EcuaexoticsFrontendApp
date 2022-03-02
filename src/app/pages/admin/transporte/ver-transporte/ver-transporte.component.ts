@@ -62,9 +62,9 @@ export class VerTransporteComponent implements OnInit {
           this.color = 'red';
           this.tipoIcon = 'close-circle';
         }
-        this.cargando = false;
-        this.cargarBitacoras(id_transporte)
         this.cargarCamiones(id_transporte)
+        this.cargarBitacoras(id_transporte)
+        
         
         }
       )
@@ -86,6 +86,7 @@ export class VerTransporteComponent implements OnInit {
       (resp:any)=>{
        
         this.bitacoras = resp
+        this.cargando = false;
       }
     )
   }
