@@ -4,6 +4,7 @@ import { AuthGuard } from './guards/auth.guard';
 import { NopagefoundComponent } from './pages/nopagefound/nopagefound.component';
 import { PagesComponent } from './pages/pages.component';
 import { PagesRoutingModule } from './pages/pages.routing';
+import { DocumentDownloadsComponent } from './pages/document-downloads/document-downloads.component';
 
 const routes: Routes = [
   {
@@ -18,7 +19,9 @@ const routes: Routes = [
     loadChildren: () => import('./auth/auth.module').then((m) => m.AuthModule),
   },
   // { path: '', component: PagesComponent },
+  { path: 'downloads/:idProductor/:idBodega', component: DocumentDownloadsComponent },
   { path: '**', component: NopagefoundComponent },
+ 
 ];
 
 @NgModule({

@@ -11,6 +11,7 @@ import { CalibradoService } from '../../../../services/calibrado/calibrado.servi
 export class VerRegistrosComponent implements OnInit {
   public listOfData: bodegaExterna[] = [];
   public cargando = true;
+  public idProductor = 0 ;
   constructor(
     private calibradoService: CalibradoService,
     private router: Router
@@ -29,6 +30,7 @@ export class VerRegistrosComponent implements OnInit {
           this.listOfData.push(calibrado);
         }
       });
+      this.idProductor = this.listOfData[0].id_productor.id_productor;
       this.cargando = false
       
     });
@@ -56,7 +58,7 @@ export class VerRegistrosComponent implements OnInit {
    */
   goControl(bodega: number, recepcion:number) {
     this.router.navigate(['calibrado/control-calidad/'], {
-      queryParams: { id_bodega: bodega, id_recepcion: recepcion },
+      queryParams: { id_bodega: bodega, id_recepcion: recepcion , id_productor: this.idProductor},
     });
   }
 }
