@@ -20,6 +20,7 @@ export class VerItemsComponent implements OnInit {
   public listOfData: itemPallet[] = [];
   public clientes: Cliente[] = [];
   public selectedValue: string = '';
+  public totalCajas: number = 0 ;
   // para desplegar modal 
   public mostrarModal = false;
   public clienteForm:FormGroup = this.fb.group({
@@ -76,6 +77,11 @@ export class VerItemsComponent implements OnInit {
       this.palletizadoService.eliminarItem(id).subscribe(
         (resp:any)=>{
           this.listOfData = this.listOfData.filter(d => d.id_item_pallet !== id);
+          this.listOfData.forEach(element => {
+            this.totalCajas = 0
+            this.totalCajas += element.num_cajas
+          });
+          
           Swal.fire('Exito',"Elemento eliminado correctamente",'success') 
         },(error)=>{
           Swal.fire('Error',"Ocurrio un error al eliminar el elemento",'error')
@@ -96,6 +102,10 @@ export class VerItemsComponent implements OnInit {
       };
     }
     );
+    this.listOfData.forEach(element => {
+      this.totalCajas += element.num_cajas
+    });
+    
   }
 
   showModal(): void {

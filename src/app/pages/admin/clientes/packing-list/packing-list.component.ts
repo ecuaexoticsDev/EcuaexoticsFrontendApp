@@ -18,8 +18,9 @@ export class PackingListComponent implements OnInit {
   public cargando: boolean = true;
   public cliente!: Cliente ;
   public packing: any;
-  public cajasGrandes :any[] = [];
-  public cajasPeq :any[] = []
+  public cajasGrandes :any[] = []; // cajas 2.5kg
+  public cajasCuatro :any[] = []; //cajas de 4kg
+  public cajasPeq :any[] = [] // cajas de 4.5kg
   public packForm:FormGroup = this.fb.group({
     shippingDate: [null,[Validators.required]],
     fact: [null,[Validators.required, Validators.minLength(3)]],
@@ -71,7 +72,11 @@ export class PackingListComponent implements OnInit {
                   tipoCaja.calibres.forEach((data:any) => {
                     this.cajasPeq.push(data)
                   });
-                }else if(tipoCaja.tipo_caja === 'Carton Box 4.5 kg net weight'){
+                }else if(tipoCaja.tipo_caja === 'Carton Box 4 kg net weight'){
+                  tipoCaja.calibres.forEach((data:any) => {
+                    this.cajasCuatro.push(data)
+                  });
+               }else if(tipoCaja.tipo_caja === 'Carton Box 4.5 kg net weight'){
                   tipoCaja.calibres.forEach((data:any) => {
                     this.cajasGrandes.push(data)
                   });

@@ -129,6 +129,26 @@
                         </tbody>
                     </nz-table>
                 </nz-tab>
+                <nz-tab nzTitle="Cajas 4 Kg" style="border-color: rgb(223, 220, 220);">
+                    <nz-table #cajasCuat [nzData]="cajasCuatro">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Tipo</th>
+                                <th class="text-center">Calibre</th>
+                                <th class="text-center">Cajas Totales</th>
+                                <th class="text-center">Peso Neto KG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of cajasCuat.data">
+                                <td> {{data.tipo_pitahaya}} </td>
+                                <td> {{data.calibre}} </td>
+                                <td> {{data.num_cajas}}</td>
+                                <td> {{data.num_cajas * 4}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
                 <nz-tab nzTitle="Cajas 4.5Kg">
                     <nz-table #cajasGrand [nzData]="cajasGrandes">
                         <thead>

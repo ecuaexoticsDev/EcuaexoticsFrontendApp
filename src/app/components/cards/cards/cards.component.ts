@@ -98,14 +98,14 @@ export class CardsComponent implements OnInit {
    * carga las cajas disponibles desde la recepcion de gavetas
    */
   obtenerCajas() {
-    console.log(this.id_pallet);
+    
     this.calibradoService.obtenerCajas(this.id_pallet).subscribe(
       (resp: any) => {
         this.cajasDisponibles = resp;
         this.cargarProductores();
       },
       (error) => {
-        console.log(error);
+        
         Swal.fire('Error', 'No se pudieron Cargar los Datos', 'error');
       }
     );

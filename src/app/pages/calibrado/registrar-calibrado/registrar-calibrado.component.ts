@@ -64,6 +64,7 @@ export class RegistrarCalibradoComponent implements OnInit {
     });
     this.store.select('calibrados').subscribe(({ calibrado }) => {
       this.cajas = calibrado;
+      console.log(this.cajas);
     });
   }
 
@@ -71,6 +72,7 @@ export class RegistrarCalibradoComponent implements OnInit {
     this.calibradoService
       .getCajasCalibre(this.id_bodega)
       .subscribe((resp: any) => {
+        console.log(resp);
         this.store.dispatch(actions.reloadStateCalibre({ payload: resp }));
       });
   }

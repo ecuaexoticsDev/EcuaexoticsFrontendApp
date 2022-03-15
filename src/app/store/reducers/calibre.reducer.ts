@@ -140,7 +140,14 @@ const _createCalibradoReducer = createReducer(
               ...caja,
             };
           }
-        } else if (tipo.tipo_caja == 'Carton Box 4.5 kg net weight') {
+        }else if (tipo.tipo_caja == 'Carton Box 4 kg net weight') {
+          if (cal > 18) {
+            newCajaItem = {
+              ...caja,
+            };
+          }
+        }
+         else if (tipo.tipo_caja == 'Carton Box 4.5 kg net weight') {
           if (cal > 18) {
             newCajaItem = {
               ...caja,

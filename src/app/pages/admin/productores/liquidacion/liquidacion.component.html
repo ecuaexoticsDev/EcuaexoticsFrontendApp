@@ -84,22 +84,17 @@
                         </thead>
                         <tbody>
                             <tr *ngFor="let data of editRowTablePeq.data">
-                                <ng-container *ngIf="
-                    !editCajasPeq[data.id_item_liquidacion].edit;
-                    else editTemplatePeq
-                  ">
+                                <ng-container *ngIf="!editCajasPeq[data.id_item_liquidacion].edit;else editTemplatePeq">
                                     <td>
                                         {{ data.calibre }}
                                     </td>
                                     <td>{{ data.num_cajas }}</td>
-                                    <td>{{ data.num_cajas * 4.5 }}</td>
+                                    <td>{{ data.num_cajas * 2.5 }}</td>
                                     <td>{{ data.precio }}</td>
                                     <td class="text-center">
-                                        <a (click)="
-                        startEdit(data.id_item_liquidacion, data.tipo_caja)
-                      " class="edit">
+                                        <a (click)="startEdit(data.id_item_liquidacion, data.tipo_caja)" class="edit">
                                             <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c">
-                      </i>
+                                            </i>
                                         </a>
                                     </td>
                                 </ng-container>
@@ -109,18 +104,61 @@
                                         {{ data.calibre }}
                                     </td>
                                     <td>{{ data.num_cajas }}</td>
-                                    <td>{{ data.num_cajas * 4.5 }}</td>
+                                    <td>{{ data.num_cajas * 2.5 }}</td>
                                     <td>
-                                        <input #precio type="number" nz-input [(ngModel)]="
-                        editCajasPeq[data.id_item_liquidacion].data.precio
-                      " />
+                                        <input #precio type="number" nz-input [(ngModel)]="editCajasPeq[data.id_item_liquidacion].data.precio" />
                                     </td>
                                     <td class="text-center">
-                                        <a *ngIf="precio.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="
-                        cancelEdit(data.id_item_liquidacion, data.tipo_caja)
-                      " class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
+                                        <a *ngIf="precio.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_item_liquidacion, data.tipo_caja)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
                                             <i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c">
-                      </i>
+                                            </i>
+                                        </a>
+                                    </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+                <nz-tab nzTitle="Cajas de 4 kg">
+                    <nz-table #editRowtabfour nzBordered [nzData]="cajasfour" [nzPageSize]="5" nzTableLayout="fixed">
+                        <thead>
+                            <tr>
+                                <th nzWidth="10%">Calibre</th>
+                                <th nzWidth="10%">Cajas</th>
+                                <th nzWidth="10%">Kg</th>
+                                <th nzWidth="10%">Precio</th>
+                                <th nzWidth="10%">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of editRowtabfour.data">
+                                <ng-container *ngIf="!editCajasfour[data.id_item_liquidacion].edit;else editTempfour">
+                                    <td>
+                                        {{ data.calibre }}
+                                    </td>
+                                    <td>{{ data.num_cajas }}</td>
+                                    <td>{{ data.num_cajas * 4 }}</td>
+                                    <td>{{ data.precio }}</td>
+                                    <td class="text-center">
+                                        <a (click)="startEdit(data.id_item_liquidacion, data.tipo_caja)" class="edit">
+                                            <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c"></i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <ng-template #editTempfour>
+                                    <td>
+                                        {{ data.calibre }}
+                                    </td>
+                                    <td>{{ data.num_cajas }}</td>
+                                    <td>{{ data.num_cajas * 4 }}</td>
+                                    <td>
+                                        <input #precio type="number" nz-input [(ngModel)]="editCajasfour[data.id_item_liquidacion].data.precio" />
+                                    </td>
+                                    <td class="text-center">
+                                        <a *ngIf="precio.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_item_liquidacion, data.tipo_caja)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
+                                            <i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c">
+                                            </i>
                                         </a>
                                     </td>
                                 </ng-template>
