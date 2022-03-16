@@ -1,0 +1,18 @@
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+
+<div class="row justify-content-md-center">
+
+    <div class="text-center  mt-3 upload-btn-wrapper">
+        <button (click)="download()" nz-button nzType="primary" class="btn1">
+                Descargar Control de Calidad
+    </button>
+    </div>
+</div>

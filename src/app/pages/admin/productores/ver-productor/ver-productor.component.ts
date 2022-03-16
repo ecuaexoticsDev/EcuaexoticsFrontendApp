@@ -86,7 +86,7 @@ export class VerProductorComponent implements OnInit {
     this.bodegaExternaService
       .obtenerGavetasProductor(id_productor)
       .subscribe((resp: any) => {
-        console.log(resp);
+       
         this.bitacoras = resp;
       });
   }

@@ -9,6 +9,7 @@ import { ControlCalidadService } from 'src/app/services/controlCalidad/control-c
 import Swal from 'sweetalert2';
 import { BodegaExternaService } from '../../../services/bodegaExterna/bodega-externa.service';
 import { RecepcionTransService } from '../../../services/recepcion/recepcion-trans.service';
+import { environment } from 'src/environments/environment';
 
 interface FileObject {
   idFile: any;
@@ -29,6 +30,8 @@ export class ControlCalidadComponent implements OnInit {
 
   id_bodega: number = 0;
   id_recepcion: number = 0;
+  id_productor: number = 0 ;
+  appUrl = 'https://ecuaexoticsapp.herokuapp.com'
 
   txtInputObservacion: FormControl = this.getFormControl();
 
@@ -59,6 +62,7 @@ export class ControlCalidadComponent implements OnInit {
       if (params.hasOwnProperty('id_bodega')) {
         this.id_bodega = params['id_bodega'];
         this.id_recepcion = params['id_recepcion'];
+        this.id_productor = params['id_productor'];
       }
     });
     this.servicioControlCalidad.getmotivos().subscribe(
@@ -136,8 +140,8 @@ export class ControlCalidadComponent implements OnInit {
         }
       });
       let dataControl = new FormData();
-      
-      dataControl.append('observacion', this.txtInputObservacion.value);
+     //cambiar aqui la url por appUrl
+      dataControl.append('observacion', this.txtInputObservacion.value +'\n'+ 'Descargar Control de Calidad: ' + `http://localhost:4200/downloads/${this.id_productor}/${this.id_bodega}`);
       dataControl.append('id_bodega', String(this.id_bodega));
       // agregar peso , lote , gavetas agregar motivos.
       dataControl.append('num_lote', this.reporteCalidadForm.get('lote')?.value);

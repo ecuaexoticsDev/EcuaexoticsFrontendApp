@@ -28,8 +28,9 @@ import { PalletizadoModule } from './palletizado/palletizado.module';
 import { AdminModule } from './admin/admin.module';
 
 
+
 @NgModule({
-  declarations: [PagesComponent, DashboardComponent  ],
+  declarations: [PagesComponent, DashboardComponent],
   imports: [
     CommonModule,
     SharedModule,
