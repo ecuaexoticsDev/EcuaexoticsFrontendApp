@@ -32,6 +32,7 @@ export class ControlCalidadComponent implements OnInit {
   id_recepcion: number = 0;
   id_productor: number = 0 ;
   appUrl = 'https://ecuaexoticsapp.herokuapp.com'
+  // http://localhost:4200/downloads/
 
   txtInputObservacion: FormControl = this.getFormControl();
 
@@ -141,7 +142,7 @@ export class ControlCalidadComponent implements OnInit {
       });
       let dataControl = new FormData();
      //cambiar aqui la url por appUrl
-      dataControl.append('observacion', this.txtInputObservacion.value +'\n'+ 'Descargar Control de Calidad: ' + `http://localhost:4200/downloads/${this.id_productor}/${this.id_bodega}`);
+      dataControl.append('observacion', this.txtInputObservacion.value +'\n'+ 'Descargar Control de Calidad: ' + `${this.appUrl}/downloads/${this.id_productor}/${this.id_bodega}`);
       dataControl.append('id_bodega', String(this.id_bodega));
       // agregar peso , lote , gavetas agregar motivos.
       dataControl.append('num_lote', this.reporteCalidadForm.get('lote')?.value);

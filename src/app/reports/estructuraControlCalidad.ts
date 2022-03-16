@@ -56,7 +56,7 @@ const Column1 = (controlObject: any, productor: any) => {
       {
         text: [
           { text: 'Fecha: ', bold: true },
-          { text: controlObject.fecha.split('T')[0]+' '+ controlObject.fecha.split('T')[1].split('.')[0] },
+          { text: controlObject.fecha.split('T')[0]+' '},
         ],
       },
       {
