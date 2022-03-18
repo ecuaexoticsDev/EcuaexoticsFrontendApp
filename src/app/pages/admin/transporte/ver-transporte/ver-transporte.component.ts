@@ -220,7 +220,7 @@ export class VerTransporteComponent implements OnInit {
    async verReporte(recepcion: recepcionTransporte){
 
     Swal.fire({
-      title: 'Generando reporte de Control de calidad...',
+      title: 'Generando Bitacora de Transporte...',
       didOpen: () => {
         Swal.showLoading();
       },

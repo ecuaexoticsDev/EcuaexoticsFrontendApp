@@ -20,7 +20,7 @@
                             <h5 class="tex-center">Placa del Camion</h5>
                         </div>
                         <div class="col-md-6 d-flex justify-content-start box-item-bodega">
-                            <nz-select nzPlaceHolder="Placas" formControlName="placas">
+                            <nz-select nzPlaceHolder="Placas" formControlName="placas" style="width: 200px">
                                 <nz-option *ngFor="let item of listTransportes" [nzValue]="item" [nzLabel]="item.placa"></nz-option>
                             </nz-select>
                         </div>
