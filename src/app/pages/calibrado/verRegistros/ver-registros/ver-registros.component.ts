@@ -29,7 +29,8 @@ export class VerRegistrosComponent implements OnInit {
         if (calibrado.estado ==="Bodega" || calibrado.estado ==="Calibrado" ) { 
           this.listOfData.push(calibrado);
         }
-        this.idProductor = this.listOfData[0].id_productor.id_productor;
+        console.log(this.listOfData);
+        // this.idProductor = this.listOfData[0].id_productor.id_productor;
       });
       
       this.cargando = false
