@@ -60,6 +60,12 @@ export class VerRegistrosComponent implements OnInit {
    * @param data  id del calibrado
    */
   goControl(bodega: number, recepcion:number) {
+    this.listOfData.forEach(element => {
+      if (element.id_bodega === bodega) {
+        this.idProductor = element.id_productor.id_productor
+      }
+      
+    });
     this.router.navigate(['calibrado/control-calidad/'], {
       queryParams: { id_bodega: bodega, id_recepcion: recepcion , id_productor: this.idProductor},
     });
