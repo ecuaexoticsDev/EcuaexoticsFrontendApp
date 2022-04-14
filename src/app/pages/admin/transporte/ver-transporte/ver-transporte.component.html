@@ -1,6 +1,6 @@
 <div class="row page-titles">
     <div class="col-md-5 align-self-center">
-        <h3 style="color: darkorange">Perfil Transportista</h3>
+        <h3 class="text-themecolor">Perfil Transportista</h3>
     </div>
 </div>
 
@@ -51,13 +51,13 @@
             </div>
         </div>
     </div>
-    <div class="col-lg-9 col-xlg-9 col-md-7" *ngIf="!cargando">
+    <div class="col-lg-9 col-xlg-9 col-md-7">
         <div class="card-container">
             <nz-tabset>
                 <nz-tab nzTitle="Recepciones">
                     <div class="row">
-                        <div class="col-md-2">
-                            <label style="color: darkorange">Filtro por Fechas</label>
+                        <div class="col-md-2 justify-content-md-end">
+                            <label style="color: darkorange">Filtrar Fechas</label>
                         </div>
                         <div class="col-md-10 justify-content-md-start">
                             <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="rangofechas" (ngModelChange)="onChange($event)"></nz-range-picker>

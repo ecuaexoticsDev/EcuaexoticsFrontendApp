@@ -30,9 +30,10 @@ export class VerRegistrosComponent implements OnInit {
           this.listOfData.push(calibrado);
         }
       });
-      if(this.listOfData.length>0){
-         this.idProductor = this.listOfData[0].id_productor.id_productor;
-      }
+      //TODO: eliminar esto de la version de produccion 
+     // if(this.listOfData.length>0){
+       //  this.idProductor = this.listOfData[0].id_productor.id_productor;
+      //}
       
       this.cargando = false
       

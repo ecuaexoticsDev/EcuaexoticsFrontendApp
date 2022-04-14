@@ -73,7 +73,6 @@ export class VerTransporteComponent implements OnInit {
   cargarCamiones(id_transporte:number){
     this.transporteService.getCamiones_by_id(id_transporte).subscribe(
       (resp:any)=>{
-       
         this.camiones = resp
         this.updateEditCache();
       }
@@ -82,13 +81,14 @@ export class VerTransporteComponent implements OnInit {
   }
 
   cargarBitacoras(id_transporte:number){
+    this.cargando = true;
     this.transporteService.ObtenerRecepciones(id_transporte).subscribe(
       (resp:any)=>{
-       
-        this.bitacoras = resp
         this.cargando = false;
+        this.bitacoras = resp
       }
     )
+   
   }
 
    /**

@@ -32,8 +32,6 @@ export class DocumentDownloadsComponent implements OnInit {
     this.rutaActiva.params.subscribe(({ idProductor,idBodega }) => {
       this.getProductor(idProductor);
       this.id_bodega = idBodega
-      console.log(idProductor);
-      console.log(idBodega);
     });
   }
 

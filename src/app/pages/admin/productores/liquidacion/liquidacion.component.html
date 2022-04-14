@@ -70,7 +70,7 @@
     <div class="col-6">
         <div class="card-container" *ngIf="!cargando">
             <nz-tabset>
-                <nz-tab nzTitle="Cajas de 2.5kg">
+                <nz-tab nzTitle="Cajas de 2.5kg" (nzClick)="getTabTotal(cajasPequenas)">
                     <nz-table #editRowTablePeq nzBordered [nzData]="cajasPequenas" [nzPageSize]="5" nzTableLayout="fixed">
                         <thead>
                             <tr>
@@ -118,8 +118,11 @@
                             </tr>
                         </tbody>
                     </nz-table>
+                    <br>
+                    <label for="">Total de Cajas: {{totalCajas}} </label> <br>
+                    <label for="">Total de kg: {{totalKg}} </label>
                 </nz-tab>
-                <nz-tab nzTitle="Cajas de 4 kg">
+                <nz-tab nzTitle="Cajas de 4 kg" (nzClick)="getTabTotal(cajasfour)">
                     <nz-table #editRowtabfour nzBordered [nzData]="cajasfour" [nzPageSize]="5" nzTableLayout="fixed">
                         <thead>
                             <tr>
@@ -165,8 +168,12 @@
                             </tr>
                         </tbody>
                     </nz-table>
+                    <br>
+                    <label for="">Total de Cajas: {{totalCajas}} </label><br>
+                    <label for="">Total de kg: {{totalKg}} </label>
+
                 </nz-tab>
-                <nz-tab nzTitle="Cajas de 4.5kg">
+                <nz-tab nzTitle="Cajas de 4.5kg" (nzClick)="getTabTotal(cajasGrandes)">
                     <nz-table #editRowTable nzBordered [nzData]="cajasGrandes" [nzPageSize]="5" nzTableLayout="fixed">
                         <thead>
                             <tr>
@@ -222,11 +229,17 @@
                             </tr>
                         </tbody>
                     </nz-table>
+                    <br>
+                    <label for="">Total de Cajas: {{totalCajas}} </label><br>
+                    <label for="">Total de kg: {{totalKg}} </label>
                 </nz-tab>
+
             </nz-tabset>
+
         </div>
     </div>
 </div>
+<br>
 <div class="row">
     <div class="col-12 text-center" *ngIf="!cargando">
         <button (click)="finalizarLiq()" [disabled]="liquiForm.invalid" nzShape="round" nzSize="default" nz-button nzType="primary">

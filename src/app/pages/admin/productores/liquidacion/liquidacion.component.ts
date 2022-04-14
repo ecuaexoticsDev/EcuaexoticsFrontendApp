@@ -28,6 +28,11 @@ export class LiquidacionComponent implements OnInit {
   public editCajasPeq: { [key: number]: { edit: boolean; data: any } } = {};
   public editCajasfour: { [key: number]: { edit: boolean; data: any } } = {};
 
+  // Total Cajas 
+  public totalCajas : number = 0;
+  // Total kg
+  public totalKg : number = 0;
+
   public liquiForm: FormGroup = this.fb.group({
     liquidacion: [null, Validators.required],
     fecha: [null, [Validators.required]],
@@ -91,21 +96,33 @@ export class LiquidacionComponent implements OnInit {
             element.tipos.forEach((tipoCaja: any) => {
               if (tipoCaja.tipo === 'Carton Box 4.5 kg net weight') {
                 this.cajasGrandes = tipoCaja.items;
+                
               } else if (tipoCaja.tipo === 'Carton Box 4 kg net weight') {
                 //this.cajasPequenas = tipoCaja.items;
                 this.cajasfour = tipoCaja.items;
-                console.log(tipoCaja.items);
+                
               } 
               else if (tipoCaja.tipo === 'Carton Box 2.5 kg net weight') {
                 this.cajasPequenas = tipoCaja.items;
+                console.log(tipoCaja.items);
               }
             });
-            
+           // this.cargarTotales(this.cajasPequenas, this.cajasfour, this.cajasGrandes)
             this.updateEditCache();
             this.cargando = false;
           }
         });
       });
+  }
+
+  getTabTotal(items: any[]){
+    this.totalCajas = 0
+    this.totalKg = 0
+    items.forEach(element => {
+      this.totalCajas += element.num_cajas
+      this.totalKg += element.kg
+   });
+    
   }
 
   /**
