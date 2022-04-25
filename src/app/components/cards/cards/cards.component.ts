@@ -7,6 +7,7 @@ import { CalibradoService } from '../../../services/calibrado/calibrado.service'
 import { PalletizadoService } from '../../../services/palletizado/palletizado.service';
 import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
 import Swal from 'sweetalert2';
+import { logging } from 'protractor';
 
 @Component({
   selector: 'app-cards',
@@ -73,6 +74,7 @@ export class CardsComponent implements OnInit {
       id_caja: this.id_caja,
       ...this.palletForm.value,
     };
+   
     this.palletizadoService.crearItemPallet(item, this.id_usuario).subscribe(
       (resp: any) => {
         this.cajas.push(item);
@@ -144,6 +146,7 @@ export class CardsComponent implements OnInit {
         }
       });
     }
+   
   }
 
   /**
@@ -155,17 +158,24 @@ export class CardsComponent implements OnInit {
     const id_prod = this.palletForm.controls['productor'].value;
     if (data !== null) {
       this.cajasDisponibles.forEach((element) => {
+        
         if (element.productor.id_productor === id_prod.id_productor) {
           element.tipo_caja.forEach((caja: any) => {
+            
             if (caja.tipo === data) {
+             
               caja.cajas.forEach((item: any) => {
-                this.calibres.push(item.calibre);
+          
+                 if (!this.calibres.includes(item.calibre)) {
+                  this.calibres.push(item.calibre);
+                 } 
               });
             }
           });
         }
       });
     }
+
   }
 
   /**

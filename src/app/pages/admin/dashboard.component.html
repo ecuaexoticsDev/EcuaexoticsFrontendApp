@@ -32,7 +32,7 @@
     </thead>
     <tbody>
         <tr class="text-center" *ngFor="let data of basicTable.data">
-            <td>{{basicTable.data.indexOf(data)+1}} </td>
+            <td>{{palletizado.pallets.indexOf(data) + 1 }} </td>
             <td>{{data.tipo_pitahaya}} </td>
             <td>{{data.total_cajas}}</td>
             <td>{{data.cliente.nombre}}</td>
