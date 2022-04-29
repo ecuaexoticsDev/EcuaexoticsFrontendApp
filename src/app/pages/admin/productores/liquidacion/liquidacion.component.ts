@@ -21,12 +21,18 @@ export class LiquidacionComponent implements OnInit {
   public cargando: boolean = true;
   public isVisible: boolean = false;
   public liquidacion: any;
+  //array principal de cajas
   public cajasGrandes: any[] = [];
   public cajasfour: any[] = [];
   public cajasPequenas: any[] = [];
+  public cajasDiez: any[] = []; 
+  public cajasDoce: any[] = [];
+  //array secunadrio de cajas para la edicion 
   public editCache: { [key: number]: { edit: boolean; data: any } } = {};
   public editCajasPeq: { [key: number]: { edit: boolean; data: any } } = {};
   public editCajasfour: { [key: number]: { edit: boolean; data: any } } = {};
+  public editCajasDiez: { [key: number]: { edit: boolean; data: any } } = {};
+  public editCajasDoce: { [key: number]: { edit: boolean; data: any } } = {};
 
   // Total Cajas 
   public totalCajas : number = 0;
@@ -98,16 +104,24 @@ export class LiquidacionComponent implements OnInit {
                 this.cajasGrandes = tipoCaja.items;
                 
               } else if (tipoCaja.tipo === 'Carton Box 4 kg net weight') {
-                //this.cajasPequenas = tipoCaja.items;
+                
                 this.cajasfour = tipoCaja.items;
                 
               } 
               else if (tipoCaja.tipo === 'Carton Box 2.5 kg net weight') {
                 this.cajasPequenas = tipoCaja.items;
-                console.log(tipoCaja.items);
+               
+
+              }else if (tipoCaja.tipo === 'Carton Box 10.9 kg net weight') {
+                this.cajasDiez = tipoCaja.items;
+                
+
+              }else if (tipoCaja.tipo === 'Carton Box 12.7 kg net weight') {
+                this.cajasDoce = tipoCaja.items;
+                //console.log(tipoCaja.items);
               }
             });
-           // this.cargarTotales(this.cajasPequenas, this.cajasfour, this.cajasGrandes)
+          
             this.updateEditCache();
             this.cargando = false;
           }
@@ -176,6 +190,7 @@ export class LiquidacionComponent implements OnInit {
   * @returns 
   */
   startEdit(id: number, tipo_caja: string): void {
+
     if (tipo_caja === 'Carton Box 2.5 kg net weight') {
       this.editCajasPeq[id].edit = true;
     }else if (tipo_caja === 'Carton Box 4 kg net weight') {
@@ -183,7 +198,13 @@ export class LiquidacionComponent implements OnInit {
     }
      else if (tipo_caja === 'Carton Box 4.5 kg net weight') {
       this.editCache[id].edit = true;
-    } else {
+
+    } else if (tipo_caja === 'Carton Box 10.9 kg net weight') {
+      this.editCajasDiez[id].edit = true;
+
+    }else if (tipo_caja === 'Carton Box 12.7 kg net weight') {
+      this.editCajasDoce[id].edit = true;
+    }else {
       return;
     }
   }
@@ -212,6 +233,20 @@ export class LiquidacionComponent implements OnInit {
      else if (data.tipo_caja === 'Carton Box 4.5 kg net weight') {
       itemUpdate = this.editCache[data.id_item_liquidacion].data;
       index = this.cajasGrandes.findIndex(
+        (item) => item.id_item_liquidacion === data.id_item_liquidacion
+      );
+      
+    }
+    else if (data.tipo_caja === 'Carton Box 10.9 kg net weight') {
+      itemUpdate = this.editCajasDiez[data.id_item_liquidacion].data;
+      index = this.cajasDiez.findIndex(
+        (item) => item.id_item_liquidacion === data.id_item_liquidacion
+      );
+      
+    }
+    else if (data.tipo_caja === 'Carton Box 12.7 kg net weight') {
+      itemUpdate = this.editCajasDoce[data.id_item_liquidacion].data;
+      index = this.cajasDoce.findIndex(
         (item) => item.id_item_liquidacion === data.id_item_liquidacion
       );
       
@@ -249,7 +284,30 @@ export class LiquidacionComponent implements OnInit {
               'Datos de liquidacion Actualizados',
               'success'
             );
-          }else {
+          } else if(itemUpdate.tipo_caja === 'Carton Box 10.9 kg net weight') {
+            Object.assign(
+              this.cajasDiez[index],
+              this.editCajasDiez[data.id_item_liquidacion].data
+            );
+            this.editCajasDiez[data.id_item_liquidacion].edit = false;
+            Swal.fire(
+              'Actualización Exitosa',
+              'Datos de liquidacion Actualizados',
+              'success'
+            );
+          } else if(itemUpdate.tipo_caja === 'Carton Box 12.7 kg net weight') {
+            Object.assign(
+              this.cajasDoce[index],
+              this.editCajasDoce[data.id_item_liquidacion].data
+            );
+            this.editCajasDoce[data.id_item_liquidacion].edit = false;
+            Swal.fire(
+              'Actualización Exitosa',
+              'Datos de liquidacion Actualizados',
+              'success'
+            );
+          }
+          else {
             Object.assign(
               this.cajasGrandes[index],
               this.editCache[data.id_item_liquidacion].data
@@ -277,6 +335,22 @@ export class LiquidacionComponent implements OnInit {
               'error'
             );
             this.editCajasfour[data.id_item_liquidacion].edit = false;
+
+          } else if(itemUpdate.tipo_caja === 'Carton Box 10.9 kg net weight'){
+            Swal.fire(
+              'Error',
+              'Sucedio un error, no se pudo actualizar los datos de la liquidacion',
+              'error'
+            );
+            this.editCajasDiez[data.id_item_liquidacion].edit = false;
+
+          } else if(itemUpdate.tipo_caja === 'Carton Box 12.7 kg net weight'){
+            Swal.fire(
+              'Error',
+              'Sucedio un error, no se pudo actualizar los datos de la liquidacion',
+              'error'
+            );
+            this.editCajasDoce[data.id_item_liquidacion].edit = false;
           }
           else {
             Swal.fire(
@@ -312,6 +386,18 @@ export class LiquidacionComponent implements OnInit {
         data: { ...item },
       };
     });
+    this.cajasDiez.forEach((item) => {
+      this.editCajasDiez[item.id_item_liquidacion] = {
+        edit: false,
+        data: { ...item },
+      };
+    });
+    this.cajasDoce.forEach((item) => {
+      this.editCajasDoce[item.id_item_liquidacion] = {
+        edit: false,
+        data: { ...item },
+      };
+    });
   }
 
   /**
@@ -337,6 +423,22 @@ export class LiquidacionComponent implements OnInit {
         data: { ...this.cajasfour[index] },
         edit: false,
       };
+    } else if (tipo_caja === 'Carton Box 10.9 kg net weight') {
+      const index = this.cajasDiez.findIndex(
+        (item) => item.id_item_liquidacion === id
+      );
+      this.editCajasDiez[id] = {
+        data: { ...this.cajasDiez[index] },
+        edit: false,
+      };
+    } else if (tipo_caja === 'Carton Box 12.7 kg net weight') {
+      const index = this.cajasDoce.findIndex(
+        (item) => item.id_item_liquidacion === id
+      );
+      this.editCajasDoce[id] = {
+        data: { ...this.cajasDoce[index] },
+        edit: false,
+      };
     } 
     else if (tipo_caja === 'Carton Box 4.5 kg net weight') {
       const index = this.cajasGrandes.findIndex(
@@ -355,6 +457,7 @@ export class LiquidacionComponent implements OnInit {
    * finaliza la liqudicacion y asigna los datos al productor en la base
    */
   async finalizarLiq(): Promise<any> {
+    
     this.cajasGrandes.forEach((element) => {
       if (element.precio === 0) {
         Swal.fire('Error', 'Ingrese el precio en todos lo elementos', 'error');
@@ -369,6 +472,24 @@ export class LiquidacionComponent implements OnInit {
         return;
       }
     });
+    this.cajasDiez.forEach((element) => {
+      if (element.precio === 0) {
+        Swal.fire('Error', 'Ingrese el precio en todos lo elementos', 'error');
+        
+        return;
+      }
+    });
+    this.cajasDoce.forEach((element) => {
+      if (element.precio === 0) {
+        Swal.fire('Error', 'Ingrese el precio en todos lo elementos', 'error');
+        
+        return;
+      }
+    });
+
+
+
+
     const confirmacion = await SolicitarConfirmacion(
       '¿Desea finalizar la Liquidación?'
     );

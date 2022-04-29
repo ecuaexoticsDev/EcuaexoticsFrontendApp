@@ -234,6 +234,109 @@
                     <label for="">Total de kg: {{totalKg}} </label>
                 </nz-tab>
 
+                <nz-tab nzTitle="Cajas de 10.9kg" (nzClick)="getTabTotal(cajasDiez)">
+                    <nz-table #editDiez nzBordered [nzData]="cajasDiez" [nzPageSize]="5" nzTableLayout="fixed">
+                        <thead>
+                            <tr>
+                                <th nzWidth="10%">Calibre</th>
+                                <th nzWidth="10%">Cajas</th>
+                                <th nzWidth="10%">Kg</th>
+                                <th nzWidth="10%">Precio</th>
+                                <th nzWidth="10%">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of editDiez.data">
+                                <ng-container *ngIf="!editCajasDiez[data.id_item_liquidacion].edit; else editTemplateDiez">
+                                    <td>
+                                        {{ data.calibre }}
+                                    </td>
+                                    <td>{{ data.num_cajas }}</td>
+                                    <td>{{ data.num_cajas * 10.9 }}</td>
+                                    <td>{{ data.precio }}</td>
+                                    <td class="text-center">
+                                        <a (click)="startEdit(data.id_item_liquidacion, data.tipo_caja)" class="edit">
+                                            <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c">
+                                            </i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <ng-template #editTemplateDiez>
+                                    <td>
+                                        {{ data.calibre }}
+                                    </td>
+                                    <td>{{ data.num_cajas }}</td>
+                                    <td>{{ data.num_cajas * 10.9 }}</td>
+                                    <td>
+                                        <input #precio type="number" nz-input [(ngModel)]="editCajasDiez[data.id_item_liquidacion].data.precio" />
+                                    </td>
+                                    <td class="text-center">
+                                        <a *ngIf="precio.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_item_liquidacion, data.tipo_caja)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
+                                            <i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c">
+                                            </i>
+                                        </a>
+                                    </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <br>
+                    <label for="">Total de Cajas: {{totalCajas}} </label><br>
+                    <label for="">Total de kg: {{totalKg}} </label>
+                </nz-tab>
+                <nz-tab nzTitle="Cajas de 12.7kg" (nzClick)="getTabTotal(cajasDoce)">
+                    <nz-table #editDoce nzBordered [nzData]="cajasDoce" [nzPageSize]="5" nzTableLayout="fixed">
+                        <thead>
+                            <tr>
+                                <th nzWidth="10%">Calibre</th>
+                                <th nzWidth="10%">Cajas</th>
+                                <th nzWidth="10%">Kg</th>
+                                <th nzWidth="10%">Precio</th>
+                                <th nzWidth="10%">Acción</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr *ngFor="let data of editDoce.data">
+                                <ng-container *ngIf="!editCajasDoce[data.id_item_liquidacion].edit; else editTemplateDoce">
+                                    <td>
+                                        {{ data.calibre }}
+                                    </td>
+                                    <td>{{ data.num_cajas }}</td>
+                                    <td>{{ data.num_cajas * 12.7 }}</td>
+                                    <td>{{ data.precio }}</td>
+                                    <td class="text-center">
+                                        <a (click)="startEdit(data.id_item_liquidacion, data.tipo_caja)" class="edit">
+                                            <i nz-icon nzType="edit" nzTheme="outline" style="font-size: 20px; color: #08c">
+                                            </i>
+                                        </a>
+                                    </td>
+                                </ng-container>
+
+                                <ng-template #editTemplateDoce>
+                                    <td>
+                                        {{ data.calibre }}
+                                    </td>
+                                    <td>{{ data.num_cajas }}</td>
+                                    <td>{{ data.num_cajas * 12.7 }}</td>
+                                    <td>
+                                        <input #precio type="number" nz-input [(ngModel)]="editCajasDoce[data.id_item_liquidacion].data.precio" />
+                                    </td>
+                                    <td class="text-center">
+                                        <a *ngIf="precio.value.length !== 0" (nzOnConfirm)="saveEdit(data)" (nzOnCancel)="cancelEdit(data.id_item_liquidacion, data.tipo_caja)" class="save" nz-popconfirm nzPopconfirmTitle="¿Seguro desea guardar el cambio?">
+                                            <i nz-icon nzType="save" nzTheme="outline" style="font-size: 20px; color: #08c">
+                                            </i>
+                                        </a>
+                                    </td>
+                                </ng-template>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                    <br>
+                    <label for="">Total de Cajas: {{totalCajas}} </label><br>
+                    <label for="">Total de kg: {{totalKg}} </label>
+                </nz-tab>
+
             </nz-tabset>
 
         </div>

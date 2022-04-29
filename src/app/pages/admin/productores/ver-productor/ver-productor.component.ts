@@ -252,7 +252,7 @@ export class VerProductorComponent implements OnInit {
     this.bitacoras.forEach(element => {
       if (element.id_bodega == id) {
         bitacora = element
-       // console.log(bitacora);
+       
       }
     });
     Swal.fire({

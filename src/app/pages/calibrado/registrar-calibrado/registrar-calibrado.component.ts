@@ -66,6 +66,7 @@ export class RegistrarCalibradoComponent implements OnInit {
       this.cajas = calibrado;
       console.log(this.cajas);
     });
+    
   }
 
   getCajasByBodega() {
@@ -75,6 +76,7 @@ export class RegistrarCalibradoComponent implements OnInit {
         console.log(resp);
         this.store.dispatch(actions.reloadStateCalibre({ payload: resp }));
       });
+      console.log(this.cajas);
   }
 
   getFormControl() {
@@ -175,7 +177,14 @@ export class RegistrarCalibradoComponent implements OnInit {
         } else {
           this.visibleErrorMessage = true;
         }
-      } else if (this.tipo_caja == 'Caja 4.5') {
+      } else if (this.tipo_caja == 'Caja 4') {
+        if (event > 18) {
+          this.visibleErrorMessage = false;
+        } else {
+          this.visibleErrorMessage = true;
+        }
+      }
+       else if (this.tipo_caja == 'Caja 4.5') {
         if (event > 18) {
           this.visibleErrorMessage = false;
         } else {

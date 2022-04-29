@@ -169,6 +169,46 @@
                         </tbody>
                     </nz-table>
                 </nz-tab>
+                <nz-tab nzTitle="Cajas 10.9Kg">
+                    <nz-table #cajaDiez [nzData]="cajasDiez">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Tipo</th>
+                                <th class="text-center">Calibre</th>
+                                <th class="text-center">Cajas Totales</th>
+                                <th class="text-center">Peso Neto KG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of cajaDiez.data">
+                                <td> {{data.tipo_pitahaya}} </td>
+                                <td> {{data.calibre}} </td>
+                                <td> {{data.num_cajas}}</td>
+                                <td> {{data.num_cajas * 10.9}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
+                <nz-tab nzTitle="Cajas 12.7Kg">
+                    <nz-table #cajaDoce [nzData]="cajasDoce">
+                        <thead>
+                            <tr>
+                                <th class="text-center">Tipo</th>
+                                <th class="text-center">Calibre</th>
+                                <th class="text-center">Cajas Totales</th>
+                                <th class="text-center">Peso Neto KG</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="text-center" *ngFor="let data of cajaDoce.data">
+                                <td> {{data.tipo_pitahaya}} </td>
+                                <td> {{data.calibre}} </td>
+                                <td> {{data.num_cajas}}</td>
+                                <td> {{data.num_cajas * 12.7}}</td>
+                            </tr>
+                        </tbody>
+                    </nz-table>
+                </nz-tab>
             </nz-tabset>
         </div>
     </div>

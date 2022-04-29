@@ -15,6 +15,7 @@ export const initialCalibradoState: CalibradoState = {
   calibrado: getInitialStateCalibrado(),
 };
 
+//MODIFICAR PARA AGREGAR NUEVAS CAJAS
 const _createCalibradoReducer = createReducer(
   initialCalibradoState,
   on(actions.sumarCalibre, (state, { payload }) => {

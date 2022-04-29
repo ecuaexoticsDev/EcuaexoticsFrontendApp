@@ -18,9 +18,13 @@ export class PackingListComponent implements OnInit {
   public cargando: boolean = true;
   public cliente!: Cliente ;
   public packing: any;
+
   public cajasGrandes :any[] = []; // cajas 2.5kg
   public cajasCuatro :any[] = []; //cajas de 4kg
   public cajasPeq :any[] = [] // cajas de 4.5kg
+  public cajasDiez :any[] = [] // cajas de 10.,9kg
+  public cajasDoce :any[] = [] // cajas de 12,7kg
+
   public packForm:FormGroup = this.fb.group({
     shippingDate: [null,[Validators.required]],
     fact: [null,[Validators.required, Validators.minLength(3)]],
@@ -57,6 +61,7 @@ export class PackingListComponent implements OnInit {
   obtenerPackingList(id_cliente: number){
     this.clientesService.getPackinglist(id_cliente).pipe( delay(200)).subscribe(
       (resp:any)=>{
+       
         resp.forEach((element:any) => {
           
          if (element.packing.id_packing == this.id_packing) {
@@ -80,7 +85,17 @@ export class PackingListComponent implements OnInit {
                   tipoCaja.calibres.forEach((data:any) => {
                     this.cajasGrandes.push(data)
                   });
-               }   
+               }else if(tipoCaja.tipo_caja === 'Carton Box 10.9 kg net weight'){
+                tipoCaja.calibres.forEach((data:any) => {
+                  this.cajasDiez.push(data)
+                 
+                 
+                });
+             } else if(tipoCaja.tipo_caja === 'Carton Box 12.7 kg net weight'){
+              tipoCaja.calibres.forEach((data:any) => {
+                this.cajasDoce.push(data)
+              });
+           }     
              
             });       
           });

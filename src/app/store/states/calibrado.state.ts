@@ -1,3 +1,4 @@
+//MODIFICAR PARA AGREGAR NUEVOS TIPOS DE CAJAS
 export const initialState = [
   {
     id_bodega: null,
@@ -206,6 +207,30 @@ export const initialState = [
       {
         id_caja: 0,
         calibre: 'C-18',
+        cantidad: 0,
+      },
+    ],
+  },
+  {
+    id_bodega: null,
+    tipo_caja: 'Caja 10.9',
+    name_tipo_caja: 'Carton Box 10.9 kg net weight',
+    calibres: [
+      {
+        id_caja: 0,
+        calibre: 'C-0',
+        cantidad: 0,
+      },
+    ],
+  },
+  {
+    id_bodega: null,
+    tipo_caja: 'Caja 12.7',
+    name_tipo_caja: 'Carton Box 12.7 kg net weight',
+    calibres: [
+      {
+        id_caja: 0,
+        calibre: 'C-0',
         cantidad: 0,
       },
     ],
