@@ -198,7 +198,7 @@ export class VerProductorComponent implements OnInit {
    * @param id id del reporte para descargarlo
    */
   async verReporte(id: number) {
-  
+    
     const productor = this.productor.nombre + ' ' + this.productor.apellido;
     Swal.fire({
       title: 'Generando reporte de Control de calidad...',
@@ -247,12 +247,12 @@ export class VerProductorComponent implements OnInit {
    */
   
  async verBitacora(id: number){
+  
     const productor = this.productor.nombre + ' ' + this.productor.apellido;
     let bitacora:any ;
     this.bitacoras.forEach(element => {
       if (element.id_bodega == id) {
         bitacora = element
-       
       }
     });
     Swal.fire({

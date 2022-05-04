@@ -45,5 +45,9 @@ export class BodegaExternaService {
    const url = ApiBodega.obtener_bitacoras_by_productor+`${id_productor}/`
    return this.http.get(url);
  }
+ obtenerBodegabyId(id_productor: number, id_bodega: number){
+  const url = ApiBodega.obtener_bitacoras_by_Id+`${id_productor}/`+`${id_bodega}`
+  return this.http.get(url);
+ }
   
 }
