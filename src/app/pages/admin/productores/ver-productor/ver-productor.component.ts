@@ -246,7 +246,7 @@ export class VerProductorComponent implements OnInit {
    * @param id id de la bitacora para descargarla
    */
   
-  verBitacora(id: number){
+ async verBitacora(id: number){
     const productor = this.productor.nombre + ' ' + this.productor.apellido;
     let bitacora:any ;
     this.bitacoras.forEach(element => {

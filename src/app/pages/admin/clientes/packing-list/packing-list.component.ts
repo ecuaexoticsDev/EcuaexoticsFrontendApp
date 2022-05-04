@@ -89,7 +89,6 @@ export class PackingListComponent implements OnInit {
                 tipoCaja.calibres.forEach((data:any) => {
                   this.cajasDiez.push(data)
                  
-                 
                 });
              } else if(tipoCaja.tipo_caja === 'Carton Box 12.7 kg net weight'){
               tipoCaja.calibres.forEach((data:any) => {
