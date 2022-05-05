@@ -28,9 +28,7 @@
                                        ">
                                             <span>{{ itemCalibre.cantidad }}</span>
                                         </div>
-                                        <button type="button" class="btn btn-primary btn_suma" (click)="
-                        sumarCalibre(caja.tipo_caja, itemCalibre.calibre)
-                      ">
+                                        <button type="button" class="btn btn-primary btn_suma" (click)="sumarCalibre(caja.tipo_caja, itemCalibre.calibre)">
                       <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                     </button >
                                     </div>
@@ -38,12 +36,12 @@
                             </div>
                         </div>
 
-                        <div class="text-center mt-4">
-             <button class="btn_create_item" nz-button nzType="primary" nzShape="round" (click)="showModal(caja.tipo_caja)">
-                <span>
-                  Crear Calibre<fa-icon [icon]="faPlusCircle" ></fa-icon>
-                </span>
-              </button>
+                                   <div class="text-center mt-4" *ngIf="caja.tipo_caja !== 'Caja 10.9' && caja.tipo_caja !== 'Caja 12.7' " >
+                              <button class="btn_create_item" nz-button nzType="primary" nzShape="round" (click)="showModal(caja.tipo_caja)">
+                                  <span>
+                                    Crear Calibre<fa-icon [icon]="faPlusCircle" ></fa-icon>
+                                  </span>
+                                </button>
                                     </div>
                     </nz-tab>
                     </div>
