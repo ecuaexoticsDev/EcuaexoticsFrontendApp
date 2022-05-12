@@ -4,14 +4,14 @@
 
 export const environment = {
   production: false,
-  base_url: 'http://127.0.0.1:8000/api/',//'https://ecuaexotics.pythonanywhere.com/api/',
-  backend_url: 'http://127.0.0.1:8000/'//'https://ecuaexotics.pythonanywhere.com/',
+  base_url: 'https://ecuaexotics.pythonanywhere.com/api/',
+  backend_url: 'https://ecuaexotics.pythonanywhere.com/',
 };
 
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
- *'http://127.0.0.1:8000/api/', 'http://192.168.100.241:8000/'
+ *'http://127.0.0.1:8000/api/', 'http://192.168.100.241:8000/' 'http://192.168.1.132:8000/api',
  * This import should be commented out in production mode because it will have a negative impact
  * on performance if an error is thrown.
  */

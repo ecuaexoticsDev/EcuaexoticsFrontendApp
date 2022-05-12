@@ -182,7 +182,7 @@ export class ControlPalletsComponent implements OnInit {
    */
   async finPalletizado(): Promise<any> {
     const confirmacion = await SolicitarConfirmacion(
-      'Seguro finalizar el Paletizado?'
+      'Esta seguro de finalizar el Paletizado?'
     );
     if (confirmacion) {
       Swal.fire({

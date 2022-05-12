@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
 import { bodegaExterna } from 'src/app/interfaces/bodegaExterna';
 import { CalibradoService } from '../../../../services/calibrado/calibrado.service';
 
@@ -44,11 +45,18 @@ export class VerRegistrosComponent implements OnInit {
  * @param data el id de la bodega para el calibrado
  * @param action crear o editar
  */
-  goCalibre(data: number, action: string) {
+ async goCalibre(data: number, action: string) {
+
     if (action == 'crear') {
-      this.router.navigate(['calibrado/crear-calibrado/'], {
-        queryParams: { id_bodega: data },
-      });
+      const confirmacion = await SolicitarConfirmacion(
+        'Se verificó el peso recibido y número de gavetas?'
+      );
+      if (confirmacion) {
+        this.router.navigate(['calibrado/crear-calibrado/'], {
+          queryParams: { id_bodega: data },
+        });
+      }
+
     } else if (action == 'editar') {
       this.router.navigate(['calibrado/crear-calibrado/'], {
         queryParams: { id_bodega: data, is_calibre: true },
