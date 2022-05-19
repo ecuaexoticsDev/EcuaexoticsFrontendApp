@@ -32,7 +32,7 @@ export class MenuService {
         {
           title: 'Área de Calibre',
           icon: 'mdi mdi-folder-lock-open',
-          path: 'calibrado/ver-calibrado',
+          
         },
       ];
       this.menu = menuCalibrado;

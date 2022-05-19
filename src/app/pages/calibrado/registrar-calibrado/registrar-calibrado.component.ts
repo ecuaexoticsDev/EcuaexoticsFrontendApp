@@ -120,6 +120,7 @@ export class RegistrarCalibradoComponent implements OnInit {
         },
         tipo_caja: this.cajas,
       };
+      
 
       if (this.is_calibre) {
         this.calibradoService
