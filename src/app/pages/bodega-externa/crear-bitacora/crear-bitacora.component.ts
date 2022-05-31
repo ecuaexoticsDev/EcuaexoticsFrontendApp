@@ -13,6 +13,9 @@ import { recepcionTransporte } from '../../../interfaces/recepcionTransporte';
 import { Transporte } from '../../../models/transporte';
 import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 import { Camion } from 'src/app/models/camion';
+import { bodegaExterna } from 'src/app/interfaces/bodegaExterna';
+import { productores } from '../../../reports/estructuraRecepcion';
+import { faLevelUpAlt } from '@fortawesome/free-solid-svg-icons';
 
 
 @Component({
@@ -21,6 +24,8 @@ import { Camion } from 'src/app/models/camion';
   styleUrls: ['./crear-bitacora.component.scss'],
 })
 export class CrearBitacoraComponent implements OnInit {
+
+  public  bitacoras: bodegaExterna[] = [];
 
   public productores: Productor[] = [];
   public productoresDrop: Productor[] = []
@@ -68,13 +73,29 @@ export class CrearBitacoraComponent implements OnInit {
 
     this.cargarIdUsuario();
     this.cargarTransporte();
+    this.cargarRegistros();
+    console.log(this.bitacoras);
   }
+
+
+    /**
+   * carga los registros de la base de datos
+   */
+     cargarRegistros() {
+      this.bodegaExternaService.cargarBodega().subscribe((resp: any) => {
+        this.bitacoras = resp;
+        console.log(resp);
+      
+      });
+    }
+  
 /**
  * carga los productores activos 
  */
   cargarProductores() {
     this.productoresService.cargarProductores().subscribe((resp: any) => {
       this.productores = resp;
+      console.log(resp);
      
     });
   }
@@ -90,6 +111,7 @@ export class CrearBitacoraComponent implements OnInit {
     
     this.recepcionTransService.ObtenerRecepciones().subscribe(
       (resp:any)=>{
+        console.log(resp);
           resp.forEach( (element:recepcionTransporte) => {
             if (element.num_sello_salida  ==="0") {
               this.recepciones.push(element)
@@ -105,15 +127,43 @@ export class CrearBitacoraComponent implements OnInit {
     this.productoresDrop = []
     if (value) {
       value.productores.forEach((id:any) => {
-        this.productores.forEach((element:Productor) => {
-          if (element.id_productor === id) {
-            this.productoresDrop.push(element)
-          }
-        });
+        if (this.bitacoras.length > 0) {
+          this.verificarBodega(this.bitacoras, id, value.id_recepcion_transporte)
+        }else {
+          this.productores.forEach((element:Productor) => {
+            if (element.id_productor == id) {
+              this.productoresDrop.push(element)
+            }
+          });
+        }
       });
-      
     }
   
+  }
+
+  verificarBodega(bodegas: bodegaExterna[] , id_productor: number, id_recepcion : number) {
+    // verifico que ese prodcutor no tenga una bitacora ya creada con el mismo id de recepcion.
+    console.log(this.productoresDrop); 
+    let verificado = true;
+    bodegas.forEach(element => {
+      console.log(id_productor);
+      console.log(element);
+      if (element.id_recepcion == id_recepcion && element.id_productor.id_productor == id_productor ) {
+            verificado= false
+      }  
+    });
+    if(verificado){
+      console.log("No tiene bodega creada");
+      this.productores.forEach((element:Productor) => {
+        if (element.id_productor == id_productor) {
+          this.productoresDrop.push(element)
+          console.log(id_productor);
+          
+        }
+      }); 
+    }
+   console.log(this.productoresDrop); 
+      
   }
 
   /**

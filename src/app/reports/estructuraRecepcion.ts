@@ -156,17 +156,17 @@ const ImgLogo = () => {
           stack: [
             {
               image: img.imagen,
-              width: 150,
+              width: 200,
             },
           ],
-          width: '33%',
+          width: '50%',
         };
         column.push(dataOb);
       }
   
       let newArray: any = [];
-      for (let i = 0; i < column.length; i += 3) {
-        let pedazo = column.slice(i, i + 3);
+      for (let i = 0; i < column.length; i += 2) {
+        let pedazo = column.slice(i, i + 2);
         newArray.push(pedazo);
       }
       for (const nArray of newArray) {
