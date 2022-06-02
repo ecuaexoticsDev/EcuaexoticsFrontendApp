@@ -17,5 +17,15 @@
         <li nz-menu-item class="nav-item" *ngFor="let item of menuItems" [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
             <span class="active" aria-current="page"> {{ item.title }}</span>
         </li>
+        <li *ngIf="usuario.rol === 'Admin' " nz-submenu nzTheme="dark" nzTitle="Analitica">
+            <ul>
+                <li nz-menu-group nzTitle="Reportes">
+                    <ul>
+                        <li nz-menu-item *ngFor="let item of submenuItems" [routerLink]="item.path" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">{{ item.title }}</li>
+
+                    </ul>
+                </li>
+            </ul>
+        </li>
     </ul>
 </nz-header>

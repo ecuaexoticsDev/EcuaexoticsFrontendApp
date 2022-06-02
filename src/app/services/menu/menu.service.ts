@@ -8,6 +8,7 @@ import { LocalStorageService } from '../LocalStorage/local-storage.service';
 export class MenuService {
   public usuario?: Usuario;
   public menu: any[] = [];
+  public submenu: any[] = [];
   constructor(private localStorage: LocalStorageService) {
     this.cargarMenu();
   }
@@ -51,24 +52,37 @@ export class MenuService {
           title: 'Personal',
           icon: 'mdi mdi-folder-lock-open',
           path: 'dashboard/usuarios',
+          
         },
         {
           title: 'Clientes',
           icon: 'mdi mdi-folder-lock-open',
           path: 'dashboard/clientes',
+         
         },
         {
           title: 'Productores',
           icon: 'mdi mdi-folder-lock-open',
           path: 'dashboard/productores',
+          
         },
         {
           title: 'Transporte',
           icon: 'mdi mdi-folder-lock-open',
           path: 'dashboard/transporte',
+          
+        },
+      ];
+      const submenuAdmin = [
+        {
+          title: 'Consolidado',
+          icon: 'mdi mdi-folder-lock-open',
+          path: 'dashboard/consolidado',
+          
         },
       ];
       this.menu = menuAdmin;
+      this.submenu = submenuAdmin;
     }
   }
 }

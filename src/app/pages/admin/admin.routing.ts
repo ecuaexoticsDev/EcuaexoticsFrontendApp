@@ -11,6 +11,8 @@ import { PackingListComponent } from './clientes/packing-list/packing-list.compo
 import { LiquidacionComponent } from './productores/liquidacion/liquidacion.component';
 import { TransporteComponent } from './transporte/transporte.component';
 import { VerTransporteComponent } from './transporte/ver-transporte/ver-transporte.component';
+import { ConsolidadoComponent } from './analitica/consolidado/consolidado.component';
+import { GraficosComponent } from './analitica/graficos/graficos.component';
 
 
 const routes: Routes = [
@@ -69,6 +71,16 @@ const routes: Routes = [
     path: 'transporte/ver-transporte/:id',
     component: VerTransporteComponent,
     data: { title: 'ver-transporte' },
+  },
+  {
+    path: 'consolidado',
+    component: ConsolidadoComponent,
+    data: { title: 'Consolidado' },
+  },
+  {
+    path: 'graficos',
+    component: GraficosComponent,
+    data: { title: 'Graficos' },
   },
 ];
 

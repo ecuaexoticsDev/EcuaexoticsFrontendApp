@@ -1,0 +1,56 @@
+<div class="row mt-2">
+    <div class="col-md-10">
+        <h2 class="text-themecolor">Consolidado de Procesos</h2>
+    </div>
+</div>
+<div class="row animated fadein fast" *ngIf="cargando">
+    <div class="col-12">
+        <div class="alert alert-info text-center">
+            <h4 class="alert-heading">Cargando</h4>
+            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
+            <p class="mb-0"></p>
+        </div>
+    </div>
+</div>
+<br>
+
+<div *ngIf="!cargando" class="row">
+
+    <div class="col-md-4 filtros">
+        <div class="row">
+            <div class="col">
+                <label for="">Filtrar por Productor</label>
+            </div>
+            <div class="col">
+                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Select a person" [(ngModel)]="selectedValue">
+                    <nz-option *ngFor="let productor of productores" nzLabel="{{productor.nombre}}" nzValue="{{productor.id_productor}}"></nz-option>
+                </nz-select>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4 filtros">
+        <div class="row">
+            <div class="col-4">
+                <label for="">Filtrar por Fecha</label>
+            </div>
+            <div class="col-8">
+                <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="rangofechas" (ngModelChange)="onChange($event)"></nz-range-picker>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4 filtros">
+        <div class="row">
+            <div class="col">
+                <label for="">Filtrar por Lote</label>
+            </div>
+            <div class="col">
+
+            </div>
+
+        </div>
+    </div>
+
+
+</div>

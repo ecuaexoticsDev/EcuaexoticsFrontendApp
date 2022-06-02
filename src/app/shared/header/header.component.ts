@@ -11,6 +11,7 @@ import { MenuService } from '../../services/menu/menu.service';
 export class HeaderComponent implements OnInit {
   public menuItems!: any[];
   public usuario: Usuario;
+  public submenuItems!: any[];
 
   constructor(
     public menuService: MenuService,
@@ -22,6 +23,7 @@ export class HeaderComponent implements OnInit {
 
   ngOnInit(): void {
     this.menuItems = this.menuService.menu
+    this.submenuItems = this.menuService.submenu
   }
 
   

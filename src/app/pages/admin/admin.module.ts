@@ -8,6 +8,13 @@ import { ClientesComponent } from './clientes/clientes.component';
 import { UsuariosComponent } from './usuarios/usuarios.component';
 import { VerProductorComponent } from './productores/ver-productor/ver-productor.component';
 import { VerClienteComponent } from './clientes/ver-cliente/ver-cliente.component';
+import { InvoceComponent } from './clientes/invoce/invoce.component';
+import { PackingListComponent } from './clientes/packing-list/packing-list.component';
+import { LiquidacionComponent } from './productores/liquidacion/liquidacion.component';
+import { TransporteComponent } from './transporte/transporte.component';
+import { VerTransporteComponent } from './transporte/ver-transporte/ver-transporte.component';
+import { ConsolidadoComponent } from './analitica/consolidado/consolidado.component';
+import { GraficosComponent } from './analitica/graficos/graficos.component';
 
 
 //Modulos de ng-zorro
@@ -26,13 +33,6 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
-import { InvoceComponent } from './clientes/invoce/invoce.component';
-import { PackingListComponent } from './clientes/packing-list/packing-list.component';
-import { LiquidacionComponent } from './productores/liquidacion/liquidacion.component';
-import { TransporteComponent } from './transporte/transporte.component';
-import { VerTransporteComponent } from './transporte/ver-transporte/ver-transporte.component';
-
-
 
 
 
@@ -49,7 +49,9 @@ import { VerTransporteComponent } from './transporte/ver-transporte/ver-transpor
     PackingListComponent, 
     LiquidacionComponent,
     TransporteComponent,
-    VerTransporteComponent
+    VerTransporteComponent,
+    ConsolidadoComponent, 
+    GraficosComponent
   ],
   imports: [
     CommonModule,
@@ -71,7 +73,8 @@ import { VerTransporteComponent } from './transporte/ver-transporte/ver-transpor
     NzDropDownModule,
     ReactiveFormsModule,
     NzTabsModule,
-    NzDatePickerModule
+    NzDatePickerModule,
+    
   ]
 })
 export class AdminModule { }
