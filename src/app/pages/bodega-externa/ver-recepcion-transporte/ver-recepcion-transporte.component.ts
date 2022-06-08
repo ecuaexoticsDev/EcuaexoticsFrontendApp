@@ -32,7 +32,10 @@ export class VerRecepcionTransporteComponent implements OnInit {
         console.log(resp);
          this.listOfData = resp
          this.updateEditCache();
-       }
+       },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar las Recepciones de Transporte', 'error');
+        
+      },
      )
   
   }

@@ -64,9 +64,10 @@ export class VerTransporteComponent implements OnInit {
         }
         this.cargarCamiones(id_transporte)
         this.cargarBitacoras(id_transporte)
-        
-        
-        }
+        },(err)=>{
+          Swal.fire('Error', 'Sucedio un error, no se pudo cargar el Transportes', 'error');
+          
+        },
       )
   }
 
@@ -75,7 +76,10 @@ export class VerTransporteComponent implements OnInit {
       (resp:any)=>{
         this.camiones = resp
         this.updateEditCache();
-      }
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Camiones', 'error');
+        
+      },
 
     )
   }
@@ -86,7 +90,10 @@ export class VerTransporteComponent implements OnInit {
       (resp:any)=>{
         this.cargando = false;
         this.bitacoras = resp
-      }
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar las bitacoras', 'error');
+        
+      },
     )
    
   }

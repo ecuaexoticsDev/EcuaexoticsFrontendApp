@@ -137,8 +137,11 @@ export class VerClienteComponent implements OnInit {
       .subscribe((resp: any) => {
         this.packingListTotal = resp;
         resp.forEach((element: any) => {
+         
           this.packingList.push(element.packing);
         });
+      },(err)=>{
+        Swal.fire('Ocurrio un error inesperado','Intentelo mas tarde','warning')
       });
   }
 

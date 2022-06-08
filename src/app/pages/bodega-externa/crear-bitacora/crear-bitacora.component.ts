@@ -97,7 +97,10 @@ export class CrearBitacoraComponent implements OnInit {
       this.productores = resp;
       console.log(resp);
      
-    });
+    },(err)=>{
+      Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Productores', 'error');
+      
+    },);
   }
 /**
  * get id del usuario 
@@ -118,7 +121,10 @@ export class CrearBitacoraComponent implements OnInit {
               this.transportes.push(element.id_unidad);
             }  
           });
-      }
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Transportes', 'error');
+        
+      },
     )
   }
 

@@ -19,3 +19,20 @@
 i {
     cursor: pointer;
 }
+
+.label {
+    display: inline-block;
+}
+
+.label-info {
+    background-color: #398bf7;
+}
+
+.label {
+    padding: 3px 10px;
+    line-height: 13px;
+    color: #ffffff;
+    font-weight: 400;
+    border-radius: 4px;
+    font-size: 75%;
+}

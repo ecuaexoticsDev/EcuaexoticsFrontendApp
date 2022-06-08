@@ -51,7 +51,10 @@ export class UsuariosComponent implements OnInit {
         this.updateEditCache();
         this.cargando =false;
        
-      }
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Usuarios', 'error');
+        
+      },
     )
   }
 

@@ -26,6 +26,7 @@
     "@ngrx/store": "^12.2.0",
     "@ngrx/store-devtools": "^12.2.0",
     "bootstrap": "^5.0.2",
+    "file-saver": "^2.0.5",
     "ng-numeric-keyboard": "^1.0.1",
     "ng-zorro-antd": "^11.4.2",
     "numeric-keyboard": "^0.7.0",
@@ -33,12 +34,14 @@
     "rxjs": "~6.6.0",
     "sweetalert2": "^11.0.18",
     "tslib": "^2.0.0",
+    "xlsx": "^0.18.5",
     "zone.js": "~0.11.3"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "^0.1102.18",
     "@angular/cli": "~11.2.14",
     "@angular/compiler-cli": "~11.2.14",
+    "@types/file-saver": "^2.0.5",
     "@types/jasmine": "~3.6.0",
     "@types/node": "^12.11.1",
     "@types/pdfmake": "^0.1.18",

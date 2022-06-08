@@ -52,7 +52,10 @@ export class ProductoresComponent implements OnInit {
           this.listOfData = resp;
           this.updateEditCache();
           this.cargando = false;
-      }
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Productores', 'error');
+        
+      },
     )
   }
 

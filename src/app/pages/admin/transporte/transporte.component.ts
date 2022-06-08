@@ -48,7 +48,10 @@ export class TransporteComponent implements OnInit {
         this.listOfTransporte = resp
         this.updateEditCache();
         this.cargando = false;
-      }
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Transportes', 'error');
+        
+      },
     )
   }
 

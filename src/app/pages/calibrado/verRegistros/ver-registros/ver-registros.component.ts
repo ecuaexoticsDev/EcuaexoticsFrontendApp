@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
 import { bodegaExterna } from 'src/app/interfaces/bodegaExterna';
+import Swal from 'sweetalert2';
 import { CalibradoService } from '../../../../services/calibrado/calibrado.service';
 
 @Component({
@@ -31,14 +32,12 @@ export class VerRegistrosComponent implements OnInit {
           this.listOfData.push(calibrado);
         }
       });
-      //TODO: eliminar esto de la version de produccion 
-     // if(this.listOfData.length>0){
-       //  this.idProductor = this.listOfData[0].id_productor.id_productor;
-      //}
-      
       this.cargando = false
       
-    });
+    },(err)=>{
+      Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Calibrados', 'error');
+      
+    },);
   }
 /**
  * maneja a redireccion hacia editar o crear un nuevo calibre

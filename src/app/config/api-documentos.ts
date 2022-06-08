@@ -9,5 +9,6 @@ export const ApiDocumentos = {
     actualizar_info_packinglist: LINKROOT + APIDOCUMENTOS +  'actualizar_info_packinglist/',
     actualizar_item_factura: LINKROOT +  APIDOCUMENTOS + 'actualizar_item_factura/',
     actualizar_info_factura: LINKROOT + APIDOCUMENTOS + 'actualizar_info_factura/',
-    actualizar_estado_factura : LINKROOT + APIDOCUMENTOS + 'actualizar_estado_factura/'
+    actualizar_estado_factura : LINKROOT + APIDOCUMENTOS + 'actualizar_estado_factura/',
+    obtener_consolidado : LINKROOT + APIDOCUMENTOS + 'consolidados/',
 };

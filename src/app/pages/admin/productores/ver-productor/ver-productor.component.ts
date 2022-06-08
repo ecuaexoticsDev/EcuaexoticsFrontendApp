@@ -75,7 +75,10 @@ export class VerProductorComponent implements OnInit {
         }
         this.cargarBitacoras(this.productor.id_productor);
         this.cargarLiquidaciones(this.productor.id_productor);
-      });
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar el Productor', 'error');
+        
+      },);
   }
 
   /**
@@ -88,7 +91,10 @@ export class VerProductorComponent implements OnInit {
       .subscribe((resp: any) => {
        
         this.bitacoras = resp;
-      });
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar las Bitacoras', 'error');
+        
+      },);
   }
 
   /**
@@ -101,7 +107,10 @@ export class VerProductorComponent implements OnInit {
       .subscribe((resp: any) => {
         this.liquidaciones = resp;
         this.cargando = false;
-      });
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar las Liquidaciones', 'error');
+        
+      },);
   }
 
  

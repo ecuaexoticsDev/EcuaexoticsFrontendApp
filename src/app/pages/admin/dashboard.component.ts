@@ -8,6 +8,7 @@ import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 import * as reportStrcuture from 'src/app/reports/estructuraPalletizado';
+import { itemPallet } from 'src/app/interfaces/itemPallet.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -18,6 +19,8 @@ export class DashboardComponent implements OnInit {
 
   public palletizado!: any;
   public cargando: boolean = true;
+  public productoresCajas: any[] = []
+  public fechaPalletizado:any;
 
   constructor(private palletizadoService:PalletizadoService) {
     
@@ -31,8 +34,7 @@ export class DashboardComponent implements OnInit {
     this.palletizadoService.getPalletizado().subscribe(
       (resp:any)=>{
         this.palletizado = resp;
-        console.log(resp);
-        console.log(this.palletizado.pallets);
+        
         this.cargando = false;
       }
     )
@@ -41,13 +43,15 @@ export class DashboardComponent implements OnInit {
     return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
+ 
+
 
   //TODO: Aqui generar doc pdf de la tabla 
   async  generarDoc(){
-    console.log('GenerarDoc');
-   console.log(this.palletizado.pallets.length );
-
+   
+    
     if (this.palletizado.pallets.length  > 0) {
+      
       Swal.fire({
         title: 'Generando Reporte de Palletizado...',
         didOpen: () => {
@@ -62,6 +66,7 @@ export class DashboardComponent implements OnInit {
           {
             stack: [
               reportStrcuture.HeaderPaletizado(),
+              reportStrcuture.DetailControl(this.palletizado),
               reportStrcuture.ItemPalletColums(this.palletizado)
             ],
             margin: [0, 0, 0, 0],

@@ -4,7 +4,7 @@
         <h2>Listado de Palletizado</h2>
     </div>
     <div class="col-md-2" *ngIf="!cargando">
-        <!-- <button nz-button nzSize='large' nzShape="round" nzType="primary" (click)="generarDoc()">Generar PDF</button>  -->
+        <button nz-button nzSize='large' nzShape="round" nzType="primary" (click)="generarDoc()">Generar PDF</button>
     </div>
 </div>
 <br>
@@ -17,37 +17,38 @@
         </div>
     </div>
 </div>
-
-<nz-table *ngIf="!cargando" #basicTable [nzData]="palletizado.pallets" [nzPageSize]="5" nzTableLayout="fixed">
-    <thead>
-        <tr>
-            <th class="text-center">Pallet</th>
-            <th class="text-center">Tipo</th>
-            <th class="text-center">Número de Cajas</th>
-            <th class="text-center">Consignee</th>
-            <th class="text-center">Dirección de Envio</th>
-            <th class="text-center">Fecha</th>
-            <th class="text-center">Productores</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr class="text-center" *ngFor="let data of basicTable.data">
-            <td>{{palletizado.pallets.indexOf(data) + 1 }} </td>
-            <td>{{data.tipo_pitahaya}} </td>
-            <td>{{data.total_cajas}}</td>
-            <td>{{data.cliente.nombre}}</td>
-            <td>{{data.cliente.destino_orden}} </td>
-            <td>{{palletizado.fecha | date: "shortDate" }} </td>
-            <td>
-                <button nz-button nz-popover [nzPopoverContent]="contentTemplate">
-                Ver Listado
-              </button>
-            </td>
-            <ng-template #contentTemplate>
-                <div>
-                    <p *ngFor="let data of data.items">{{data.productor.nombre+' '+data.productor.apellido+'/'}}Calibre {{data.calibre}} </p>
-                </div>
-            </ng-template>
-        </tr>
-    </tbody>
-</nz-table>
+<div class="row">
+    <nz-table *ngIf="!cargando" #basicTable [nzData]="palletizado.pallets" [nzPageSize]="5" nzTableLayout="fixed">
+        <thead>
+            <tr>
+                <th class="text-center">Pallet</th>
+                <th class="text-center">Tipo</th>
+                <th class="text-center">Número de Cajas</th>
+                <th class="text-center">Consignee</th>
+                <th class="text-center">Dirección de Envio</th>
+                <th class="text-center">Fecha</th>
+                <th class="text-center">Productores</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="text-center" *ngFor="let data of basicTable.data">
+                <td>{{palletizado.pallets.indexOf(data) + 1 }} </td>
+                <td>{{data.tipo_pitahaya}} </td>
+                <td>{{data.total_cajas}}</td>
+                <td>{{data.cliente.nombre}}</td>
+                <td>{{data.cliente.destino_orden}} </td>
+                <td>{{palletizado.fecha | date: "shortDate" }} </td>
+                <td>
+                    <button nz-button nz-popover [nzPopoverContent]="contentTemplate">
+                    Ver Listado
+                  </button>
+                </td>
+                <ng-template #contentTemplate>
+                    <div>
+                        <p *ngFor="let data of data.items">{{data.productor.nombre+' '+data.productor.apellido+'/'}}Calibre {{data.calibre}} </p>
+                    </div>
+                </ng-template>
+            </tr>
+        </tbody>
+    </nz-table>
+</div>

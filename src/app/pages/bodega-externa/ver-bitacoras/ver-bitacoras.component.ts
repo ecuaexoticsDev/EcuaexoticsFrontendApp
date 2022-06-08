@@ -32,7 +32,10 @@ export class VerBitacorasComponent implements OnInit {
       this.listOfData = resp;
       console.log(resp);
       this.updateEditCache();
-    });
+    },(err)=>{
+      Swal.fire('Error', 'Sucedio un error, no se pudo cargar las Bitacoras', 'error');
+      
+    },);
   }
 
   /**
