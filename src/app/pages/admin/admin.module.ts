@@ -33,6 +33,10 @@ import { NzModalModule } from 'ng-zorro-antd/modal';
 import { NzDropDownModule } from 'ng-zorro-antd/dropdown';
 import { NzTabsModule } from 'ng-zorro-antd/tabs';
 import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
+import { TipoPitahayaPipe } from 'src/app/pipes/tipo-pitahaya.pipe';
+
+//pipes
+
 
 
 
@@ -40,6 +44,7 @@ import { NzDatePickerModule } from 'ng-zorro-antd/date-picker';
 @NgModule({
   declarations: 
   [ 
+    TipoPitahayaPipe,
     ProductoresComponent, 
     ClientesComponent, 
     UsuariosComponent, 

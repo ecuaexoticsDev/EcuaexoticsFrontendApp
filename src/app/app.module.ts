@@ -27,6 +27,7 @@ import { CardsComponent } from './components/cards/cards/cards.component';
 import { appReducers } from './store/app.reducers';
 import { DocumentDownloadsComponent } from './pages/document-downloads/document-downloads.component';
 
+
 registerLocaleData(es);
 
 @NgModule({

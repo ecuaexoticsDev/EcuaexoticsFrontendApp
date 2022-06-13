@@ -120,7 +120,7 @@
                 <tr class="text-center" *ngFor="let data of basicTable.data">
                     <td> {{data.productor}} </td>
                     <td> {{data.fecha | date: "shortDate"}} </td>
-                    <td>{{data.tipo_pitahaya == "Yellow Dragon Fruit" ? "Yellow":"Red"}}</td>
+                    <td>{{data.tipo_pitahaya | tipoPitahaya}}</td>
                     <td> {{data.lote}}</td>
                     <td> {{data.gavetas}}</td>
                     <td> {{data.kg_recibidos}}</td>
