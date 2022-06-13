@@ -44,7 +44,6 @@ export class ConsolidadoComponent implements OnInit {
     this.productoresService.cargarProductores().subscribe(
       (resp: any)=> {
         this.productores = resp
-        this.cargando =false;
       },(err)=>{
         Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Productores', 'error');
         
@@ -53,11 +52,12 @@ export class ConsolidadoComponent implements OnInit {
   }
 
   cargarConsolidado(fechas:Date[] ,lote?:number , id_prod?:number, fruta?: string){
+
     this.consolidadoService.cargarConsolidado(fechas,lote!,id_prod!,fruta!).subscribe(
       (resp:consolidado[])=>{
-       
         this.Procesos = resp
         this.totalResultados = this.Procesos.length
+        this.cargando =false;
       },(err)=>{
         Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Registros', 'error');
         
@@ -73,6 +73,7 @@ export class ConsolidadoComponent implements OnInit {
     aplicarFiltros(){
       
       if (this.productorSelected!== null || this.lote !== null || this.rangofechas.length>0 || this.tipoFrutaSelec!== null){
+        this.cargando =true;
         this.Procesos = []
         this.cargarConsolidado(this.rangofechas,this.lote!,this.productorSelected!,this.tipoFrutaSelec!)
           this.flagFiltro =  false
