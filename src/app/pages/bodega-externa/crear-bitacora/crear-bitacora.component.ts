@@ -31,7 +31,7 @@ export class CrearBitacoraComponent implements OnInit {
   public productoresDrop: Productor[] = []
   public transportes: Camion[] = [];
   public recepciones: recepcionTransporte[] = [];
-  public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit'];
+  public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit','Rose Dragon Fruit'];
   public placa : any;
 
   public bitacoraForm!: FormGroup;
@@ -74,7 +74,7 @@ export class CrearBitacoraComponent implements OnInit {
     this.cargarIdUsuario();
     this.cargarTransporte();
     this.cargarRegistros();
-    console.log(this.bitacoras);
+    
   }
 
 
@@ -84,7 +84,7 @@ export class CrearBitacoraComponent implements OnInit {
      cargarRegistros() {
       this.bodegaExternaService.cargarBodega().subscribe((resp: any) => {
         this.bitacoras = resp;
-        console.log(resp);
+       
       
       });
     }
@@ -95,7 +95,7 @@ export class CrearBitacoraComponent implements OnInit {
   cargarProductores() {
     this.productoresService.cargarProductores().subscribe((resp: any) => {
       this.productores = resp;
-      console.log(resp);
+     
      
     },(err)=>{
       Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Productores', 'error');
@@ -114,7 +114,7 @@ export class CrearBitacoraComponent implements OnInit {
     
     this.recepcionTransService.ObtenerRecepciones().subscribe(
       (resp:any)=>{
-        console.log(resp);
+      
           resp.forEach( (element:recepcionTransporte) => {
             if (element.num_sello_salida  ==="0") {
               this.recepciones.push(element)
@@ -152,8 +152,7 @@ export class CrearBitacoraComponent implements OnInit {
     console.log(this.productoresDrop); 
     let verificado = true;
     bodegas.forEach(element => {
-      console.log(id_productor);
-      console.log(element);
+     
       if (element.id_recepcion == id_recepcion && element.id_productor.id_productor == id_productor ) {
             verificado= false
       }  
@@ -163,12 +162,12 @@ export class CrearBitacoraComponent implements OnInit {
       this.productores.forEach((element:Productor) => {
         if (element.id_productor == id_productor) {
           this.productoresDrop.push(element)
-          console.log(id_productor);
+          
           
         }
       }); 
     }
-   console.log(this.productoresDrop); 
+  
       
   }
 

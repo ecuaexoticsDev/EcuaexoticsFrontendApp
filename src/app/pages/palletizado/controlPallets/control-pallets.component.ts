@@ -25,7 +25,7 @@ export class ControlPalletsComponent implements OnInit {
   public pallets: pallet[] = [];
   // Listas para cargar modal de creacion de pallets
   public clientes: Cliente[] = [];
-  public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit'];
+  public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit','Rose Dragon Fruit'];
   public mostrarModal = false;
   public isVisible = false;
   public cargando = true;

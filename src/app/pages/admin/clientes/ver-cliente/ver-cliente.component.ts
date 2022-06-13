@@ -183,6 +183,9 @@ export class VerClienteComponent implements OnInit {
           this.invoice.push(element.factura);
         });
         this.cargando = false;
+      },(err)=>{
+        
+        Swal.fire('Ocurrio un error inesperado','Intentelo mas tarde','warning')
       });
   }
 

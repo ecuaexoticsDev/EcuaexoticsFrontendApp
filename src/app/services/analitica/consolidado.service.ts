@@ -40,29 +40,35 @@ export class ConsolidadoService {
    * @param fechas 
    * @param lote 
    */
-  cargarConsolidado( fechas: Date[], lote:number ,id_productor:number  ){  
+  cargarConsolidado( fechas: Date[], lote:number ,id_productor:number, fruta:string  ){  
 
     let url : string
     let fechaInicio : string
     let fechaFin : string
     let loteid: string|number  = 'None'
     let id: string|number = 'None'
+    let tipoFruta: string|number = 'None'
 
    if (lote!= null && lote != undefined  ) {
      loteid= lote
    }if (id_productor != null && id_productor != undefined ) {
     id = id_productor
    }
+   if (fruta != null && fruta != undefined ) {
+    tipoFruta = fruta
+   }
+   //agregar el tipo de fruta al final 
   if (fechas.length>0) {
       fechaInicio = fechas[0].toISOString().slice(0,10)
       fechaFin= fechas[1].toISOString().slice(0,10)
-        url = ApiDocumentos.obtener_consolidado + `${fechaInicio}/${fechaFin}/${loteid}/${id}/`
-  }else if(fechas.length==0 && lote== null && id_productor == null  ){
+        url = ApiDocumentos.obtener_consolidado + `${fechaInicio}/${fechaFin}/${loteid}/${id}/${tipoFruta}/`
+  }else if(fechas.length==0 && lote== null && id_productor == null  && fruta == null  ){
     url = ApiDocumentos.obtener_consolidado
   }
   else{
-      url = ApiDocumentos.obtener_consolidado + `None/None/${loteid}/${id}/`
-    }
+     //agregar el tipo de fruta al final 
+      url = ApiDocumentos.obtener_consolidado + `None/None/${loteid}/${id}/${tipoFruta}/`
+  }
     return this.http.get<consolidado[]>(url)
   }
 

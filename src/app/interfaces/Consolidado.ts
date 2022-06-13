@@ -3,6 +3,7 @@
 export interface consolidado {
     productor: string;
     fecha: Date;
+    tipo_pitahaya: string;
     lote: number;
     gavetas: number;
     kg_recibidos: number;

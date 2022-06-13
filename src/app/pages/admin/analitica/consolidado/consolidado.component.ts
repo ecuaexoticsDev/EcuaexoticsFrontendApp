@@ -17,6 +17,8 @@ export class ConsolidadoComponent implements OnInit {
   public productores: Productor[] = [];
   public productorSelected = null;
   public lote : number | null = null
+  public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit','Rose Dragon Fruit'];
+  public tipoFrutaSelec = null;
 
   public dateFormat = 'dd/MM/yyyy';
   public rangofechas:Date[]  = [] ;
@@ -50,8 +52,8 @@ export class ConsolidadoComponent implements OnInit {
     )
   }
 
-  cargarConsolidado(fechas:Date[] ,lote?:number , id_prod?:number){
-    this.consolidadoService.cargarConsolidado(fechas,lote!,id_prod!).subscribe(
+  cargarConsolidado(fechas:Date[] ,lote?:number , id_prod?:number, fruta?: string){
+    this.consolidadoService.cargarConsolidado(fechas,lote!,id_prod!,fruta!).subscribe(
       (resp:consolidado[])=>{
        
         this.Procesos = resp
@@ -70,9 +72,9 @@ export class ConsolidadoComponent implements OnInit {
    */
     aplicarFiltros(){
       
-      if (this.productorSelected!== null || this.lote !== null || this.rangofechas.length>0){
+      if (this.productorSelected!== null || this.lote !== null || this.rangofechas.length>0 || this.tipoFrutaSelec!== null){
         this.Procesos = []
-        this.cargarConsolidado(this.rangofechas,this.lote!,this.productorSelected!)
+        this.cargarConsolidado(this.rangofechas,this.lote!,this.productorSelected!,this.tipoFrutaSelec!)
           this.flagFiltro =  false
       }
     }
@@ -84,10 +86,11 @@ export class ConsolidadoComponent implements OnInit {
    */
     eliminarFiltros(){
 
-      if (this.productorSelected!=null || this.lote != null || this.rangofechas.length>0) {
+      if (this.productorSelected!=null || this.lote != null || this.rangofechas.length>0 || this.tipoFrutaSelec != null) {
             this.productorSelected = null
             this.lote = null
             this.rangofechas = []
+            this.tipoFrutaSelec = null
       }
       this.flagFiltro = true
       this.cargarConsolidado(this.fechasActuales)

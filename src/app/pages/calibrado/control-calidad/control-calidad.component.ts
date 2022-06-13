@@ -40,7 +40,7 @@ export class ControlCalidadComponent implements OnInit {
     rechazo: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     vacias: [null, [Validators.required, Validators.minLength(1),Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/)]],
     peso: [null, [Validators.required,Validators.minLength(1),Validators.pattern(/^(\d*\.)?\d+$/)]],
-    lote: [null, [Validators.required, Validators.minLength(1),Validators.pattern(/^-?(0|[1-9]\d*)?$/),]],
+    lote: [null, [Validators.required, Validators.minLength(1),]],
     numSeSa: [ "0", [Validators.required,Validators.minLength(1)]],
   })
 
