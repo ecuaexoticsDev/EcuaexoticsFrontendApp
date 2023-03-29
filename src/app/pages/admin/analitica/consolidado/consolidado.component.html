@@ -18,7 +18,7 @@
 </div>
 <br>
 
-<div class="row">
+<div *ngIf="!cargando" class="row">
 
     <div class="col-md-4 filtros">
         <div class="row">
@@ -68,6 +68,19 @@
             <div class="col">
                 <nz-select nzPlaceHolder="Tipo Pitahaya" [(ngModel)]="tipoFrutaSelec">
                     <nz-option *ngFor="let item of tiposPitajaya" nzValue="{{item}}" nzLabel="{{item}}"></nz-option>
+                </nz-select>
+            </div>
+
+        </div>
+    </div>
+    <div class="col-md-4 filtros">
+        <div class="row">
+            <div class="col">
+                <label for="">Placa del Camión</label>
+            </div>
+            <div class="col">
+                <nz-select nzPlaceHolder="Placas" style="width: 200px" [(ngModel)]="id_unidad">
+                    <nz-option *ngFor="let item of listTransportes" [nzValue]="item.id_unidad" [nzLabel]="item.placa"></nz-option>
                 </nz-select>
             </div>
 

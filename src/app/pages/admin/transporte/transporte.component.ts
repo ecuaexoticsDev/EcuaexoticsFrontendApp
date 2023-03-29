@@ -4,6 +4,7 @@ import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import Swal from 'sweetalert2';
 import { TransportesService } from 'src/app/services/transporte/transportes.service';
 import { Transporte } from 'src/app/models/transporte';
+import { Camion } from 'src/app/models/camion';
 
 @Component({
   selector: 'app-transporte',
@@ -25,6 +26,7 @@ export class TransporteComponent implements OnInit {
     (is_active) => item.activo.toString().indexOf(is_active)!==-1 
   );
   public listOfTransporte: Transporte[] = []
+  public camiones: Camion[] = [];
   public editCache: { [key: number]: { edit: boolean; data: Transporte } } = {};
 
   public transForm:FormGroup = this.fb.group({
@@ -39,10 +41,10 @@ export class TransporteComponent implements OnInit {
               private transporteService: TransportesService) { }
 
   ngOnInit(): void {
-    this.cargarProductores()
+    this.cargarTransportes()
   }
 
-  cargarProductores(){
+  cargarTransportes(){
     this.transporteService.getTransportes().subscribe(
       (resp:any)=>{
         this.listOfTransporte = resp
@@ -52,6 +54,20 @@ export class TransporteComponent implements OnInit {
         Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Transportes', 'error');
         
       },
+    )
+  }
+
+  cargarCamiones(id_transporte:number){
+    this.camiones = []
+    this.transporteService.getCamiones_by_id(id_transporte).subscribe(
+      (resp:any)=>{
+        
+        this.camiones = resp
+      },(err)=>{
+        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Camiones', 'error');
+        
+      },
+
     )
   }
 
@@ -107,13 +123,13 @@ export class TransporteComponent implements OnInit {
   }
 
   /**
-   * crea un nuevo productor en la base
-   * @param data datos del productor extraidos del formulario
+   * crea un nuevo transporte en la base
+   * @param data datos del transporte extraidos del formulario
    */
-  crearProductor(data: Transporte){
+  crearTransporte(data: Transporte){
      this.transporteService.crearTransporte(data).subscribe(
       (resp:any)=>{
-        this.cargarProductores();
+        this.cargarTransportes();
         Swal.fire('Exito','Transporte creado exitosamente','success');
       },(error)=>{
         Swal.fire('Error', 'Sucedio un error, no se pudo crear el Transporte, Revise los datos.', 'error');
@@ -135,7 +151,7 @@ export class TransporteComponent implements OnInit {
    */
   reset(): void {
     this.searchValue = '';
-    this.cargarProductores();
+    this.cargarTransportes();
     this.verBuscar = false;
     
   }
@@ -173,7 +189,7 @@ export class TransporteComponent implements OnInit {
       return;
     }
     
-    this.crearProductor(this.transForm.value);
+    this.crearTransporte(this.transForm.value);
     this.isVisible = false;
     this.transForm.reset();    
   }

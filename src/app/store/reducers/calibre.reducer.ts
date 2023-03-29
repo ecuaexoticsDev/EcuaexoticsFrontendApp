@@ -1,11 +1,11 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import * as actions from '../actions';
+import { Action, createReducer, on } from "@ngrx/store";
+import * as actions from "../actions";
 import {
   getInitialStateCalibrado,
   setStateCalibradoLocalStorage,
   initialState,
   removeCalibradoLocalStorage,
-} from '../states/calibrado.state';
+} from "../states/calibrado.state";
 
 export interface CalibradoState {
   calibrado: any[];
@@ -88,7 +88,7 @@ const _createCalibradoReducer = createReducer(
       if (itemCalibrado.tipo_caja === tipo_caja) {
         const itemCalibre = {
           id_caja: 0,
-          calibre: 'C-' + String(calibre),
+          calibre: "C-" + String(calibre),
           cantidad: cantidad,
         };
 
@@ -133,22 +133,21 @@ const _createCalibradoReducer = createReducer(
           }
         });
         const testState = { calibrado: stateTest2 };
-        const cal = parseInt(caja.calibre.split('-')[1]);
+        const cal = parseInt(caja.calibre.split("-")[1]);
         let newCajaItem: any = null;
-        if (tipo.tipo_caja == 'Carton Box 2.5 kg net weight') {
+        if (tipo.tipo_caja == "Carton Box 2.5 kg net weight") {
           if (cal > 14) {
             newCajaItem = {
               ...caja,
             };
           }
-        }else if (tipo.tipo_caja == 'Carton Box 4 kg net weight') {
+        } else if (tipo.tipo_caja == "Carton Box 4 kg net weight") {
           if (cal > 18) {
             newCajaItem = {
               ...caja,
             };
           }
-        }
-         else if (tipo.tipo_caja == 'Carton Box 4.5 kg net weight') {
+        } else if (tipo.tipo_caja == "Carton Box 4.5 kg net weight") {
           if (cal > 18) {
             newCajaItem = {
               ...caja,

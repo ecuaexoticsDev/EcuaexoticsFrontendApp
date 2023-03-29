@@ -93,7 +93,9 @@ export class CrearRecepcionTransporteComponent implements OnInit {
      (resp:any)=>{
           resp.forEach((element:Camion) => {
             if (element.activo) {
+              console.log(resp);
               this.listTransportes = resp
+
             }
           });
           

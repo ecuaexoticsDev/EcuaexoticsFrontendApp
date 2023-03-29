@@ -4,6 +4,8 @@ import { Productor } from '../../../../models/productor';
 import { ConsolidadoService } from '../../../../services/analitica/consolidado.service';
 import { consolidado } from 'src/app/interfaces/Consolidado';
 import Swal from 'sweetalert2';
+import { Camion } from 'src/app/models/camion';
+import { TransportesService } from 'src/app/services/transporte/transportes.service';
 
 @Component({
   selector: 'app-consolidado',
@@ -16,7 +18,9 @@ export class ConsolidadoComponent implements OnInit {
   public  isVisible = false;
   public productores: Productor[] = [];
   public productorSelected = null;
+  public listTransportes : Camion[] = [];
   public lote : number | null = null
+  public id_unidad : number | null = null
   public tiposPitajaya: string[] = ['Yellow Dragon Fruit', 'Red Dragon Fruit','Rose Dragon Fruit'];
   public tipoFrutaSelec = null;
 
@@ -29,7 +33,8 @@ export class ConsolidadoComponent implements OnInit {
   public desde: number  = 0 ;
 
   constructor(private productoresService: ProductoresService, 
-              private consolidadoService: ConsolidadoService) { }
+              private consolidadoService: ConsolidadoService,
+              private transportesService:TransportesService,) { }
 
   ngOnInit(): void {
     this.cargarProductores()
@@ -37,9 +42,12 @@ export class ConsolidadoComponent implements OnInit {
     this.fechasActuales.push(actualDate)
     this.fechasActuales.push(actualDate)
     this.cargarConsolidado(this.fechasActuales)
+    this.cargarTransportes();
   }
 
-
+/**
+ * obtener los Productores registrados 
+ */
   cargarProductores(){
     this.productoresService.cargarProductores().subscribe(
       (resp: any)=> {
@@ -50,10 +58,26 @@ export class ConsolidadoComponent implements OnInit {
       },
     )
   }
+/**
+ * obtener los camiones registrados 
+ */
+  cargarTransportes(){
+    this.transportesService.getCamiones().subscribe(
+     (resp:any)=>{
+          resp.forEach((element:Camion) => {
+            if (element.activo) {
+              console.log(resp);
+              this.listTransportes = resp
 
-  cargarConsolidado(fechas:Date[] ,lote?:number , id_prod?:number, fruta?: string){
+            }
+          });    
+     }
+    )
+  }
 
-    this.consolidadoService.cargarConsolidado(fechas,lote!,id_prod!,fruta!).subscribe(
+  cargarConsolidado(fechas:Date[] ,lote?:number , id_prod?:number, fruta?: string, unidad?:number){
+
+    this.consolidadoService.cargarConsolidado(fechas,lote!,id_prod!,fruta!,unidad!).subscribe(
       (resp:consolidado[])=>{
         this.Procesos = resp
         this.totalResultados = this.Procesos.length
@@ -72,10 +96,11 @@ export class ConsolidadoComponent implements OnInit {
    */
     aplicarFiltros(){
       
-      if (this.productorSelected!== null || this.lote !== null || this.rangofechas.length>0 || this.tipoFrutaSelec!== null){
+      if (this.productorSelected!== null || this.lote !== null || this.id_unidad !== null || this.rangofechas.length>0 || this.tipoFrutaSelec!== null){
         this.cargando =true;
         this.Procesos = []
-        this.cargarConsolidado(this.rangofechas,this.lote!,this.productorSelected!,this.tipoFrutaSelec!)
+        console.log(this.id_unidad);
+        this.cargarConsolidado(this.rangofechas,this.lote!,this.productorSelected!,this.tipoFrutaSelec!, this.id_unidad!)
           this.flagFiltro =  false
       }
     }
@@ -87,11 +112,12 @@ export class ConsolidadoComponent implements OnInit {
    */
     eliminarFiltros(){
 
-      if (this.productorSelected!=null || this.lote != null || this.rangofechas.length>0 || this.tipoFrutaSelec != null) {
+      if (this.productorSelected!=null || this.lote != null || this.rangofechas.length>0 || this.tipoFrutaSelec != null || this.id_unidad != null) {
             this.productorSelected = null
             this.lote = null
             this.rangofechas = []
             this.tipoFrutaSelec = null
+            this.id_unidad = null
       }
       this.flagFiltro = true
       this.cargarConsolidado(this.fechasActuales)

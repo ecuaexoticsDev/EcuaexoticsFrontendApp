@@ -2,235 +2,247 @@
 export const initialState = [
   {
     id_bodega: null,
-    tipo_caja: 'Caja 2.5',
-    name_tipo_caja: 'Carton Box 2.5 kg net weight',
+    tipo_caja: "Caja 2.5",
+    name_tipo_caja: "Carton Box 2.5 kg net weight",
     calibres: [
       {
         id_caja: 0,
-        calibre: 'C-5',
+        calibre: "C-5",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-6',
+        calibre: "C-6",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-7',
+        calibre: "C-7",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-8',
+        calibre: "C-8",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-9',
+        calibre: "C-9",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-10',
+        calibre: "C-10",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-11',
+        calibre: "C-11",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-12',
+        calibre: "C-12",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-13',
+        calibre: "C-13",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-14',
+        calibre: "C-14",
         cantidad: 0,
       },
     ],
   },
   {
     id_bodega: null,
-    tipo_caja: 'Caja 4',
-    name_tipo_caja: 'Carton Box 4 kg net weight',
+    tipo_caja: "Caja 4",
+    name_tipo_caja: "Carton Box 4 kg net weight",
     calibres: [
       {
         id_caja: 0,
-        calibre: 'C-5',
+        calibre: "C-5",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-6',
+        calibre: "C-6",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-7',
+        calibre: "C-7",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-8',
+        calibre: "C-8",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-9',
+        calibre: "C-9",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-10',
+        calibre: "C-10",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-11',
+        calibre: "C-11",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-12',
+        calibre: "C-12",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-13',
+        calibre: "C-13",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-14',
+        calibre: "C-14",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-15',
+        calibre: "C-15",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-16',
+        calibre: "C-16",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-17',
+        calibre: "C-17",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-18',
+        calibre: "C-18",
         cantidad: 0,
       },
     ],
   },
   {
     id_bodega: null,
-    tipo_caja: 'Caja 4.5',
-    name_tipo_caja: 'Carton Box 4.5 kg net weight',
+    tipo_caja: "Caja 4.5",
+    name_tipo_caja: "Carton Box 4.5 kg net weight",
     calibres: [
       {
         id_caja: 0,
-        calibre: 'C-5',
+        calibre: "C-5",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-6',
+        calibre: "C-6",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-7',
+        calibre: "C-7",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-8',
+        calibre: "C-8",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-9',
+        calibre: "C-9",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-10',
+        calibre: "C-10",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-11',
+        calibre: "C-11",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-12',
+        calibre: "C-12",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-13',
+        calibre: "C-13",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-14',
+        calibre: "C-14",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-15',
+        calibre: "C-15",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-16',
+        calibre: "C-16",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-17',
+        calibre: "C-17",
         cantidad: 0,
       },
       {
         id_caja: 0,
-        calibre: 'C-18',
+        calibre: "C-18",
         cantidad: 0,
       },
     ],
   },
   {
     id_bodega: null,
-    tipo_caja: 'Caja 10.9',
-    name_tipo_caja: 'Carton Box 10.9 kg net weight',
+    tipo_caja: "Caja 10.9",
+    name_tipo_caja: "Carton Box 10.9 kg net weight",
     calibres: [
       {
         id_caja: 0,
-        calibre: 'C-0',
+        calibre: "C-0",
         cantidad: 0,
       },
     ],
   },
   {
     id_bodega: null,
-    tipo_caja: 'Caja 12.7',
-    name_tipo_caja: 'Carton Box 12.7 kg net weight',
+    tipo_caja: "Caja 12.7",
+    name_tipo_caja: "Carton Box 12.7 kg net weight",
     calibres: [
       {
         id_caja: 0,
-        calibre: 'C-0',
+        calibre: "C-0",
+        cantidad: 0,
+      },
+    ],
+  },
+  {
+    id_bodega: null,
+    tipo_caja: "Caja 14.5",
+    name_tipo_caja: "Carton Box 14.5 kg net weight",
+    calibres: [
+      {
+        id_caja: 0,
+        calibre: "C-0",
         cantidad: 0,
       },
     ],
@@ -239,8 +251,8 @@ export const initialState = [
 
 export const getInitialStateCalibrado = () => {
   try {
-    const calibradoStorage = localStorage.getItem('calibradoStorage') || '';
-    if (calibradoStorage !== '') {
+    const calibradoStorage = localStorage.getItem("calibradoStorage") || "";
+    if (calibradoStorage !== "") {
       return JSON.parse(calibradoStorage);
     } else {
       return initialState;
@@ -251,9 +263,9 @@ export const getInitialStateCalibrado = () => {
 };
 
 export const setStateCalibradoLocalStorage = (state: any) => {
-  localStorage.setItem('calibradoStorage', JSON.stringify(state));
+  localStorage.setItem("calibradoStorage", JSON.stringify(state));
 };
 
 export const removeCalibradoLocalStorage = () => {
-  localStorage.removeItem('calibradoStorage');
+  localStorage.removeItem("calibradoStorage");
 };

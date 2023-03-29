@@ -149,7 +149,7 @@ export class CrearBitacoraComponent implements OnInit {
 
   verificarBodega(bodegas: bodegaExterna[] , id_productor: number, id_recepcion : number) {
     // verifico que ese prodcutor no tenga una bitacora ya creada con el mismo id de recepcion.
-    console.log(this.productoresDrop); 
+    
     let verificado = true;
     bodegas.forEach(element => {
      
@@ -158,7 +158,7 @@ export class CrearBitacoraComponent implements OnInit {
       }  
     });
     if(verificado){
-      console.log("No tiene bodega creada");
+      
       this.productores.forEach((element:Productor) => {
         if (element.id_productor == id_productor) {
           this.productoresDrop.push(element)

@@ -1,31 +1,31 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import Swal from 'sweetalert2';
-import { FormControl, Validators } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { ActivatedRoute, Router } from "@angular/router";
+import Swal from "sweetalert2";
+import { FormControl, Validators } from "@angular/forms";
 
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/app.reducers';
-import * as actions from '../../../store/actions';
+import { Store } from "@ngrx/store";
+import { AppState } from "src/app/store/app.reducers";
+import * as actions from "../../../store/actions";
 
-import { CalibradoService } from 'src/app/services/calibrado/calibrado.service';
-import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
-import { SolicitarConfirmacion } from 'src/app/components/informationAlert';
+import { CalibradoService } from "src/app/services/calibrado/calibrado.service";
+import { LocalStorageService } from "src/app/services/LocalStorage/local-storage.service";
+import { SolicitarConfirmacion } from "src/app/components/informationAlert";
 
 import {
   faPlusCircle,
   faMinusCircle,
   faSave,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 @Component({
-  selector: 'app-registrar-calibrado',
-  templateUrl: './registrar-calibrado.component.html',
-  styleUrls: ['./registrar-calibrado.component.scss'],
+  selector: "app-registrar-calibrado",
+  templateUrl: "./registrar-calibrado.component.html",
+  styleUrls: ["./registrar-calibrado.component.scss"],
 })
 export class RegistrarCalibradoComponent implements OnInit {
   cajas: any = [];
   id_bodega: number = 0;
   is_calibre: boolean = false;
-  messageTitle: string = '';
+  messageTitle: string = "";
   visibleErrorMessage: boolean = false;
 
   // icon FontAwesome
@@ -38,8 +38,8 @@ export class RegistrarCalibradoComponent implements OnInit {
   txtInputCalibre: FormControl = this.getFormControl();
   txtInputCantidad: FormControl = this.getFormControl();
 
-  tipo_caja: string = '';
-  public flag  =  true;
+  tipo_caja: string = "";
+  public flag = true;
 
   constructor(
     private store: Store<AppState>,
@@ -51,39 +51,33 @@ export class RegistrarCalibradoComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
-      if (params.hasOwnProperty('id_bodega')) {
-        this.id_bodega = params['id_bodega'];
-        this.messageTitle = '¿Desea continuar con el registro de los calibres?';
+      if (params.hasOwnProperty("id_bodega")) {
+        this.id_bodega = params["id_bodega"];
+        this.messageTitle = "¿Desea continuar con el registro de los calibres?";
       }
-      if (params.hasOwnProperty('is_calibre')) {
-        this.is_calibre = params['is_calibre'];
+      if (params.hasOwnProperty("is_calibre")) {
+        this.is_calibre = params["is_calibre"];
         this.messageTitle =
-          '¿Desea continuar con la actualizacion de los calibres?';
+          "¿Desea continuar con la actualizacion de los calibres?";
         this.store.dispatch(actions.resetCalibre());
         this.getCajasByBodega();
       }
     });
-    this.store.select('calibrados').subscribe(({ calibrado }) => {
+    this.store.select("calibrados").subscribe(({ calibrado }) => {
       this.cajas = calibrado;
-      
     });
-
-  
-    
   }
 
   getCajasByBodega() {
     this.calibradoService
       .getCajasCalibre(this.id_bodega)
       .subscribe((resp: any) => {
-     
         this.store.dispatch(actions.reloadStateCalibre({ payload: resp }));
       });
-     
   }
 
   getFormControl() {
-    return new FormControl('', Validators.required);
+    return new FormControl("", Validators.required);
   }
 
   sumarCalibre(tipo_caja: any, calibre: any) {
@@ -99,14 +93,14 @@ export class RegistrarCalibradoComponent implements OnInit {
   }
 
   /**
-   * guarda los datos de los calibres en la base 
+   * guarda los datos de los calibres en la base
    */
   async guardarCalibres() {
     const confirmacion = await SolicitarConfirmacion(this.messageTitle);
 
     if (confirmacion) {
       Swal.fire({
-        title: 'Guardando...',
+        title: "Guardando...",
         didOpen: () => {
           Swal.showLoading();
         },
@@ -120,7 +114,6 @@ export class RegistrarCalibradoComponent implements OnInit {
         },
         tipo_caja: this.cajas,
       };
-      
 
       if (this.is_calibre) {
         this.calibradoService
@@ -132,7 +125,7 @@ export class RegistrarCalibradoComponent implements OnInit {
             },
             (error) => {
               Swal.close();
-              this.messageError('No se ha podido crear los items calibre');
+              this.messageError("No se ha podido crear los items calibre");
             }
           );
       } else {
@@ -143,7 +136,7 @@ export class RegistrarCalibradoComponent implements OnInit {
           },
           (error) => {
             Swal.close();
-            this.messageError('No se ha podido crear los items calibre');
+            this.messageError("No se ha podido crear los items calibre");
           }
         );
       }
@@ -152,44 +145,42 @@ export class RegistrarCalibradoComponent implements OnInit {
 
   messageSuccess(message: string) {
     this.store.dispatch(actions.resetCalibre());
-    Swal.fire(message, '', 'success');
-    this.router.navigateByUrl('/calibrado/ver-calibrado');
+    Swal.fire(message, "", "success");
+    this.router.navigateByUrl("/calibrado/ver-calibrado");
   }
 
   messageError(message: string) {
     Swal.fire({
-      icon: 'error',
-      title: 'Error...',
+      icon: "error",
+      title: "Error...",
       text: message,
     });
   }
 
- /**
-  * muestra el modal para crear un nuevo calibre
-  * @param value asgina el tipo de caja a ese calibre
-  */
+  /**
+   * muestra el modal para crear un nuevo calibre
+   * @param value asgina el tipo de caja a ese calibre
+   */
   showModal(value: string): void {
-   
     this.tipo_caja = value;
     this.isVisibleNewCalibre = true;
   }
 
   validateMinCalibre(event: any) {
     if (event) {
-      if (this.tipo_caja == 'Caja 2.5') {
+      if (this.tipo_caja == "Caja 2.5") {
         if (event > 14) {
           this.visibleErrorMessage = false;
         } else {
           this.visibleErrorMessage = true;
         }
-      } else if (this.tipo_caja == 'Caja 4') {
+      } else if (this.tipo_caja == "Caja 4") {
         if (event > 18) {
           this.visibleErrorMessage = false;
         } else {
           this.visibleErrorMessage = true;
         }
-      }
-       else if (this.tipo_caja == 'Caja 4.5') {
+      } else if (this.tipo_caja == "Caja 4.5") {
         if (event > 18) {
           this.visibleErrorMessage = false;
         } else {
