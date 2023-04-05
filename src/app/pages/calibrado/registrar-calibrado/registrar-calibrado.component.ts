@@ -39,6 +39,7 @@ export class RegistrarCalibradoComponent implements OnInit {
   txtInputCantidad: FormControl = this.getFormControl();
 
   tipo_caja: string = "";
+  public colorFruta = "";
   public flag = true;
 
   constructor(
@@ -62,9 +63,21 @@ export class RegistrarCalibradoComponent implements OnInit {
         this.store.dispatch(actions.resetCalibre());
         this.getCajasByBodega();
       }
+      if (params.hasOwnProperty("tipo_fruta")) {
+        this.colorFruta = params["tipo_fruta"];
+      }
     });
     this.store.select("calibrados").subscribe(({ calibrado }) => {
-      this.cajas = calibrado;
+      if (this.colorFruta == "Rose Dragon Fruit") {
+        this.cajas = calibrado.filter(
+          (caja) =>
+            caja.tipo_caja != "Caja 10.9" &&
+            caja.tipo_caja != "Caja 12.7" &&
+            caja.tipo_caja != "Caja 14.5"
+        );
+      } else {
+        this.cajas = calibrado;
+      }
     });
   }
 

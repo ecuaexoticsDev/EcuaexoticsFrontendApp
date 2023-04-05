@@ -204,7 +204,8 @@
   <div class="col-lg-8 col-xlg-9 col-md-7">
     <div class="card-container">
       <nz-tabset>
-        <nz-tab nzTitle="Cajas 2.5Kg" style="border-color: rgb(223, 220, 220)">
+        <!--style="border-color: rgb(223, 220, 220)"  style="border-color: rgb(223, 220, 220)"-->
+        <nz-tab nzTitle="Cajas 2.5Kg">
           <nz-table #basicTable [nzData]="cajasPeq">
             <thead>
               <tr>
@@ -224,7 +225,7 @@
             </tbody>
           </nz-table>
         </nz-tab>
-        <nz-tab nzTitle="Cajas 4 Kg" style="border-color: rgb(223, 220, 220)">
+        <nz-tab nzTitle="Cajas 4 Kg">
           <nz-table #cajasCuat [nzData]="cajasCuatro">
             <thead>
               <tr>
@@ -305,7 +306,7 @@
           </nz-table>
         </nz-tab>
         <nz-tab nzTitle="Cajas 14.5Kg">
-          <nz-table #cajaDoce [nzData]="cajasDoce">
+          <nz-table #cajaCat [nzData]="cajasCat">
             <thead>
               <tr>
                 <th class="text-center">Tipo</th>
@@ -315,7 +316,7 @@
               </tr>
             </thead>
             <tbody>
-              <tr class="text-center" *ngFor="let data of cajaDoce.data">
+              <tr class="text-center" *ngFor="let data of cajaCat.data">
                 <td>{{ data.tipo_pitahaya }}</td>
                 <td>{{ data.calibre }}</td>
                 <td>{{ data.num_cajas }}</td>

@@ -1,18 +1,18 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { itemPallet } from 'src/app/interfaces/itemPallet.interface';
-import { Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Productor } from 'src/app/models/productor';
-import { CalibradoService } from '../../../services/calibrado/calibrado.service';
-import { PalletizadoService } from '../../../services/palletizado/palletizado.service';
-import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
-import Swal from 'sweetalert2';
-import { logging } from 'protractor';
+import { Component, OnInit, Input, Output, EventEmitter } from "@angular/core";
+import { itemPallet } from "src/app/interfaces/itemPallet.interface";
+import { Router } from "@angular/router";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Productor } from "src/app/models/productor";
+import { CalibradoService } from "../../../services/calibrado/calibrado.service";
+import { PalletizadoService } from "../../../services/palletizado/palletizado.service";
+import { LocalStorageService } from "src/app/services/LocalStorage/local-storage.service";
+import Swal from "sweetalert2";
+import { logging } from "protractor";
 
 @Component({
-  selector: 'app-cards',
-  templateUrl: './cards.component.html',
-  styleUrls: ['./cards.component.scss'],
+  selector: "app-cards",
+  templateUrl: "./cards.component.html",
+  styleUrls: ["./cards.component.scss"],
 })
 export class CardsComponent implements OnInit {
   @Input() id: number = 0;
@@ -40,7 +40,7 @@ export class CardsComponent implements OnInit {
       ],
     ],
     num_cajas: [
-      '',
+      "",
       [
         Validators.required,
         Validators.minLength(1),
@@ -62,7 +62,7 @@ export class CardsComponent implements OnInit {
   }
 
   /**
-   * Permite añadir un item al arreglo de items 
+   * Permite añadir un item al arreglo de items
    * asginados a un pallet especifico.
    */
   agregarItem() {
@@ -74,21 +74,21 @@ export class CardsComponent implements OnInit {
       id_caja: this.id_caja,
       ...this.palletForm.value,
     };
-   
+
     this.palletizadoService.crearItemPallet(item, this.id_usuario).subscribe(
       (resp: any) => {
         this.cajas.push(item);
         localStorage.setItem(`Pallet${this.id}`, JSON.stringify(this.cajas));
-        Swal.fire('Exito', 'Item agregado', 'success');
+        Swal.fire("Exito", "Item agregado", "success");
       },
       (error) => {
-        Swal.fire('Error', 'Sucedio un Error Inesperado', 'error');
+        Swal.fire("Error", "Sucedio un Error Inesperado", "error");
       }
     );
   }
 
   /**
-   * obtiene los items de la base de datos 
+   * obtiene los items de la base de datos
    */
   cargarItems() {
     this.palletizadoService.getItems(this.id_pallet).subscribe((resp: any) => {
@@ -100,41 +100,39 @@ export class CardsComponent implements OnInit {
    * carga las cajas disponibles desde la recepcion de gavetas
    */
   obtenerCajas() {
-    
     this.calibradoService.obtenerCajas(this.id_pallet).subscribe(
       (resp: any) => {
+        console.log(resp);
         this.cajasDisponibles = resp;
         this.cargarProductores();
       },
       (error) => {
-        
-        Swal.fire('Error', 'No se pudieron Cargar los Datos', 'error');
+        Swal.fire("Error", "No se pudieron Cargar los Datos", "error");
       }
     );
   }
-  
- //Enviar el tipo de pitahaya de este pallet 
+
+  //Enviar el tipo de pitahaya de este pallet
   cargarProductores() {
     if (this.cajasDisponibles.length === 0) {
-      Swal.fire('Error', 'No se pudieron Cargar los Datos', 'error');
+      Swal.fire("Error", "No se pudieron Cargar los Datos", "error");
       return;
-    } else if(this.productores.length !==0){
+    } else if (this.productores.length !== 0) {
       return;
-    }
-    else {
+    } else {
       this.cajasDisponibles.forEach((element) => {
         this.productores.push(element.productor);
       });
     }
   }
-  
+
   /**
    * Carga el tipo de caja disponible desde la recepcion
    * @param data productor sobre el cual se hace la busqueda
    */
   cargarTipoCajas(data: Productor): void {
     this.tiposCaja = [];
-    this.palletForm.controls['tipo_caja'].setValue(null);
+    this.palletForm.controls["tipo_caja"].setValue(null);
     if (data !== null) {
       this.cajasDisponibles.forEach((element) => {
         if (element.productor.id_productor === data.id_productor) {
@@ -146,36 +144,30 @@ export class CardsComponent implements OnInit {
         }
       });
     }
-   
   }
 
   /**
    * precarga los calibre disponibles
-   * @param data tipo de caja 
+   * @param data tipo de caja
    */
   cargarCalibres(data: string): void {
     this.calibres = [];
-    const id_prod = this.palletForm.controls['productor'].value;
+    const id_prod = this.palletForm.controls["productor"].value;
     if (data !== null) {
       this.cajasDisponibles.forEach((element) => {
-        
         if (element.productor.id_productor === id_prod.id_productor) {
           element.tipo_caja.forEach((caja: any) => {
-            
             if (caja.tipo === data) {
-             
               caja.cajas.forEach((item: any) => {
-          
-                 if (!this.calibres.includes(item.calibre)) {
+                if (!this.calibres.includes(item.calibre)) {
                   this.calibres.push(item.calibre);
-                 } 
+                }
               });
             }
           });
         }
       });
     }
-
   }
 
   /**
@@ -184,8 +176,8 @@ export class CardsComponent implements OnInit {
    */
   cargarInventario(data: string) {
     this.inventario = 0;
-    const id_prod = this.palletForm.controls['productor'].value;
-    const tipo = this.palletForm.controls['tipo_caja'].value;
+    const id_prod = this.palletForm.controls["productor"].value;
+    const tipo = this.palletForm.controls["tipo_caja"].value;
     if (data !== null) {
       this.cajasDisponibles.forEach((element) => {
         if (element.productor.id_productor === id_prod.id_productor) {
@@ -205,7 +197,7 @@ export class CardsComponent implements OnInit {
   }
 
   verItems() {
-    this.rotuer.navigate(['/palletizado/ver-palletizado', this.id_pallet]);
+    this.rotuer.navigate(["/palletizado/ver-palletizado", this.id_pallet]);
   }
 
   showModal(): void {
@@ -217,7 +209,6 @@ export class CardsComponent implements OnInit {
     this.isVisible = false;
     this.palletForm.reset();
   }
-
 
   /**
    * Envia la informacion a la base de datos
