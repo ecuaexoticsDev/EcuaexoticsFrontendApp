@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  base_url: "https://ecuaexotics.pythonanywhere.com/api/",
-  backend_url: "https://ecuaexotics.pythonanywhere.com/",
+  base_url: "https://ecuaexotics.pythonanywhere.com/api/", //"http://127.0.0.1:8000/api/"
+  backend_url: "https://ecuaexotics.pythonanywhere.com/", //"http://127.0.0.1:8000/"
 };
 
 /*

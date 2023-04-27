@@ -1,152 +1,209 @@
 <div class="row mt-2">
-    <div class="col-md-8">
-        <h2 class="text-themecolor">Consolidado de Procesos</h2>
-    </div>
-    <div class="col-md-4">
-
-    </div>
+  <div class="col-md-8">
+    <h2 class="text-themecolor">Consolidado de Procesos</h2>
+  </div>
+  <div class="col-md-4"></div>
 </div>
 
 <div class="row animated fadein fast" *ngIf="cargando">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <h4 class="alert-heading">Cargando</h4>
-            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
-            <p class="mb-0"></p>
-        </div>
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">Cargando</h4>
+      <i
+        class="spinner-border text-primary"
+        role="status"
+        aria-hidden="true"
+      ></i>
+      <p class="mb-0"></p>
     </div>
+  </div>
 </div>
-<br>
+<br />
 
 <div *ngIf="!cargando" class="row">
-
-    <div class="col-md-4 filtros">
-        <div class="row">
-            <div class="col">
-                <label for="">Filtrar por Productor</label>
-            </div>
-            <div class="col">
-                <nz-select nzShowSearch nzAllowClear nzPlaceHolder="Seleccionar Productor" [(ngModel)]="productorSelected">
-                    <nz-option *ngFor="let productor of productores" nzLabel="{{productor.nombre}}" nzValue="{{productor.id_productor}}"></nz-option>
-                </nz-select>
-            </div>
-
-        </div>
+  <div class="col-md-4 filtros">
+    <div class="row">
+      <div class="col">
+        <label for="">Filtrar por Productor</label>
+      </div>
+      <div class="col">
+        <nz-select
+          nzShowSearch
+          nzAllowClear
+          nzPlaceHolder="Seleccionar Productor"
+          [(ngModel)]="productorSelected"
+        >
+          <nz-option
+            *ngFor="let productor of productores"
+            [nzValue]="productor.id_productor"
+            [nzLabel]="productor.nombre + ' ' + productor.apellido"
+          ></nz-option>
+        </nz-select>
+      </div>
     </div>
-    <div class="col-md-4 filtros">
-        <div class="row">
-            <div class="col-4">
-                <label for="">Filtrar por Fecha</label>
-            </div>
-            <div class="col-8">
-                <nz-range-picker [nzFormat]="dateFormat" [(ngModel)]="rangofechas"></nz-range-picker>
-            </div>
-
-        </div>
+  </div>
+  <div class="col-md-4 filtros">
+    <div class="row">
+      <div class="col-4">
+        <label for="">Filtrar por Fecha</label>
+      </div>
+      <div class="col-8">
+        <nz-range-picker
+          [nzFormat]="dateFormat"
+          [(ngModel)]="rangofechas"
+        ></nz-range-picker>
+      </div>
     </div>
-    <div class="col-md-4 filtros">
-        <div class="row">
-            <div class="col">
-                <label for="">Filtrar por Lote</label>
-            </div>
-            <div class="col">
-                <input style="width: 120px" class="tex-center form-control" nz-input placeholder="Lote" type="tel" [(ngModel)]="lote" />
-            </div>
-        </div>
+  </div>
+  <div class="col-md-4 filtros">
+    <div class="row">
+      <div class="col">
+        <label for="">Filtrar por Lote</label>
+      </div>
+      <div class="col">
+        <input
+          style="width: 120px"
+          class="tex-center form-control"
+          nz-input
+          placeholder="Lote"
+          type="tel"
+          [(ngModel)]="lote"
+        />
+      </div>
     </div>
+  </div>
 </div>
-<br>
+<br />
 
-<br>
-<br>
+<br />
+<br />
 <div *ngIf="!cargando" class="row">
-    <div class="col-md-4 filtros">
-        <div class="row">
-            <div class="col">
-                <label for="">Filtrar por Pitahaya</label>
-            </div>
-            <div class="col">
-                <nz-select nzPlaceHolder="Tipo Pitahaya" [(ngModel)]="tipoFrutaSelec">
-                    <nz-option *ngFor="let item of tiposPitajaya" nzValue="{{item}}" nzLabel="{{item}}"></nz-option>
-                </nz-select>
-            </div>
-
-        </div>
+  <div class="col-md-4 filtros">
+    <div class="row">
+      <div class="col">
+        <label for="">Filtrar por Pitahaya</label>
+      </div>
+      <div class="col">
+        <nz-select nzPlaceHolder="Tipo Pitahaya" [(ngModel)]="tipoFrutaSelec">
+          <nz-option
+            *ngFor="let item of tiposPitajaya"
+            nzValue="{{ item }}"
+            nzLabel="{{ item }}"
+          ></nz-option>
+        </nz-select>
+      </div>
     </div>
-    <div class="col-md-4 filtros">
-        <div class="row">
-            <div class="col">
-                <label for="">Placa del Camión</label>
-            </div>
-            <div class="col">
-                <nz-select nzPlaceHolder="Placas" style="width: 200px" [(ngModel)]="id_unidad">
-                    <nz-option *ngFor="let item of listTransportes" [nzValue]="item.id_unidad" [nzLabel]="item.placa"></nz-option>
-                </nz-select>
-            </div>
-
-        </div>
+  </div>
+  <div class="col-md-4 filtros">
+    <div class="row">
+      <div class="col">
+        <label for="">Placa del Camión</label>
+      </div>
+      <div class="col">
+        <nz-select
+          nzPlaceHolder="Placas"
+          style="width: 200px"
+          [(ngModel)]="id_unidad"
+        >
+          <nz-option
+            *ngFor="let item of listTransportes"
+            [nzValue]="item.id_unidad"
+            [nzLabel]="item.placa"
+          ></nz-option>
+        </nz-select>
+      </div>
     </div>
+  </div>
 </div>
-<br>
+<br />
 
-<br>
-<br>
+<br />
+<br />
 <div class="row">
-    <div>
-        <div class="col-md-4 filtros" style="display: flex; justify-content: flex-start ; padding: 0px 70px;">
-            <div class="row">
-                <div class="col">
-                    <button [disabled]="!flagFiltro" (click)="aplicarFiltros()" nz-button nzShape="round" nzShape="round" nzType="primary" nzSize="large">  
-                        Aplicar Filtros      
-                 </button>
-                </div>
-                <div class="col" [hidden]="flagFiltro">
-                    <button (click)="eliminarFiltros()" nz-button nzShape="round" nzShape="round" nzType="danger" nzSize="large">  
-                        Eliminar Filtros      
-                 </button>
-                </div>
-            </div>
+  <div>
+    <div
+      class="col-md-4 filtros"
+      style="display: flex; justify-content: flex-start; padding: 0px 70px"
+    >
+      <div class="row">
+        <div class="col">
+          <button
+            [disabled]="!flagFiltro"
+            (click)="aplicarFiltros()"
+            nz-button
+            nzShape="round"
+            nzShape="round"
+            nzType="primary"
+            nzSize="large"
+          >
+            Aplicar Filtros
+          </button>
         </div>
-        <div style="display: flex; justify-content: flex-end">
-            <button (click)="exportarExcel()" type="button" class="btn btn-success"> Exportar a Excel    <i class="fas fa-file-excel"></i>  </button>
+        <div class="col" [hidden]="flagFiltro">
+          <button
+            (click)="eliminarFiltros()"
+            nz-button
+            nzShape="round"
+            nzShape="round"
+            nzType="danger"
+            nzSize="large"
+          >
+            Eliminar Filtros
+          </button>
         </div>
+      </div>
     </div>
-    <div class="tableCon">
-        <nz-table *ngIf="!cargando" #basicTable [nzData]="Procesos" [nzPageSize]="10" nzTableLayout="fixed" nzTitle="Total de Procesos Encontrados: {{totalResultados}}">
-            <thead>
-                <tr>
-                    <th class="text-center">Productor</th>
-                    <th class="text-center">Fecha de Proceso </th>
-                    <th class="text-center">Tipo </th>
-                    <th class="text-center">N º Lote</th>
-                    <th class="text-center">N º Gavetas</th>
-                    <th class="text-center">kg Recibidos</th>
-                    <th class="text-center">kg Rechazo</th>
-                    <th class="text-center">N º Cajas 2.5kg</th>
-                    <th class="text-center">N º Cajas 4kg</th>
-                    <th class="text-center">N º Cajas 4.5kg</th>
-                    <th class="text-center">N º Cajas 10.9kg</th>
-                    <th class="text-center">N º Cajas 12.7kg</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr class="text-center" *ngFor="let data of basicTable.data">
-                    <td> {{data.productor}} </td>
-                    <td> {{data.fecha | date: "shortDate"}} </td>
-                    <td>{{data.tipo_pitahaya | tipoPitahaya}}</td>
-                    <td> {{data.lote}}</td>
-                    <td> {{data.gavetas}}</td>
-                    <td> {{data.kg_recibidos}}</td>
-                    <td> {{data.kg_rechazados}}</td>
-                    <td> {{data.total_box_2_5}} </td>
-                    <td> {{data.total_box_4}} </td>
-                    <td> {{data.total_box_4_5}} </td>
-                    <td> {{data.total_box_10_9}} </td>
-                    <td> {{data.total_box_12_7}} </td>
-                </tr>
-            </tbody>
-        </nz-table>
+    <div style="display: flex; justify-content: flex-end">
+      <button (click)="exportarExcel()" type="button" class="btn btn-success">
+        Exportar a Excel
+        <i class="fas fa-file-excel"></i>
+      </button>
     </div>
-    <br>
-
+  </div>
+  <div class="tableCon">
+    <nz-table
+      *ngIf="!cargando"
+      #basicTable
+      [nzData]="Procesos"
+      [nzPageSize]="10"
+      nzTableLayout="fixed"
+      nzTitle="Total de Procesos Encontrados: {{ totalResultados }}"
+    >
+      <thead>
+        <tr>
+          <th class="text-center">Productor</th>
+          <th class="text-center">Fecha de Proceso</th>
+          <th class="text-center">Tipo</th>
+          <th class="text-center">N º Lote</th>
+          <th class="text-center">N º Gavetas</th>
+          <th class="text-center">kg Recibidos</th>
+          <th class="text-center">kg Rechazo</th>
+          <th class="text-center">N º Cajas 2.5kg</th>
+          <th class="text-center">N º Cajas 4kg</th>
+          <th class="text-center">N º Cajas 4.5kg</th>
+          <th class="text-center">N º Cajas 10.9kg</th>
+          <th class="text-center">N º Cajas 12.7kg</th>
+          <th class="text-center">N º Cajas 14.5kg</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="text-center" *ngFor="let data of basicTable.data">
+          <td>{{ data.productor }}</td>
+          <td>{{ data.fecha | date : "shortDate" }}</td>
+          <td>{{ data.tipo_pitahaya | tipoPitahaya }}</td>
+          <td>{{ data.lote }}</td>
+          <td>{{ data.gavetas }}</td>
+          <td>{{ data.kg_recibidos }}</td>
+          <td>{{ data.kg_rechazados }}</td>
+          <td>{{ data.total_box_2_5 }}</td>
+          <td>{{ data.total_box_4 }}</td>
+          <td>{{ data.total_box_4_5 }}</td>
+          <td>{{ data.total_box_10_9 }}</td>
+          <td>{{ data.total_box_12_7 }}</td>
+          <td>{{ data.total_box_14_5 }}</td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+  <br />
 </div>
