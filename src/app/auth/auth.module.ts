@@ -1,14 +1,14 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { AuthRoutingModule } from "./auth-routing.module";
+import { LoginComponent } from "./login/login.component";
 
-import { AuthRoutingModule } from './auth-routing.module';
-import { LoginComponent } from './login/login.component';
 // Icon FontAwesome
-import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 
 // ngZorro
-import { NzButtonModule } from 'ng-zorro-antd/button';
+import { NzButtonModule } from "ng-zorro-antd/button";
 
 @NgModule({
   declarations: [LoginComponent],

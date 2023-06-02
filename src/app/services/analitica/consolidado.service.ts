@@ -38,10 +38,13 @@ export class ConsolidadoService {
   }
 
   /**
-   * Aplica los filtros fecha , productor y lote para generar consolidado
-   * @param id_productor
-   * @param fechas
-   * @param lote
+   * Carga los datos de consolidado según los parámetros especificados.
+   * @param {Date[]} fechas - Las fechas de inicio y fin para filtrar los datos de consolidado.
+   * @param {number} lote - El número de lote para filtrar los datos de consolidado.
+   * @param {number} id_productor - El ID del productor para filtrar los datos de consolidado.
+   * @param {string} fruta - El tipo de fruta para filtrar los datos de consolidado.
+   * @param {number} unidad - El ID de la unidad para filtrar los datos de consolidado.
+   * @returns {Observable<consolidado[]>} - Los datos de consolidado que cumplen con los filtros especificados.
    */
   cargarConsolidado(
     fechas: Date[],
@@ -91,7 +94,6 @@ export class ConsolidadoService {
         ApiDocumentos.obtener_consolidado +
         `None/None/${loteid}/${id}/${tipoFruta}/${id_unidad}/`;
     }
-    console.log(url);
     return this.http.get<consolidado[]>(url);
   }
 }

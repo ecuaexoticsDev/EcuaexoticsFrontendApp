@@ -64,6 +64,7 @@ export class CardsComponent implements OnInit {
   /**
    * Permite añadir un item al arreglo de items
    * asginados a un pallet especifico.
+   * @returns {void}
    */
   agregarItem() {
     this.id_usuario = this.localStorageService.getUserLocalStorage().id;
@@ -88,7 +89,8 @@ export class CardsComponent implements OnInit {
   }
 
   /**
-   * obtiene los items de la base de datos
+   * Obtiene los items de cada pallet de la base de datos
+   * @return {void}
    */
   cargarItems() {
     this.palletizadoService.getItems(this.id_pallet).subscribe((resp: any) => {
@@ -97,7 +99,8 @@ export class CardsComponent implements OnInit {
   }
 
   /**
-   * carga las cajas disponibles desde la recepcion de gavetas
+   * Obtiene las cajas disponibles desde la recepcion de gavetas
+   * @return {void}
    */
   obtenerCajas() {
     this.calibradoService.obtenerCajas(this.id_pallet).subscribe(
@@ -112,7 +115,10 @@ export class CardsComponent implements OnInit {
     );
   }
 
-  //Enviar el tipo de pitahaya de este pallet
+  /**
+   * Obtiene los productores desde la base de datos
+   * @returns {void}
+   */
   cargarProductores() {
     if (this.cajasDisponibles.length === 0) {
       Swal.fire("Error", "No se pudieron Cargar los Datos", "error");
@@ -128,7 +134,8 @@ export class CardsComponent implements OnInit {
 
   /**
    * Carga el tipo de caja disponible desde la recepcion
-   * @param data productor sobre el cual se hace la busqueda
+   * @param {Productor} data productor sobre el cual se hace la busqueda
+   * @return {void}
    */
   cargarTipoCajas(data: Productor): void {
     this.tiposCaja = [];
@@ -147,8 +154,9 @@ export class CardsComponent implements OnInit {
   }
 
   /**
-   * precarga los calibre disponibles
-   * @param data tipo de caja
+   * Obtiene los calibre disponibles
+   * @param {string} data tipo de caja
+   * @returns {void}
    */
   cargarCalibres(data: string): void {
     this.calibres = [];
@@ -171,8 +179,9 @@ export class CardsComponent implements OnInit {
   }
 
   /**
-   * precarga el inventario de las cajas disponibles
-   * @param data identifica el calibre de la fruta
+   * carga el inventario de las cajas disponibles
+   * @param {string} data identifica el calibre de la fruta
+   * @returns {void}
    */
   cargarInventario(data: string) {
     this.inventario = 0;
@@ -211,7 +220,8 @@ export class CardsComponent implements OnInit {
   }
 
   /**
-   * Envia la informacion a la base de datos
+   * Envia la informacion del formulario a la base de datos
+   * @returns {void}
    */
   submitForm(): void {
     if (this.palletForm.invalid) {

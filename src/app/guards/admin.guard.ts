@@ -1,16 +1,16 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   ActivatedRouteSnapshot,
   CanActivate,
   Router,
   RouterStateSnapshot,
   UrlTree,
-} from '@angular/router';
-import { Observable } from 'rxjs';
-import { LocalStorageService } from '../services/LocalStorage/local-storage.service';
+} from "@angular/router";
+import { Observable } from "rxjs";
+import { LocalStorageService } from "../services/LocalStorage/local-storage.service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class AdminGuard implements CanActivate {
   constructor(
@@ -18,9 +18,9 @@ export class AdminGuard implements CanActivate {
     private localStorageService: LocalStorageService
   ) {}
   /**
-   * 
-   * @param route ruta definida por el tipo de usuario
-   * @returns retorna un booleano para la autorizacion
+   * Verifica si el usuario tiene permisos para acceder a la ruta.
+   * @param {ActivatedRouteSnapshot} route - El snapshot de la ruta definida por el tipo de usuario.
+   * @returns {boolean} retorna un booleano para la autorizacion
    */
   canActivate(
     route: ActivatedRouteSnapshot,
@@ -32,10 +32,10 @@ export class AdminGuard implements CanActivate {
     | UrlTree {
     const role = this.localStorageService.getUserLocalStorage()?.rol;
 
-    if (role === 'Admin') {
+    if (role === "Admin") {
       return true;
     } else {
-      this.router.navigateByUrl('login');
+      this.router.navigateByUrl("login");
       this.localStorageService.removeLocalStorageTokens();
       this.localStorageService.removeLocalStorageUser();
       return false;

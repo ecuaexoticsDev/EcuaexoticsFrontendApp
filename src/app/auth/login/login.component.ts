@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Router } from '@angular/router';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from "@angular/core";
+import { Router } from "@angular/router";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 import {
   faSignInAlt,
@@ -8,29 +8,29 @@ import {
   faEyeSlash,
   faQuoteLeft,
   faQuoteRight,
-} from '@fortawesome/free-solid-svg-icons';
+} from "@fortawesome/free-solid-svg-icons";
 
-import Swal from 'sweetalert2';
+import Swal from "sweetalert2";
 
-import { AuthService } from 'src/app/services/auth/auth.service';
-import { LocalStorageService } from 'src/app/services/LocalStorage/local-storage.service';
-import { MenuService } from '../../services/menu/menu.service';
+import { AuthService } from "src/app/services/auth/auth.service";
+import { LocalStorageService } from "src/app/services/LocalStorage/local-storage.service";
+import { MenuService } from "../../services/menu/menu.service";
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss'],
+  selector: "app-login",
+  templateUrl: "./login.component.html",
+  styleUrls: ["./login.component.scss"],
 })
 export class LoginComponent implements OnInit {
-  faSignInAlt = faSignInAlt;
-  faEye = faEye;
-  faEyeSlash = faEyeSlash;
-  faQuoteLeft = faQuoteLeft;
-  faQuoteRight = faQuoteRight;
-  nameIcon = this.faEye;
-  showPassword = false;
+  public faSignInAlt = faSignInAlt;
+  public faEye = faEye;
+  public faEyeSlash = faEyeSlash;
+  public faQuoteLeft = faQuoteLeft;
+  public faQuoteRight = faQuoteRight;
+  public nameIcon = this.faEye;
+  public showPassword = false;
 
-  loginForm: FormGroup = this.initForm();
+  public loginForm: FormGroup = this.initForm();
 
   constructor(
     private formBuilder: FormBuilder,
@@ -46,13 +46,14 @@ export class LoginComponent implements OnInit {
 
   initForm(): FormGroup {
     return this.formBuilder.group({
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', [Validators.required]],
+      email: ["", [Validators.required, Validators.email]],
+      password: ["", [Validators.required]],
     });
   }
- 
+
   /**
    * Verifica las credenciales del usuario y permite el acceso
+   * @returns {void}
    */
   login(): void {
     const { email, password } = this.loginForm.value;
@@ -61,7 +62,7 @@ export class LoginComponent implements OnInit {
       password,
     };
     Swal.fire({
-      title: 'Autenticando...',
+      title: "Autenticando...",
       didOpen: () => {
         Swal.showLoading();
       },
@@ -72,26 +73,27 @@ export class LoginComponent implements OnInit {
         this.localStorageService.setUserLocalStorage(data.information);
         this.localStorageService.setTokenLocalStorage(data.tokens);
 
-        if (data.information.rol === 'Operador_bodega') {
-          this.router.navigateByUrl('/bodega/ver-bitacoras');
-        } else if (data.information.rol === 'Operador_calibrado') {
-          this.router.navigateByUrl('calibrado/ver-calibrado');
-        } else if (data.information.rol === 'Operador_palletizado') {
-          this.router.navigateByUrl('palletizado/control-palletizado');
-        } else if (data.information.rol === 'Admin') {
-          this.router.navigateByUrl('/');
+        if (data.information.rol === "Operador_bodega") {
+          this.router.navigateByUrl("/bodega/ver-bitacoras");
+        } else if (data.information.rol === "Operador_calibrado") {
+          this.router.navigateByUrl("calibrado/ver-calibrado");
+        } else if (data.information.rol === "Operador_palletizado") {
+          this.router.navigateByUrl("palletizado/control-palletizado");
+        } else if (data.information.rol === "Admin") {
+          this.router.navigateByUrl("/");
         }
 
         Swal.close();
       },
       (err) => {
-        Swal.fire('Error', 'Sucedido un Error Inesperado', 'error');
+        Swal.fire("Error", "Sucedido un Error Inesperado", "error");
       }
     );
   }
 
   /**
    * Permite cambiar el icono de mostrar u ocultar password en el form
+   * @returns {void}
    */
   togglePassword(): void {
     this.showPassword = !this.showPassword;

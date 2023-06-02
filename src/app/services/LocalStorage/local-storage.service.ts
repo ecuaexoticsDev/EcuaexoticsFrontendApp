@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
-import { JwtHelperService } from '@auth0/angular-jwt';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
+import { JwtHelperService } from "@auth0/angular-jwt";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class LocalStorageService {
   helper: any;
@@ -13,24 +13,24 @@ export class LocalStorageService {
 
   /**
    * Permite guardar en el local storage el conjunto de tokens
-   * @param rawToken json que contiene el access token y refresh token
+   * @param {any} rawToken json que contiene el access token y refresh token
    */
   setTokenLocalStorage(rawToken: any) {
     const tokens = {
       token: rawToken.access,
       refresh: rawToken.refresh,
     };
-    localStorage.setItem('tokens', JSON.stringify(tokens));
+    localStorage.setItem("tokens", JSON.stringify(tokens));
   }
 
   /**
    * Permite obtener del local storage el token
-   * @returns valor del access token
+   * @returns {any} valor del access token
    */
   getToken() {
-    const localS = localStorage.getItem('tokens') || '';
+    const localS = localStorage.getItem("tokens") || "";
 
-    if (localS !== '') {
+    if (localS !== "") {
       const tokens = JSON.parse(localS);
       if (tokens) {
         return tokens.token;
@@ -41,10 +41,10 @@ export class LocalStorageService {
 
   /**
    * Permite obtener del local storage el token
-   * @returns valor del refresh token
+   * @returns {any} valor del refresh token
    */
   getRefreshToken() {
-    const tokens = JSON.parse(localStorage.getItem('tokens') || '');
+    const tokens = JSON.parse(localStorage.getItem("tokens") || "");
     if (tokens) {
       return tokens.refresh;
     }
@@ -53,9 +53,7 @@ export class LocalStorageService {
 
   /**
    * Esta funcion permite guardar los datos del usuarios en el local storage
-   * @param information datos del usuario
-   * @param pw contraseña
-   * @param isSaveSesion si se guarda o no las credenciales
+   * @param {any} information datos del usuario
    */
   setUserLocalStorage(information: any) {
     const user = {
@@ -66,16 +64,16 @@ export class LocalStorageService {
       email: information.email,
       rol: information.rol,
     };
-    localStorage.setItem('userInformation', JSON.stringify(user));
+    localStorage.setItem("userInformation", JSON.stringify(user));
   }
 
   /**
    * Esta funcion permite obtener del local storage los datos del usuario
-   * @returns datos del usuario
+   * @returns {any} datos del usuario
    */
   getUserLocalStorage() {
-    const dataUser = localStorage.getItem('userInformation') || '';
-    if (dataUser !== '') {
+    const dataUser = localStorage.getItem("userInformation") || "";
+    if (dataUser !== "") {
       const user = JSON.parse(dataUser);
       return user;
     }
@@ -83,8 +81,8 @@ export class LocalStorageService {
 
   /**
    * Permite decodificar el token
-   * @param token cadena de texto
-   * @returns el token decodificado por jwt
+   * @param {any} token cadena de texto
+   * @returns {any} el token decodificado por jwt
    */
   decodeToken(token: any) {
     const decodedToken = this.helper.decodeToken(token);
@@ -93,8 +91,8 @@ export class LocalStorageService {
 
   /**
    * Permite saber si el token ya caduno o o no
-   * @param token cadena de texto
-   * @returns valor booleano de si el token ya expiro o no
+   * @param {string} token cadena de texto
+   * @returns {any} valor booleano de si el token ya expiro o no
    */
   isExpiredToken(token: string) {
     const isExpired = this.helper.isTokenExpired(token);
@@ -103,8 +101,8 @@ export class LocalStorageService {
 
   /**
    * Permite calcular el tiempo en  milisegundos que falta para que caduque un token
-   * @param token cadena de texto
-   * @returns tiempo de vida del token
+   * @param {string} token cadena de texto
+   * @returns {any} tiempo de vida del token
    */
   expirationDateToken(token: string) {
     const expirationDate = this.helper.getTokenExpirationDate(token);
@@ -115,21 +113,26 @@ export class LocalStorageService {
    * Elimina del local storage el conjunto de tokens
    */
   removeLocalStorageTokens() {
-    localStorage.removeItem('tokens');
+    localStorage.removeItem("tokens");
   }
 
   /**
    * Elimina del local storage los datos del usuario
    */
   removeLocalStorageUser() {
-    localStorage.removeItem('userInformation');
+    localStorage.removeItem("userInformation");
   }
 
+  /**
+   * valida el token del usuario
+   * @param {string} token
+   * @returns {boolean} responde con un booleano a la validacion del token
+   */
   validarToken(token: string) {
-    if (!this.isExpiredToken(token) || this.getToken() !== '') {
+    if (!this.isExpiredToken(token) || this.getToken() !== "") {
       return true;
     } else {
-      this.router.navigateByUrl('/login');
+      this.router.navigateByUrl("/login");
 
       return false;
     }
@@ -141,14 +144,14 @@ export class LocalStorageService {
     } else {
       if (!this.isExpiredToken(this.getToken())) {
         const data = this.getUserLocalStorage();
-        if (data.rol === 'Operador_bodega') {
-          this.router.navigateByUrl('/bodega/ver-bitacoras');
-        } else if (data.rol === 'Operador_calibrado') {
-          this.router.navigateByUrl('calibrado/ver-calibrado');
-        } else if (data.rol === 'Operador_palletizado') {
-          this.router.navigateByUrl('palletizado/control-palletizado');
-        } else if (data.rol === 'Admin') {
-          this.router.navigateByUrl('/');
+        if (data.rol === "Operador_bodega") {
+          this.router.navigateByUrl("/bodega/ver-bitacoras");
+        } else if (data.rol === "Operador_calibrado") {
+          this.router.navigateByUrl("calibrado/ver-calibrado");
+        } else if (data.rol === "Operador_palletizado") {
+          this.router.navigateByUrl("palletizado/control-palletizado");
+        } else if (data.rol === "Admin") {
+          this.router.navigateByUrl("/");
         }
       }
     }
