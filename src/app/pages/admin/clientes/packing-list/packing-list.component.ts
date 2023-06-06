@@ -48,6 +48,10 @@ export class PackingListComponent implements OnInit {
     });
   }
 
+  /**
+   * Esta función recupera un cliente específico del servidor según el ID de cliente proporcionado.
+   * @param {number} id_cliente El ID del cliente a recuperar.
+   */
   getCliente(id_cliente: number) {
     this.cargando = true;
     this.clientesService
@@ -58,6 +62,10 @@ export class PackingListComponent implements OnInit {
       });
   }
 
+  /**
+   * obtiene los packing list de la base de datos
+   * @param {number} id_cliente que se envia a la base para obtener los packing list
+   */
   obtenerPackingList(id_cliente: number) {
     this.clientesService
       .getPackinglist(id_cliente)

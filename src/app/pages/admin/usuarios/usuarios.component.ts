@@ -1,41 +1,49 @@
-import { stringify } from '@angular/compiler/src/util';
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Usuario } from 'src/app/models/usuarios';
-import Swal from 'sweetalert2';
-import { UsuariosService } from '../../../services/usuarios.service';
+import { stringify } from "@angular/compiler/src/util";
+import { Component, OnInit } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Usuario } from "src/app/models/usuarios";
+import Swal from "sweetalert2";
+import { UsuariosService } from "../../../services/usuarios.service";
 
 @Component({
-  selector: 'app-usuarios',
-  templateUrl: './usuarios.component.html',
-  styleUrls: ['./usuarios.component.scss']
+  selector: "app-usuarios",
+  templateUrl: "./usuarios.component.html",
+  styleUrls: ["./usuarios.component.scss"],
 })
 export class UsuariosComponent implements OnInit {
   public cargando = true;
-  public  isVisible = false;
-  public  verBuscar = false;
-  public searchValue = '';
+  public isVisible = false;
+  public verBuscar = false;
+  public searchValue = "";
   public filteruser = [
-    {text: 'Sí', value: true},
-    {text: 'No', value: false},
+    { text: "Sí", value: true },
+    { text: "No", value: false },
   ];
   public listOfData: Usuario[] = [];
   public passwordVisible = false;
   public editCache: { [key: number]: { edit: boolean; data: Usuario } } = {};
-  public userFilterFn = (list: string[], item: Usuario) => list.some(
-    (is_active) => item.is_active.toString().indexOf(is_active)!==-1 
-  );
-  public roles: string[] = ['Operador_calibrado','Admin','Operador_bodega','Operador_palletizado'];
-  public userForm:FormGroup = this.fb.group({
-    nombre:[null, Validators.required],
-    apellido:[null, Validators.required],
-    email: [null,[Validators.required, Validators.email]],
-    password: [null,[Validators.required, Validators.minLength(6)]],
-    username: [null,Validators.required],
-    rol: [null,Validators.required]
-  })
-  constructor(private usuariosService: UsuariosService,
-              private fb: FormBuilder) { }
+  public userFilterFn = (list: string[], item: Usuario) =>
+    list.some(
+      (is_active) => item.is_active.toString().indexOf(is_active) !== -1
+    );
+  public roles: string[] = [
+    "Operador_calibrado",
+    "Admin",
+    "Operador_bodega",
+    "Operador_palletizado",
+  ];
+  public userForm: FormGroup = this.fb.group({
+    nombre: [null, Validators.required],
+    apellido: [null, Validators.required],
+    email: [null, [Validators.required, Validators.email]],
+    password: [null, [Validators.required, Validators.minLength(6)]],
+    username: [null, Validators.required],
+    rol: [null, Validators.required],
+  });
+  constructor(
+    private usuariosService: UsuariosService,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
     this.cargarUsuarios();
@@ -44,18 +52,21 @@ export class UsuariosComponent implements OnInit {
   /**
    * carga los datos en la tabla de usuarios
    */
-  cargarUsuarios(){
+  cargarUsuarios() {
     this.usuariosService.getUsuarios().subscribe(
-      (resp:any)=>{
+      (resp: any) => {
         this.listOfData = resp;
         this.updateEditCache();
-        this.cargando =false;
-       
-      },(err)=>{
-        Swal.fire('Error', 'Sucedio un error, no se pudo cargar los Usuarios', 'error');
-        
+        this.cargando = false;
       },
-    )
+      (err) => {
+        Swal.fire(
+          "Error",
+          "Sucedio un error, no se pudo cargar los Usuarios",
+          "error"
+        );
+      }
+    );
   }
 
   startEdit(id: number): void {
@@ -63,36 +74,50 @@ export class UsuariosComponent implements OnInit {
   }
 
   cancelEdit(id: number): void {
-    const index = this.listOfData.findIndex(item => item.id === id);
+    const index = this.listOfData.findIndex((item) => item.id === id);
     this.editCache[id] = {
       data: { ...this.listOfData[index] },
-      edit: false
+      edit: false,
     };
   }
 
   /**
    * guarda los datos actualizados de la tabla de usuarios
    * @param data datos del usuario para actualizar
-   * @returns 
+   * @returns {void} muestra un modal fue posible el actualizar el elemento
    */
   saveEdit(data: Usuario): void {
-    
-    const expreg =  new RegExp("^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$","i");  
-    const usuarioUpdate: Usuario = this.editCache[data.id].data
+    const expreg = new RegExp(
+      "^[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:.[a-zA-Z0-9-]+)*$",
+      "i"
+    );
+    const usuarioUpdate: Usuario = this.editCache[data.id].data;
     const index = this.listOfData.findIndex((item) => item.id === data.id);
-    if (  expreg.test(usuarioUpdate.email)===true  && usuarioUpdate.username!=='') {
+    if (
+      expreg.test(usuarioUpdate.email) === true &&
+      usuarioUpdate.username !== ""
+    ) {
       this.usuariosService.actualizarUsuario(usuarioUpdate).subscribe(
-        (resp:any)=>{
+        (resp: any) => {
           Object.assign(this.listOfData[index], this.editCache[data.id].data);
           this.editCache[data.id].edit = false;
-          Swal.fire('Actualización Exitosa', 'Usuario Actualizado', 'success');
-        },(err)=>{
-          Swal.fire('Error', 'Sucedio un error, no se pudo actualizar el Usuario', 'error');
-          this.editCache[data.id].edit = false;
+          Swal.fire("Actualización Exitosa", "Usuario Actualizado", "success");
         },
-      )
-    }else{
-      Swal.fire('Error','Verifique que los nuevos datos sean correctos','error');
+        (err) => {
+          Swal.fire(
+            "Error",
+            "Sucedio un error, no se pudo actualizar el Usuario",
+            "error"
+          );
+          this.editCache[data.id].edit = false;
+        }
+      );
+    } else {
+      Swal.fire(
+        "Error",
+        "Verifique que los nuevos datos sean correctos",
+        "error"
+      );
       return;
     }
   }
@@ -104,7 +129,7 @@ export class UsuariosComponent implements OnInit {
     this.listOfData.forEach((item) => {
       this.editCache[item.id] = {
         edit: false,
-        data: { ...item }, 
+        data: { ...item },
       };
     });
   }
@@ -112,35 +137,40 @@ export class UsuariosComponent implements OnInit {
   /**
    * crea un nuevo usuario en la base
    * @param data datos del usuario extraidos del formulario
+   * @return {void} crea el usuario en la base de datos
    */
-  crearUsuario(data: Usuario){
+  crearUsuario(data: Usuario) {
     this.usuariosService.crearUsuario(data).subscribe(
-      (resp:any)=>{
+      (resp: any) => {
         this.cargarUsuarios();
-        Swal.fire('Exito','Usuario creado exitosamente','success');
-      },(error)=>{
-        Swal.fire('Error','Sucedio un error inesperado','error');
+        Swal.fire("Exito", "Usuario creado exitosamente", "success");
+      },
+      (error) => {
+        Swal.fire("Error", "Sucedio un error inesperado", "error");
       }
-    )
+    );
   }
 
   /**
    * resetea la busqueda en la tabla de usuarios
    */
   reset(): void {
-    this.searchValue = '';
+    this.searchValue = "";
     this.cargarUsuarios();
     this.verBuscar = false;
   }
 
- /**
-  * controla la busqueda por nombre en la tabla de usuario
-  */
+  /**
+   * controla la busqueda por nombre en la tabla de usuario
+   */
   search(): void {
     this.verBuscar = false;
     this.listOfData = this.listOfData.filter(
-      (item: Usuario) => (item.nombre + item.apellido).toLowerCase()
-      .indexOf(this.searchValue.toLowerCase()) !== -1);
+      (item: Usuario) =>
+        (item.nombre + item.apellido)
+          .toLowerCase()
+          .indexOf(this.searchValue.toLowerCase()) !== -1
+    );
   }
   showModal(): void {
     this.isVisible = true;
@@ -148,7 +178,7 @@ export class UsuariosComponent implements OnInit {
 
   handleCancel(): void {
     this.isVisible = false;
-    this.userForm.reset();   
+    this.userForm.reset();
   }
 
   /**
@@ -163,11 +193,9 @@ export class UsuariosComponent implements OnInit {
       }
       return;
     }
-   
+
     this.crearUsuario(this.userForm.value);
     this.isVisible = false;
-    this.userForm.reset();    
+    this.userForm.reset();
   }
-  
-
 }

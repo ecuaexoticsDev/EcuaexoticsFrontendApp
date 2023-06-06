@@ -66,6 +66,7 @@ export class VerItemsComponent implements OnInit {
   /**
    * elimina al item de la tabla
    * @param id identificador del item
+   * @returns {void} elimina la fila del item
    */
   deleteRow(id: number): void {
     if (id !== null || id > 0 || this.listOfData.includes(id)) {
@@ -94,6 +95,7 @@ export class VerItemsComponent implements OnInit {
 
   /**
    * actualiza los datos la lista de items del pallet
+   * @return {void} tabla actualizada
    */
   updateEditCache(): void {
     this.listOfData.forEach((item) => {
@@ -119,8 +121,9 @@ export class VerItemsComponent implements OnInit {
   /**
    * aqui se hace un upadte al pallet cambiando su cliente asignado
    * @param data id del pallet a acatualizar
+   * @return {void}
    */
-  upadteCLientePallet(data: FormGroup) {
+  upadteCLientePallet(data: FormGroup): void {
     this.palletizadoService
       .actualizarCliente(this.idPallet, data.value.cliente.id_cliente)
       .subscribe(
@@ -135,7 +138,7 @@ export class VerItemsComponent implements OnInit {
 
   /**
    * controla el formulario para la asginacion del nuevo cliente
-   * @returns booleano que controla la visibildad del modal
+   * @returns {void} controla la visibildad del modal
    */
   submitForm(): void {
     if (this.clienteForm.invalid) {

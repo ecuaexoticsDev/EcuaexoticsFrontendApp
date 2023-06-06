@@ -51,6 +51,10 @@ export class InvoceComponent implements OnInit {
       });
   }
 
+  /**
+   * obtiene los invoice items del cliente
+   * @param id_cliente para obtner los invoce referentes al cliente
+   */
   getItemsInvoice(id_cliente: number) {
     this.clientesService
       .getInvoice(id_cliente)
@@ -117,6 +121,10 @@ export class InvoceComponent implements OnInit {
     this.editCache[id].edit = true;
   }
 
+  /**
+   * Esta función guarda los cambios realizados en un elemento de datos y actualiza el precio en el servidor.
+   * @param {any} data Los datos del elemento a editar.
+   */
   saveEdit(data: any): void {
     let itemUpdate: any;
     itemUpdate = this.editCache[data.id_item_factura].data;

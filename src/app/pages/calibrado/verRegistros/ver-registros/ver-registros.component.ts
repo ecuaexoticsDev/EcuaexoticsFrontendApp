@@ -79,7 +79,8 @@ export class VerRegistrosComponent implements OnInit {
 
   /**
    * redireccion hacia la pestaña de creacion de control de calidad
-   * @param data  id del calibrado
+   * @param {number} bodega id de la bodega donde se hizo el calibrado
+   * @param {number} recepcion id de la recepcion
    */
   goControl(bodega: number, recepcion: number) {
     this.listOfData.forEach((element) => {

@@ -28,7 +28,7 @@ export class RegistrarCalibradoComponent implements OnInit {
   messageTitle: string = "";
   visibleErrorMessage: boolean = false;
 
-  // icon FontAwesome
+  //icon FontAwesome
   faPlusCircle = faPlusCircle;
   faMinusCircle = faMinusCircle;
   faSave = faSave;
@@ -81,6 +81,9 @@ export class RegistrarCalibradoComponent implements OnInit {
     });
   }
 
+  /**
+   * Obtiene las cajas segun el id de la bodega
+   */
   getCajasByBodega() {
     this.calibradoService
       .getCajasCalibre(this.id_bodega)
@@ -172,7 +175,7 @@ export class RegistrarCalibradoComponent implements OnInit {
 
   /**
    * muestra el modal para crear un nuevo calibre
-   * @param value asgina el tipo de caja a ese calibre
+   * @param {string} value asgina el tipo de caja a ese calibre
    */
   showModal(value: string): void {
     this.tipo_caja = value;
@@ -205,7 +208,7 @@ export class RegistrarCalibradoComponent implements OnInit {
 
   /**
    * maneja la creacion de los nuevos calibres
-   * @returns booleano hace visible el nuevo calibre en la lista
+   * @returns {void} hace visible el nuevo calibre en la lista
    */
   handleOk() {
     if (this.txtInputCalibre.invalid || this.txtInputCantidad.invalid) {

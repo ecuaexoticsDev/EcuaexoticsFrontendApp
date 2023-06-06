@@ -16,6 +16,15 @@ Key Features
 - User Roles: The system supports four types of users, including three operators responsible for different stages of the process and an administrator with overall system management privileges.
 - Document Generation: Generate documents related to the fruit processing and packaging workflow, providing comprehensive records and compliance documentation.
 
+## Technologies Used
+
+- Angular
+- TypeScript
+- HTML
+- CSS
+- Bootstrap
+- RESTful APIs
+
 ## Instalation Process
 
 Clone the repository
