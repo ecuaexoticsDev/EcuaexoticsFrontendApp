@@ -82,6 +82,7 @@ const _createCalibradoReducer = createReducer(
     setStateCalibradoLocalStorage(resultCalibrado);
     return { calibrado: resultCalibrado };
   }),
+  //agregar calibres y cantidades desde teclado
   on(actions.agregarCalibre, (state, { payload }) => {
     const { calibre, cantidad, tipo_caja } = payload;
     let resultCalibrado = state.calibrado.map((itemCalibrado) => {
@@ -136,19 +137,22 @@ const _createCalibradoReducer = createReducer(
         const cal = parseInt(caja.calibre.split("-")[1]);
         let newCajaItem: any = null;
         if (tipo.tipo_caja == "Carton Box 2.5 kg net weight") {
-          if (cal > 14) {
+          if (cal > 4) {
+            //CAMBIO PARA CREAR CALIBRES DE 14 A 4
             newCajaItem = {
               ...caja,
             };
           }
         } else if (tipo.tipo_caja == "Carton Box 4 kg net weight") {
-          if (cal > 18) {
+          if (cal > 4) {
+            //CAMBIO PARA CREAR CALIBRES DE 18 A 4
             newCajaItem = {
               ...caja,
             };
           }
         } else if (tipo.tipo_caja == "Carton Box 4.5 kg net weight") {
-          if (cal > 18) {
+          if (cal > 4) {
+            //CAMBIO PARA CREAR CALIBRES DE 18 A 4
             newCajaItem = {
               ...caja,
             };

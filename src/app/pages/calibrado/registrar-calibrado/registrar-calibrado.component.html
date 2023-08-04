@@ -14,13 +14,14 @@
               ></i>
               <b>{{ caja.tipo_caja }} kg</b>
             </ng-template>
-
+            <!--Inicio de calibrados-->
             <div class="row col-md-12">
               <div *ngFor="let itemCalibre of caja.calibres" class="col-md-6">
                 <div class="text-center mt-3">
                   <h5>
                     <b id="itCalibre">{{ itemCalibre.calibre }}</b>
                   </h5>
+                  <!--inicio de ingreso de calibrado-->
                   <div class="d-flex flex-row justify-content-center">
                     <button
                       type="button"
@@ -46,10 +47,11 @@
                       <i nz-icon nzType="plus-circle" nzTheme="outline"></i>
                     </button>
                   </div>
+                  <!--fin de calibrado -->
                 </div>
               </div>
             </div>
-
+            <!--Fin de calibrados-->
             <div
               class="text-center mt-4"
               *ngIf="

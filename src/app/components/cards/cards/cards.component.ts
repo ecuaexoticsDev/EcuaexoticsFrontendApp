@@ -17,6 +17,7 @@ import { logging } from "protractor";
 export class CardsComponent implements OnInit {
   @Input() id: number = 0;
   @Input() id_pallet: number = 0;
+  @Input() tipo_pallet?: string = "";
 
   public cajasDisponibles: any[] = [];
   public cajas: itemPallet[] = [];
@@ -95,6 +96,7 @@ export class CardsComponent implements OnInit {
   cargarItems() {
     this.palletizadoService.getItems(this.id_pallet).subscribe((resp: any) => {
       this.cajas = resp;
+      console.log(resp);
     });
   }
 

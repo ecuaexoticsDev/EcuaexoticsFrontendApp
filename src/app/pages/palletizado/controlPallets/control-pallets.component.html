@@ -1,82 +1,137 @@
 <div class="row mt-2">
-    <div class="col-md-9">
-        <h2>Palletizado por Productor</h2>
-    </div>
-    <div class="col-md-2">
-        <button (click)="iniciarPalletizado()" [disabled]='isVisible' nz-button nzShape="round" nzShape="round" nzType="primary" nzSize="large">  
-        Iniciar Palletizado 
-        <i nz-icon nzType="appstore" nzTheme="outline"></i>
+  <div class="col-md-9">
+    <h2><b>Palletizado</b></h2>
+  </div>
+  <div class="col-md-2">
+    <button
+      (click)="iniciarPalletizado()"
+      [disabled]="isVisible"
+      nz-button
+      nzShape="round"
+      nzShape="round"
+      nzType="primary"
+      nzSize="large"
+    >
+      Iniciar Palletizado
+      <i nz-icon nzType="appstore" nzTheme="outline"></i>
     </button>
-    </div>
+  </div>
 </div>
 <br />
 <div class="row animated fadein fast" *ngIf="cargando">
-    <div class="col-12">
-        <div class="alert alert-info text-center">
-            <h4 class="alert-heading">Cargando</h4>
-            <i class="spinner-border text-primary" role="status" aria-hidden="true"></i>
-            <p class="mb-0"></p>
-        </div>
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">Cargando</h4>
+      <i
+        class="spinner-border text-primary"
+        role="status"
+        aria-hidden="true"
+      ></i>
+      <p class="mb-0"></p>
     </div>
+  </div>
 </div>
 
 <div class="container" [hidden]="!isVisible" *ngIf="!cargando">
-    <div class="row">
-        <div class="col d-flex justify-content-being">
-            <button nz-button nzShape="round" nzType="primary" nzSize="large" (click)="showModal()">
+  <div class="row">
+    <div class="col d-flex justify-content-being">
+      <button
+        nz-button
+        nzShape="round"
+        nzType="primary"
+        nzSize="large"
+        (click)="showModal()"
+      >
         Agregar Pallet
         <i nz-icon nzType="plus"></i>
       </button>
-        </div>
     </div>
+  </div>
 </div>
 
 <div class="row row-cols-1 row-cols-md-3 row-cols-xl-4 g-4" *ngIf="!cargando">
-
-    <br>
-    <app-cards [id]="pallets.indexOf(item)" [id_pallet]="item.id_pallet" *ngFor="let item of pallets"></app-cards>
+  <br />
+  <app-cards
+    [id]="pallets.indexOf(item)"
+    [id_pallet]="item.id_pallet"
+    [tipo_pallet]="item.tipo_pitahaya"
+    *ngFor="let item of pallets"
+  ></app-cards>
 </div>
 <br />
 <div class="row" *ngIf="!cargando">
-    <div class="col d-flex justify-content-center" [hidden]="!isVisible">
-        <button [disabled]="pallets.length === 0" nz-button nzDanger nzShape="round" nzType="primary" nzSize="large" (click)="finPalletizado()">
+  <div class="col d-flex justify-content-center" [hidden]="!isVisible">
+    <button
+      [disabled]="pallets.length === 0"
+      nz-button
+      nzDanger
+      nzShape="round"
+      nzType="primary"
+      nzSize="large"
+      (click)="finPalletizado()"
+    >
       Finalizar Palletizado
       <i nz-icon nzType="check" nzTheme="outline"></i>
     </button>
-    </div>
+  </div>
 </div>
 
-<nz-modal [(nzVisible)]="mostrarModal" [nzFooter]="null" (nzOnCancel)="handleCancel()">
-    <ng-container *nzModalContent>
-        <h1>Asignar a Cliente</h1>
-        <form nz-form [formGroup]="palletForm" (ngSubmit)="submitForm()">
-            <nz-form-item>
-                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Cliente
-                </nz-form-label>
-                <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="Por favor seleccione el Cliente">
-                    <nz-select nzPlaceHolder="Clientes" formControlName="cliente">
-                        <nz-option *ngFor="let item of clientes" [nzValue]="item" [nzLabel]="item.nombre"></nz-option>
-                    </nz-select>
-                </nz-form-control>
-            </nz-form-item>
+<nz-modal
+  [(nzVisible)]="mostrarModal"
+  [nzFooter]="null"
+  (nzOnCancel)="handleCancel()"
+>
+  <ng-container *nzModalContent>
+    <h1>Asignar a Cliente</h1>
+    <form nz-form [formGroup]="palletForm" (ngSubmit)="submitForm()">
+      <nz-form-item>
+        <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>
+          Cliente
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]="10"
+          [nzXs]="24"
+          nzErrorTip="Por favor seleccione el Cliente"
+        >
+          <nz-select nzPlaceHolder="Clientes" formControlName="cliente">
+            <nz-option
+              *ngFor="let item of clientes"
+              [nzValue]="item"
+              [nzLabel]="item.nombre"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
 
-            <nz-form-item>
-                <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>Tipo de Pitahaya
-                </nz-form-label>
-                <nz-form-control [nzSm]="10" [nzXs]="24" nzErrorTip="Por favor seleccione el Tipo de Pitahaya">
-                    <nz-select nzPlaceHolder="Tipo de Pitahaya" formControlName="pitajaya">
-                        <nz-option *ngFor="let item of tiposPitajaya" [nzValue]="item" [nzLabel]="item"></nz-option>
-                    </nz-select>
-                </nz-form-control>
-            </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>
+          Tipo de Pitahaya
+        </nz-form-label>
+        <nz-form-control
+          [nzSm]="10"
+          [nzXs]="24"
+          nzErrorTip="Por favor seleccione el Tipo de Pitahaya"
+        >
+          <nz-select
+            nzPlaceHolder="Tipo de Pitahaya"
+            formControlName="pitajaya"
+          >
+            <nz-option
+              *ngFor="let item of tiposPitajaya"
+              [nzValue]="item"
+              [nzLabel]="item"
+            ></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
 
-            <nz-form-item nz-row>
-                <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
-                    <button [disabled]="palletForm.invalid" nz-button nzType="primary">
+      <nz-form-item nz-row>
+        <nz-form-control class="text-center" [nzSpan]="14" [nzOffset]="6">
+          <button [disabled]="palletForm.invalid" nz-button nzType="primary">
             Asignar
           </button>
-                </nz-form-control>
-            </nz-form-item>
-        </form>
-    </ng-container>
+        </nz-form-control>
+      </nz-form-item>
+    </form>
+  </ng-container>
 </nz-modal>

@@ -185,19 +185,22 @@ export class RegistrarCalibradoComponent implements OnInit {
   validateMinCalibre(event: any) {
     if (event) {
       if (this.tipo_caja == "Caja 2.5") {
-        if (event > 14) {
+        if (event > 4) {
+          //CAMBIO PARA CREAR CALIBRES DE 14  4
           this.visibleErrorMessage = false;
         } else {
           this.visibleErrorMessage = true;
         }
       } else if (this.tipo_caja == "Caja 4") {
-        if (event > 18) {
+        if (event > 4) {
+          //CAMBIO PARA CREAR CALIBRES DE 18 a  4
           this.visibleErrorMessage = false;
         } else {
           this.visibleErrorMessage = true;
         }
       } else if (this.tipo_caja == "Caja 4.5") {
-        if (event > 18) {
+        if (event > 4) {
+          //CAMBIO PARA CREAR CALIBRES DE 18 a  4
           this.visibleErrorMessage = false;
         } else {
           this.visibleErrorMessage = true;

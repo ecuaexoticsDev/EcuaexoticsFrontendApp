@@ -1,86 +1,91 @@
-import { NgModule } from '@angular/core';
-import { RouterModule, Routes } from '@angular/router';
-import { ProductoresComponent } from './productores/productores.component';
-import { ClientesComponent } from './clientes/clientes.component';
-import { UsuariosComponent } from './usuarios/usuarios.component';
-import { DashboardComponent } from './dashboard.component';
-import { VerProductorComponent } from './productores/ver-productor/ver-productor.component';
-import { VerClienteComponent } from './clientes/ver-cliente/ver-cliente.component';
-import { InvoceComponent } from './clientes/invoce/invoce.component';
-import { PackingListComponent } from './clientes/packing-list/packing-list.component';
-import { LiquidacionComponent } from './productores/liquidacion/liquidacion.component';
-import { TransporteComponent } from './transporte/transporte.component';
-import { VerTransporteComponent } from './transporte/ver-transporte/ver-transporte.component';
-import { ConsolidadoComponent } from './analitica/consolidado/consolidado.component';
-import { GraficosComponent } from './analitica/graficos/graficos.component';
-
+import { NgModule } from "@angular/core";
+import { RouterModule, Routes } from "@angular/router";
+import { ProductoresComponent } from "./productores/productores.component";
+import { ClientesComponent } from "./clientes/clientes.component";
+import { UsuariosComponent } from "./usuarios/usuarios.component";
+import { DashboardComponent } from "./dashboard.component";
+import { VerProductorComponent } from "./productores/ver-productor/ver-productor.component";
+import { VerClienteComponent } from "./clientes/ver-cliente/ver-cliente.component";
+import { InvoceComponent } from "./clientes/invoce/invoce.component";
+import { PackingListComponent } from "./clientes/packing-list/packing-list.component";
+import { LiquidacionComponent } from "./productores/liquidacion/liquidacion.component";
+import { TransporteComponent } from "./transporte/transporte.component";
+import { VerTransporteComponent } from "./transporte/ver-transporte/ver-transporte.component";
+import { ConsolidadoComponent } from "./analitica/consolidado/consolidado.component";
+import { GraficosComponent } from "./analitica/graficos/graficos.component";
+import { BodegaComponent } from "./analitica/bodega/bodega.component";
 
 const routes: Routes = [
   {
-    path: '',
+    path: "",
     component: DashboardComponent,
-    data: { title: 'dashboard' },
+    data: { title: "dashboard" },
   },
   {
-    path: 'productores',
+    path: "productores",
     component: ProductoresComponent,
-    data: { title: 'Productores' },
+    data: { title: "Productores" },
   },
   {
-    path: 'productores/ver-productor/:id',
+    path: "productores/ver-productor/:id",
     component: VerProductorComponent,
-    data: { title: 'ver-productor' },
+    data: { title: "ver-productor" },
   },
   {
-    path: 'productores/ver-productor/:id/liquidacion/:idLiq',
+    path: "productores/ver-productor/:id/liquidacion/:idLiq",
     component: LiquidacionComponent,
-    data: { title: 'ver-liquidacion' },
+    data: { title: "ver-liquidacion" },
   },
   {
-    path: 'clientes',
+    path: "clientes",
     component: ClientesComponent,
-    data: { title: 'Clientes' },
+    data: { title: "Clientes" },
   },
   {
-    path: 'clientes/ver-cliente/:id',
+    path: "clientes/ver-cliente/:id",
     component: VerClienteComponent,
-    data: { title: 'ver-cliente' },
+    data: { title: "ver-cliente" },
   },
   {
-    path: 'clientes/ver-cliente/:id/invoice/:idInv',
+    path: "clientes/ver-cliente/:id/invoice/:idInv",
     component: InvoceComponent,
-    data: { title: 'Invoce' },
+    data: { title: "Invoce" },
   },
   {
-    path: 'clientes/ver-cliente/:id/packing-list/:idPack',
+    path: "clientes/ver-cliente/:id/packing-list/:idPack",
     component: PackingListComponent,
-    data: { title: 'PackingList' },
+    data: { title: "PackingList" },
   },
- 
+
   {
-    path: 'usuarios',
+    path: "usuarios",
     component: UsuariosComponent,
-    data: { title: 'Usuarios' },
+    data: { title: "Usuarios" },
   },
   {
-    path: 'transporte',
+    path: "transporte",
     component: TransporteComponent,
-    data: { title: 'Transporte' },
+    data: { title: "Transporte" },
   },
   {
-    path: 'transporte/ver-transporte/:id',
+    path: "transporte/ver-transporte/:id",
     component: VerTransporteComponent,
-    data: { title: 'ver-transporte' },
+    data: { title: "ver-transporte" },
   },
   {
-    path: 'consolidado',
+    path: "consolidado",
     component: ConsolidadoComponent,
-    data: { title: 'Consolidado' },
+    data: { title: "Consolidado" },
   },
   {
-    path: 'graficos',
+    path: "graficos",
     component: GraficosComponent,
-    data: { title: 'Graficos' },
+    data: { title: "Graficos" },
+  },
+  {
+    path: "bodega",
+    component: BodegaComponent,
+    data: { title: "Bodega" },
   },
 ];
 

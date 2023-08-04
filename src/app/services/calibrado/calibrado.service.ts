@@ -61,6 +61,17 @@ export class CalibradoService {
   }
 
   /**
+   * Obtiene las cajas disponibles para un tipo de pitahaya especifico.
+   * @param {string} tipo_pitahaya - El tipo de pitahaya.
+   * @returns {Observable<any>} - Los datos de las cajas disponibles por tipo de pitahaya.
+   */
+  obtenerCajasbyPitahaya(tipo_pitahaya: string) {
+    const url =
+      ApiCalibrado.obtener_cajas_disponibles_byPitahaya + `${tipo_pitahaya}/`;
+    return this.http.get(url);
+  }
+
+  /**
    * Actualiza el precio de un item de liquidación específico.
    * @param {number} id_item_liquidacion - El ID del item de liquidación a actualizar.
    * @param {number} data - El nuevo precio del item de liquidación.

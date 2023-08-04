@@ -1,0 +1,111 @@
+<div class="row mt-2">
+  <div class="col-md-8">
+    <h2 class="text-themecolor">Bodega - Cajas Disponibles</h2>
+  </div>
+</div>
+<div class="row mt-2">
+  <div class="col-md-10">
+    <form nz-form [formGroup]="filtroForm" (ngSubmit)="submitForm()">
+      <div class="row">
+        <div class="col-md-5">
+          <nz-form-item>
+            <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>
+              Tipo Pitahaya
+            </nz-form-label>
+            <nz-form-control
+              [nzSm]="14"
+              [nzXs]="24"
+              nzErrorTip="Por favor seleccione el Tipo de Pitahaya"
+            >
+              <nz-select
+                nzPlaceHolder="Pitahaya"
+                formControlName="tipo_pitahaya"
+              >
+                <nz-option
+                  *ngFor="let item of pitahaya"
+                  [nzValue]="item"
+                  [nzLabel]="item"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-5">
+          <nz-form-item style="width: 100%">
+            <nz-form-label [nzSm]="10" [nzXs]="24" nzRequired>
+              Tipo de Caja
+            </nz-form-label>
+            <nz-form-control
+              [nzSm]="14"
+              [nzXs]="24"
+              nzErrorTip="Por favor seleccione el tipo de caja"
+            >
+              <nz-select
+                nzPlaceHolder="Tipo de Cajas"
+                formControlName="tipo_caja"
+              >
+                <nz-option
+                  *ngFor="let item of tiposCaja"
+                  [nzValue]="item"
+                  [nzLabel]="item"
+                ></nz-option>
+              </nz-select>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+        <div class="col-md-2">
+          <nz-form-item>
+            <nz-form-control class="text-center" [nzSpan]="18" [nzOffset]="4">
+              <button
+                [disabled]="filtroForm.invalid"
+                nz-button
+                nzType="primary"
+                style="width: 100%"
+                nzShape="round"
+              >
+                Buscar
+              </button>
+            </nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+    </form>
+  </div>
+</div>
+
+<div class="row animated fadein fast" *ngIf="cargando">
+  <div class="col-12">
+    <div class="alert alert-info text-center">
+      <h4 class="alert-heading">Cargando</h4>
+      <i
+        class="spinner-border text-primary"
+        role="status"
+        aria-hidden="true"
+      ></i>
+      <p class="mb-0"></p>
+    </div>
+  </div>
+</div>
+<br />
+<div *ngIf="!cargando" class="row justify-content-center">
+  <div class="col-md-3 mb-4" *ngFor="let item of this.claves">
+    <div>
+      <nz-card style="width: 80%">
+        <!-- Agregar la imagen aquí -->
+        <div class="text-center">
+          <img
+            src="../../../../assets/img/caja.png"
+            alt="Imagen"
+            style="width: 100px; height: 100px; object-fit: cover"
+          />
+        </div>
+        <!-- Línea divisoria -->
+        <hr class="divider" />
+        <nz-card-meta
+          nzTitle="Calibre: {{ item }}"
+          nzDescription="Cajas Disponibles: {{ this.calibres[item] }} "
+        ></nz-card-meta>
+      </nz-card>
+    </div>
+  </div>
+</div>
