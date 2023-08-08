@@ -19,10 +19,21 @@
         {{ tipo_pallet }}
       </h5>
     </div>
-    <div class="card-footer bg-transparent">
-      <p class="card-text text-center">
+    <div class="card-footer bg-transparent justify-content-center d-flex">
+      <button
+        class="card-text text-center"
+        nz-button
+        nzType="primary"
+        (click)="showModal()"
+        nzShape="round"
+        [nzLoading]="isLoadingOne"
+      >
+        Agregar Item
+      </button>
+
+      <!-- <p class="card-text text-center">
         <a class="btn btn-primary" (click)="showModal()">Agregar Item</a>
-      </p>
+      </p> -->
     </div>
   </div>
 </div>

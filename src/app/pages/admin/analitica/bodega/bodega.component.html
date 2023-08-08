@@ -87,7 +87,8 @@
   </div>
 </div>
 <br />
-<div *ngIf="!cargando" class="row justify-content-center">
+
+<div class="row justify-content-center">
   <div class="col-md-3 mb-4" *ngFor="let item of this.claves">
     <div>
       <nz-card style="width: 80%">
@@ -106,6 +107,17 @@
           nzDescription="Cajas Disponibles: {{ this.calibres[item] }} "
         ></nz-card-meta>
       </nz-card>
+    </div>
+  </div>
+
+  <!-- Agregar imagen de fondo cuando claves esté vacío -->
+  <div class="col-md-3 mb-4" *ngIf="!claves.length">
+    <div class="nz-card-background">
+      <img
+        src="../../../../assets/img/nodata.jpg"
+        alt="Fondo vacío"
+        class="background-image"
+      />
     </div>
   </div>
 </div>

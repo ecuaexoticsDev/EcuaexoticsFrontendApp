@@ -24,7 +24,7 @@ export class CardsComponent implements OnInit {
   public productores: Productor[] = [];
   public tiposCaja: string[] = [];
   public calibres: string[] = [];
-
+  public isLoadingOne = false;
   public isVisible = false;
   public id_usuario: number = 0;
   public inventario: number = 0;
@@ -96,7 +96,7 @@ export class CardsComponent implements OnInit {
   cargarItems() {
     this.palletizadoService.getItems(this.id_pallet).subscribe((resp: any) => {
       this.cajas = resp;
-      console.log(resp);
+      //console.log(resp);
     });
   }
 
@@ -107,8 +107,10 @@ export class CardsComponent implements OnInit {
   obtenerCajas() {
     this.calibradoService.obtenerCajas(this.id_pallet).subscribe(
       (resp: any) => {
-        console.log(resp);
+        //console.log(resp);
         this.cajasDisponibles = resp;
+        this.isVisible = true;
+        this.isLoadingOne = false;
         this.cargarProductores();
       },
       (error) => {
@@ -211,8 +213,11 @@ export class CardsComponent implements OnInit {
     this.rotuer.navigate(["/palletizado/ver-palletizado", this.id_pallet]);
   }
 
+  /**
+   * muestra el modal para agregar las cajas al pallet
+   */
   showModal(): void {
-    this.isVisible = true;
+    this.isLoadingOne = true;
     this.obtenerCajas();
   }
 
